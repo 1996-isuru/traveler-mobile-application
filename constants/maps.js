@@ -1,0 +1,3 @@
+const GOOGLE_MAP_API = "AIzaSyAMBENPTzQ18DBfhJgGa2A0su5gLZSIxes";
+
+export default GOOGLE_MAP_API;
