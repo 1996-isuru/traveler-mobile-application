@@ -16,6 +16,9 @@ export const COLORS = {
     lightGray4: "#F8F8F9",
     transparent: "transparent",
     darkgray: '#898C95',
+    blmediumturquoiseue: "#48d1cc",
+    lightcyan: '#e0ffff',
+    navy: '#000080',
 };
 
 export const SIZES = {

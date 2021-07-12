@@ -3,8 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import Sign_up_navigation from "./src/navigation/Sign-up-navigation";
 
-// import Tabs from './navigation/tabs';
-
 const App = () => {
   const [loaded] = useFonts({
     "Roboto-Black": require("./src/assets/fonts/Roboto-Black.ttf"),
