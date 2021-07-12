@@ -8,6 +8,11 @@ export default Guide = () => {
   return (
     <View>
       <Text>Touristtttttttttttt</Text>
+      <Text>Touristtttttttttttt</Text>
+      <Text>Touristtttttttttttt</Text>
+      <Text>Touristtttttttttttt</Text>
+      <Text>Touristtttttttttttt</Text>
+      
     </View>
   );
 };

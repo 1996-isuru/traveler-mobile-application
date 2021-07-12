@@ -7,16 +7,51 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { icons, images, SIZES, COLORS, FONTS } from "../../constants/index";
+import {
+  images,
+  SIZES,
+  COLORS,
+  FONTS,
+  localhost
+} from "../../constants/index";
 
 const LogIn = ({ navigation }) => {
-  // const dispatch = useDispatch();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   const onLogin = () => {
-    navigation.navigate('Map'); 
-    
+    fetch(localhost + "/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result);
+        if (result.message === "Auth successful") {
+          const resUserType = result.userType;
+          if (resUserType == "tourist") {
+            navigation.navigate("Tourist");
+          } else if (resUserType == "HotelOwner") {
+            navigation.navigate("HotelOwner");
+          } else if (resUserType == "tourGuide");
+          navigation.navigate("Guide");
+        } else{
+          Alert.alert(
+            "Auth faild."[
+              ({
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+              },
+              { text: "OK", onPress: () => console.log("OK Pressed") })
+            ],
+            { cancelable: false }
+          );
+        }
+      });
   };
 
   return (

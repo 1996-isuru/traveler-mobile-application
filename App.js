@@ -2,9 +2,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import Sign_up_navigation from "./src/navigation/Sign-up-navigation";
-// import { Provider } from "react-redux";
-// import store from "./src/redux/store/store.js";
-// import Tabs from './navigation/tabs';
 
 const App = () => {
   const [loaded] = useFonts({

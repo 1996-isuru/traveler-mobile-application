@@ -11,7 +11,7 @@ import {
   Alert
 } from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
-import { icons, images, SIZES, COLORS, FONTS } from "../../constants/index";
+import { icons, images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 import { RadioButton } from "react-native-paper";
 
 const SignUp = ({ navigation }) => {
@@ -19,51 +19,50 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [reEnterPassword, setreEnterPassword] = useState(null);
-  const [type, setType] = useState(null);
+  // const [type, setType] = useState(null);
   const [checked, setChecked] = useState(null);
 
-const registerUserAccount = () => {
+  const registerUserAccount = () => {
     console.log(
       JSON.stringify({ userName, email, password, reEnterPassword, checked })
     );
 
     if (!userName || !email || !password || !reEnterPassword || !checked) {
-      Alert.alert(
-        "Please fill all fields."[
-          ({
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          { text: "OK", onPress: () => console.log("OK Pressed") })
-        ],
-        { cancelable: false }
-      );
+      // Alert.alert(
+      //   "Please fill all fields."[
+      //     ({
+      //       text: "Cancel",
+      //       onPress: () => console.log("Cancel Pressed"),
+      //       style: "cancel",
+      //     },
+      //     { text: "OK", onPress: () => console.log("OK Pressed") })
+      //   ],
+      //   { cancelable: false }
+      // );
+      // console.log("eeeee");
     } else {
       if (password == reEnterPassword) {
-        fetch("http://92453c2eb71b.ngrok.io/user/add", {
+        fetch(localhost + "/user/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userName, email, password, type }),
-        }).then(res=>console.log(res.json())).then(datat=>{
-          console.log(data);
+          body: JSON.stringify({ userName, email, password, checked }),
         })
-
         navigation.navigate("SignIn");
       } else {
-        Alert.alert(
-          "Password are not same."[
-            ({
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") })
-          ],
-          { cancelable: false }
-        );
+        // Alert.alert(
+        //   "Password are not same."[
+        //     ({
+        //       text: "Cancel",
+        //       onPress: () => console.log("Cancel Pressed"),
+        //       style: "cancel",
+        //     },
+        //     { text: "OK", onPress: () => console.log("OK Pressed") })
+        //   ],
+        //   { cancelable: false }
+        // );
+        // console.log("eeeee");
       }
     }
   };
