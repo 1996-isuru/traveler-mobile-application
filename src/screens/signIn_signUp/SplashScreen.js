@@ -10,7 +10,7 @@ import {
 
 import { icons, images, SIZES, COLORS, FONTS } from "../../constants/index";
 
-const Splash = () => {
+const Splash = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,14 +22,17 @@ const Splash = () => {
       <View style={styles.footer}>
         <View style={{ flexDirection: 'row', position: 'absolute' }}>
           <View style={{ paddingTop: 90, padding: 70 }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate("SignIn")}
+            >
               <Text style={{ ...FONTS.h2, color: COLORS.white }}>
                 LOG IN 
               </Text>
             </TouchableOpacity>
           </View>
           <View style={{ paddingTop: 90, padding: 70, justifyContent: 'space-between' }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate("SignUp")}>
               <Text style={{ ...FONTS.h2, color: COLORS.white }}>
                  SIGN UP
               </Text>
