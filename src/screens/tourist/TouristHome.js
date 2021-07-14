@@ -8,8 +8,9 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  SafeAreaView
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../assets/asse/colors/colors";
 import profile from "../../assets/asse/images/pic.png";
 // import profile from '../assets/images/pic.png';
@@ -18,6 +19,7 @@ import Entypo from "react-native-vector-icons/Entypo";
 import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
+
 
 const TouristHome = ({ navigation }) => {
   const renderHotelItem = ({ item }) => {
@@ -114,6 +116,7 @@ const TouristHome = ({ navigation }) => {
         <View style={styles.activitiesWrapper}>
           <Text style={styles.activitiesTitle}>Activities</Text>
           <View style={styles.activitiesItemsWrapper}>
+          <SafeAreaView style={{flex: 1}}>
             <FlatList
               data={activitiesData}
               renderItem={renderActivityItem}
@@ -121,6 +124,7 @@ const TouristHome = ({ navigation }) => {
               horizontal
               showsHorizontalScrollIndicator={false}
             />
+            </SafeAreaView>
           </View>
         </View>
 
@@ -129,6 +133,7 @@ const TouristHome = ({ navigation }) => {
           <Text style={styles.hotelTitle}>Hotels Nearby</Text>
 
           <View style={styles.hotelItemWrapper}>
+          <SafeAreaView style={{flex: 1}}>
             <FlatList
               data={hotelData}
               renderItem={renderHotelItem}
@@ -136,6 +141,7 @@ const TouristHome = ({ navigation }) => {
               horizontal
               showsHorizontalScrollIndicator={false}
             />
+            </SafeAreaView>
           </View>
         </View>
         {/* Guide */}
@@ -143,6 +149,7 @@ const TouristHome = ({ navigation }) => {
           <Text style={styles.hotelTitle}>Guides Nearby</Text>
 
           <View style={styles.hotelItemWrapper}>
+          <SafeAreaView style={{flex: 1}}>
             <FlatList
               data={guideData}
               renderItem={renderGuideItem}
@@ -150,6 +157,7 @@ const TouristHome = ({ navigation }) => {
               horizontal
               showsHorizontalScrollIndicator={false}
             />
+            </SafeAreaView>
           </View>
         </View>
       </ScrollView>

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert,
 } from "react-native";
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 
@@ -14,39 +15,35 @@ const LogIn = ({ navigation }) => {
   const [password, setPassword] = useState(null);
 
   const onLogin = () => {
-    // fetch(localhost + "/user/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ email, password }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     // console.log(result);
-    //     if (result.message === "Auth successful") {
-    //       const resUserType = result.userType;
-    //       if (resUserType == "tourist") {
-    //         navigation.navigate("Tourist");
-    //       } else if (resUserType == "HotelOwner") {
-    //         navigation.navigate("HotelOwner");
-    //       } else if (resUserType == "tourGuide");
-    //       navigation.navigate("Guide");
-    //     } else{
-    //       Alert.alert(
-    //         "Auth faild."[
-    //           ({
-    //             text: "Cancel",
-    //             onPress: () => console.log("Cancel Pressed"),
-    //             style: "cancel",
-    //           },
-    //           { text: "OK", onPress: () => console.log("OK Pressed") })
-    //         ],
-    //         { cancelable: false }
-    //       );
-    //     }
-    //   });
-    navigation.navigate("HotelOwnerHome");
+    if (!password || !email) {
+      Alert.alert("Enter all fields.");
+    } else {
+      fetch(localhost + "/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          // console.log(result);
+          if (result.message === "Auth successful") {
+            const resUserType = result.userType;
+            if (resUserType == "tourist") {
+              navigation.navigate("TouristHome");
+            } else if (resUserType == "HotelOwner") {
+              navigation.navigate("HotelOwnerHome");
+            } else if (resUserType == "tourGuide");
+            {
+              navigation.navigate("GuideHome");
+            }
+          } else {
+            Alert.alert("Auth faild.");
+          }
+        });
+    }
+    // navigation.navigate("HotelHome");
   };
 
   return (

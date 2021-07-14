@@ -14,9 +14,10 @@ import colors from "../../assets/asse/colors/colors";
 import profile from "../../assets/asse/images/pic.png";
 import Entypo from "react-native-vector-icons/Entypo";
 
-import activitiesData from "../../assets/asse/data/activitiesData";
+// import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
+import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 
 const GuideHome = ({ navigation }) => {
   const renderHotelItem = ({ item }) => {
@@ -49,7 +50,7 @@ const GuideHome = ({ navigation }) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("GuideList", {
+          navigation.navigate("GuideBookedDetails", {
             item: item,
           })
         }
@@ -69,19 +70,6 @@ const GuideHome = ({ navigation }) => {
           </View>
         </ImageBackground>
       </TouchableOpacity>
-    );
-  };
-  const renderActivityItem = ({ item }) => {
-    return (
-      <View
-        style={[
-          styles.activityItemWrapper,
-          { marginLeft: item.id === "activities-1" ? 20 : 0 },
-        ]}
-      >
-        <Image source={item.image} style={styles.activityItemTitle} />
-        <Text style={styles.activityItemText}>{item.title}</Text>
-      </View>
     );
   };
 
@@ -110,16 +98,25 @@ const GuideHome = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         {/* Activities */}
-        <View style={styles.activitiesWrapper}>
-          <Text style={styles.activitiesTitle}>Activities</Text>
-          <View style={styles.activitiesItemsWrapper}>
-            <FlatList
-              data={activitiesData}
-              renderItem={renderActivityItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+        <View style={styles.planWrapper}>
+          <Text style={styles.planTitle}>Guide Plans</Text>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <TouchableOpacity
+              style={{backgroundColor:'#003580', borderRadius: 20, width: 140, marginLeft: 20, marginBottom: 20}}
+              onPress={() => alert("Not Ready Yet")}
+            >
+              <Text style={{alignItems:'center', color:COLORS.white, marginLeft: 25, marginTop: 7}}>
+                Add a Plan
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{backgroundColor:'#003580', borderRadius: 20, width: 140, alignItems:'center', marginLeft:80, marginBottom: 20, height:40}}
+              onPress={() => navigation.navigate("GuideAddList")}
+            >
+              <Text style={{alignItems:'center', color:COLORS.white, marginTop:7 }} >
+                My Plans
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -139,16 +136,38 @@ const GuideHome = ({ navigation }) => {
         </View>
         {/* Guide */}
         <View style={styles.hotelWrapper}>
-          <Text style={styles.hotelTitle}>Guides Nearby</Text>
-
-          <View style={styles.hotelItemWrapper}>
-            <FlatList
-              data={guideData}
-              renderItem={renderGuideItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+          <Text style={styles.hotelTitle}>Booking Details</Text>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 0.5 }}>
+              <Text style={styles.hotelTitle}>Over</Text>
+              <TouchableOpacity>
+                <FlatList
+                  data={guideData}
+                  renderItem={renderGuideItem}
+                  keyExtractor={(item) => item.id}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                flex: 0.5,
+                borderLeftColor: COLORS.black,
+                borderLeftWidth: 3,
+              }}
+            >
+              <Text style={styles.hotelTitle}>Up Comming</Text>
+              <TouchableOpacity>
+                <FlatList
+                  data={guideData}
+                  renderItem={renderGuideItem}
+                  keyExtractor={(item) => item.id}
+                  vertcle
+                  showsHorizontalScrollIndicator={false}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -178,7 +178,7 @@ const HotelPackages = ({ navigation }) => {
     return (
       <View style={{ padding: SIZES.padding * 2, marginTop: 25 }}>
         <Text style={{ ...FONTS.h2, textAlign: "center" }}>
-          Sri Lankan road trips
+          Our Packages
         </Text>
       </View>
     );

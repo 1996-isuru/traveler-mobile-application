@@ -16,7 +16,7 @@ const prePlanTripData = [
     name: "Colombo to Jaffa",
     photo: images.trip1,
     duration: "3 Days",
-    lenth: "200Km",
+    lenth: "$200",
     location: {
       latitude: 1.5347282806345879,
       longitude: 110.35632207358996,
@@ -36,9 +36,9 @@ const prePlanTripData = [
   {
     id: 2,
     name: "Colombo To NuwaEliya",
-    photo: images.trip4,
+    photo: images.trip2,
     duration: "2 Days",
-    lenth: "200Km",
+    lenth: "$200",
     location: {
       latitude: 1.556306570595712,
       longitude: 110.35504616746915,
@@ -58,88 +58,9 @@ const prePlanTripData = [
       },
     ],
   },
-  {
-    id: 3,
-    name: "Colombo to Kandy",
-    photo: images.trip4,
-    duration: "4 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5238753474714375,
-      longitude: 110.34261833833622,
-    },
-    photo: [
-      {
-        photo: images.trip7,
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "Colombo to Anuradhapura",
-    photo: images.trip8,
-    duration: "2 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5578068150528928,
-      longitude: 110.35482523764315,
-    },
-    photo: [
-      {
-        photo: images.sushi,
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Colombo to Katharagama",
-    photo: images.trip11,
-    duration: "5 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.558050496260768,
-      longitude: 110.34743759630511,
-    },
-    photo: [
-      {
-        photo: images.trip12,
-      },
-      {
-        photo: images.trip11,
-      },
-      {
-        photo: images.trip10,
-      },
-      {
-        photo: images.trip9,
-      },
-    ],
-  },
-  {
-    id: 6,
-    name: "Kurunegala to Mathara",
-    photo: images.trip9,
-    duration: "5 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5573478487252896,
-      longitude: 110.35568783282145,
-    },
-    photo: [
-      {
-        photo: images.trip1,
-      },
-      {
-        photo: images.trip2,
-      },
-      {
-        photo: images.trip12,
-      },
-    ],
-  },
 ];
 
-const PreDefineTrips = ({ navigation }) => {
+const GuideAddList = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [restaurants, setRestaurants] = useState(prePlanTripData);
 
@@ -178,7 +99,7 @@ const PreDefineTrips = ({ navigation }) => {
     return (
       <View style={{ padding: SIZES.padding * 2, marginTop: 25 }}>
         <Text style={{ ...FONTS.h2, textAlign: "center" }}>
-          Sri Lankan road trips
+          My Plans
         </Text>
       </View>
     );
@@ -189,7 +110,7 @@ const PreDefineTrips = ({ navigation }) => {
       <TouchableOpacity
         style={{ marginBottom: SIZES.padding * 2 }}
         onPress={() => {
-          navigation.navigate("PreDefineTripDetails");
+          navigation.navigate("GuideAddListDet");
         }}
       >
         {/* Image */}
@@ -291,4 +212,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PreDefineTrips;
+export default GuideAddList;

@@ -7,17 +7,23 @@ import SignIn from "../screens/signIn_signUp/SignInScreen.js";
 import SignUp from "../screens/signIn_signUp/SignUpScreen.js";
 import Splash from "../screens/signIn_signUp/SplashScreen";
 import HotelOwner from "../screens/users/hotelOwner.js";
-import Guide from "../screens/users/guide.js";
 import Tourist from "../screens/users/tourist.js";
 import Map from "../screens/maps/main_map";
 import PreDefineTrips from "../screens/pre-define-trip/preDefineTrips";
 import PreDefineTripDetails from "../screens/pre-define-trip/preDefineTripDetails";
-import TouristHome from "../screens/tourist/TouristHome";
 import GuideList from "../screens/tourist/GuideList.js";
 import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import TabNavigator from "../navigation/TabNavigator";
 import GuideHome from '../screens/guide/GuideHome';
 import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
+import GuideProfile from "../screens/guide/GuideProfile.js";
+import GuideTabNavigator from "./GuideTabNavigator.js";
+import GuideBookedDetails from "../screens/guide/GuideBookedDetails.js";
+import GuideAddListDet from "../screens/guide/GuideAddDetails.js";
+import GuideAddList from "../screens/guide/GuideAddList.js";
+import HotelHome from "../screens/hotelOwner/HotelOwnerHome.js";
+import HotelPackageDetals from "../screens/hotelOwner/HotelPackgeDeta.js";
+import TouristHome from "../screens/tourist/TouristHome.js";
 
 const Sign_up_navigation = () => {
   return (
@@ -64,11 +70,6 @@ const Sign_up_navigation = () => {
       />
       <Stack.Screen
         options={{ headerShown: false }}
-        name="Guide"
-        component={Guide}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
         name="Tourist"
         component={Tourist}
       />
@@ -90,23 +91,43 @@ const Sign_up_navigation = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="GuideHome"
-        component={GuideHome}
+        component={GuideTabNavigator}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideProfile"
+        component={GuideProfile}
       />
       <Stack.Screen
         options={{ headerShown: false }}
         name="HotelOwnerHome"
         component={HotelOwnerHome}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         options={{ headerShown: false }}
-        name="HotelPackages"
-        component={HotelPackages}
-      /> */}
-      {/* <Stack.Screen
+        name="GuideBookedDetails"
+        component={GuideBookedDetails}
+      />
+       <Stack.Screen
         options={{ headerShown: false }}
-        name="HotelPackageDetails"
-        component={HotelPackageDetails}
-      /> */}
+        name="GuideAddList"
+        component={GuideAddList}
+      /> 
+       <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideAddListDet"
+        component={GuideAddListDet}
+      /> 
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="HotelHome"
+        component={HotelHome}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="HotelPackageDetals"
+        component={HotelPackageDetals}
+      />
     </Stack.Navigator>
   );
 };
