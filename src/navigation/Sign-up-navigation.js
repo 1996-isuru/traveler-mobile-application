@@ -6,8 +6,6 @@ const Stack = createStackNavigator();
 import SignIn from "../screens/signIn_signUp/SignInScreen.js";
 import SignUp from "../screens/signIn_signUp/SignUpScreen.js";
 import Splash from "../screens/signIn_signUp/SplashScreen";
-import HotelOwner from "../screens/users/hotelOwner.js";
-import Tourist from "../screens/users/tourist.js";
 import Map from "../screens/maps/main_map";
 import PreDefineTrips from "../screens/pre-define-trip/preDefineTrips";
 import PreDefineTripDetails from "../screens/pre-define-trip/preDefineTripDetails";
@@ -15,7 +13,7 @@ import GuideList from "../screens/tourist/GuideList.js";
 import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import TabNavigator from "../navigation/TabNavigator";
 import GuideHome from '../screens/guide/GuideHome';
-import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
+// import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
 import GuideProfile from "../screens/guide/GuideProfile.js";
 import GuideTabNavigator from "./GuideTabNavigator.js";
 import GuideBookedDetails from "../screens/guide/GuideBookedDetails.js";
@@ -65,16 +63,6 @@ const Sign_up_navigation = () => {
       />
       <Stack.Screen
         options={{ headerShown: false }}
-        name="HotelOwner"
-        component={HotelOwner}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Tourist"
-        component={Tourist}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
         name="Map"
         component={Map}
       />
@@ -100,8 +88,8 @@ const Sign_up_navigation = () => {
       />
       <Stack.Screen
         options={{ headerShown: false }}
-        name="HotelOwnerHome"
-        component={HotelOwnerHome}
+        name="HotelHome"
+        component={HotelHome}
       />
       <Stack.Screen
         options={{ headerShown: false }}
@@ -118,11 +106,6 @@ const Sign_up_navigation = () => {
         name="GuideAddListDet"
         component={GuideAddListDet}
       /> 
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="HotelHome"
-        component={HotelHome}
-      />
       <Stack.Screen
         options={{ headerShown: false }}
         name="HotelPackageDetals"
