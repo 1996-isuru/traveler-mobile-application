@@ -32,8 +32,10 @@ const LogIn = ({ navigation }) => {
             const resUserType = result.userType;
             if (resUserType == "tourist") {
               navigation.navigate("TouristHome");
-            } else if (resUserType == "HotelOwner") {
-              navigation.navigate("HotelOwnerHome");
+            } 
+            else if (resUserType == "HotelOwner") 
+            {
+              navigation.navigate("HotelHome");
             } else if (resUserType == "tourGuide");
             {
               navigation.navigate("GuideHome");
