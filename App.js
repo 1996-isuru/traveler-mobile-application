@@ -15,9 +15,9 @@ const App = () => {
   }
 
   return (
-      <NavigationContainer>
-        <Sign_up_navigation />
-      </NavigationContainer>
+    <NavigationContainer>
+      <Sign_up_navigation />
+    </NavigationContainer>
   );
 };
 

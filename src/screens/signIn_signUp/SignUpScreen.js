@@ -8,10 +8,17 @@ import {
   Image,
   TextInput,
   Button,
-  Alert
+  Alert,
 } from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
-import { icons, images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
+import {
+  icons,
+  images,
+  SIZES,
+  COLORS,
+  FONTS,
+  localhost,
+} from "../../constants/index";
 import { RadioButton } from "react-native-paper";
 
 const SignUp = ({ navigation }) => {
@@ -28,18 +35,7 @@ const SignUp = ({ navigation }) => {
     );
 
     if (!userName || !email || !password || !reEnterPassword || !checked) {
-      // Alert.alert(
-      //   "Please fill all fields."[
-      //     ({
-      //       text: "Cancel",
-      //       onPress: () => console.log("Cancel Pressed"),
-      //       style: "cancel",
-      //     },
-      //     { text: "OK", onPress: () => console.log("OK Pressed") })
-      //   ],
-      //   { cancelable: false }
-      // );
-      // console.log("eeeee");
+      Alert.alert("Please fill all fields.");
     } else {
       if (password == reEnterPassword) {
         fetch(localhost + "/user/signup", {
@@ -48,21 +44,10 @@ const SignUp = ({ navigation }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ userName, email, password, checked }),
-        })
+        });
         navigation.navigate("SignIn");
       } else {
-        // Alert.alert(
-        //   "Password are not same."[
-        //     ({
-        //       text: "Cancel",
-        //       onPress: () => console.log("Cancel Pressed"),
-        //       style: "cancel",
-        //     },
-        //     { text: "OK", onPress: () => console.log("OK Pressed") })
-        //   ],
-        //   { cancelable: false }
-        // );
-        // console.log("eeeee");
+        Alert.alert("Password are not same.");
       }
     }
   };
