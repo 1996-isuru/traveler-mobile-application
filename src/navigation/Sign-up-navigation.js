@@ -9,9 +9,8 @@ import Splash from "../screens/signIn_signUp/SplashScreen";
 import Map from "../screens/maps/main_map";
 import PreDefineTrips from "../screens/pre-define-trip/preDefineTrips";
 import PreDefineTripDetails from "../screens/pre-define-trip/preDefineTripDetails";
-import GuideList from "../screens/tourist/GuideList.js";
-import HotelList from "../screens/hotelPackagesScreen/HoteList";
-import TabNavigator from "../navigation/TabNavigator";
+
+import TouristTabNavigator from "./TouristTabNavigator";
 import GuideHome from '../screens/guide/GuideHome';
 // import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
 import GuideProfile from "../screens/guide/GuideProfile.js";
@@ -44,14 +43,14 @@ const Sign_up_navigation = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="TouristHome"
-        component={TabNavigator}
+        component={TouristTabNavigator}
       />
       <Stack.Screen
         options={{ headerShown: false }}
         name="TouristProfile"
         component={TouristProfile}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{ headerShown: false }}
         name="GuideList"
         component={GuideList}
@@ -60,7 +59,7 @@ const Sign_up_navigation = () => {
         options={{ headerShown: false }}
         name="HotelList"
         component={HotelList}
-      />
+      /> */}
       <Stack.Screen
         options={{ headerShown: false }}
         name="Map"

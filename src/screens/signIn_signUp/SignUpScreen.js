@@ -26,8 +26,7 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [reEnterPassword, setreEnterPassword] = useState(null);
-  // const [type, setType] = useState(null);
-  const [checked, setChecked] = useState(null);
+  const [checked, setChecked] = useState(null);  //that is the user type
 
   const registerUserAccount = () => {
     console.log(

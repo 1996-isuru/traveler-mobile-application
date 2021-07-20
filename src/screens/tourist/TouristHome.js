@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 // import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../assets/asse/colors/colors";
@@ -19,9 +19,33 @@ import Entypo from "react-native-vector-icons/Entypo";
 import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TouristHome = ({ navigation }) => {
+  //getting async storage data
+  const [userToken, setToken] = useState(null);
+  const [userEmail, setEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const userName = await AsyncStorage.getItem("userName");
+      const email = await AsyncStorage.getItem("userEmail");
+
+      setToken(token);
+      setEmail(email);
+      setUserName(userName);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //getting async storage data
+
   const renderHotelItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -49,6 +73,7 @@ const TouristHome = ({ navigation }) => {
     );
   };
   const renderGuideItem = ({ item }) => {
+    // console.log("sssssssssssss");
     return (
       <TouchableOpacity
         onPress={() =>
@@ -96,7 +121,7 @@ const TouristHome = ({ navigation }) => {
         <SafeAreaView>
           <View style={styles.menuWrapper}>
             <Image source={profile} style={styles.profileImage} />
-            <Text style={styles.name}>Saman Kumara</Text>
+            <Text style={styles.name}>{userName}</Text>
           </View>
         </SafeAreaView>
 
@@ -116,14 +141,14 @@ const TouristHome = ({ navigation }) => {
         <View style={styles.activitiesWrapper}>
           <Text style={styles.activitiesTitle}>Activities</Text>
           <View style={styles.activitiesItemsWrapper}>
-          <SafeAreaView style={{flex: 1}}>
-            <FlatList
-              data={activitiesData}
-              renderItem={renderActivityItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+            <SafeAreaView style={{ flex: 1 }}>
+              <FlatList
+                data={activitiesData}
+                renderItem={renderActivityItem}
+                keyExtractor={(item) => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
             </SafeAreaView>
           </View>
         </View>
@@ -133,14 +158,14 @@ const TouristHome = ({ navigation }) => {
           <Text style={styles.hotelTitle}>Hotels Nearby</Text>
 
           <View style={styles.hotelItemWrapper}>
-          <SafeAreaView style={{flex: 1}}>
-            <FlatList
-              data={hotelData}
-              renderItem={renderHotelItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+            <SafeAreaView style={{ flex: 1 }}>
+              <FlatList
+                data={hotelData}
+                renderItem={renderHotelItem}
+                keyExtractor={(item) => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
             </SafeAreaView>
           </View>
         </View>
@@ -149,14 +174,14 @@ const TouristHome = ({ navigation }) => {
           <Text style={styles.hotelTitle}>Guides Nearby</Text>
 
           <View style={styles.hotelItemWrapper}>
-          <SafeAreaView style={{flex: 1}}>
-            <FlatList
-              data={guideData}
-              renderItem={renderGuideItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+            <SafeAreaView style={{ flex: 1 }}>
+              <FlatList
+                data={guideData}
+                renderItem={renderGuideItem}
+                keyExtractor={(item) => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
             </SafeAreaView>
           </View>
         </View>
