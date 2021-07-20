@@ -9,12 +9,13 @@ import {
   Alert,
 } from "react-native";
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LogIn = ({ navigation }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const onLogin = () => {
+  const onLogin = async () => {
     if (!password || !email) {
       Alert.alert("Enter all fields.");
     } else {
@@ -26,19 +27,26 @@ const LogIn = ({ navigation }) => {
         body: JSON.stringify({ email, password }),
       })
         .then((res) => res.json())
-        .then((result) => {
+        .then(async (result) => {
           // console.log(result);
           if (result.message === "Auth successful") {
-            const resUserType = result.userType;
-            if (resUserType == "tourist") {
-              navigation.navigate("TouristHome");
-            } 
-            else if (resUserType == "HotelOwner") 
-            {
-              navigation.navigate("HotelHome");
-            } else if (resUserType == "tourGuide");
-            {
-              navigation.navigate("GuideHome");
+            try {
+              await AsyncStorage.setItem("token", result.token);
+              await AsyncStorage.setItem("userEmail", result.userEmail);
+              await AsyncStorage.setItem("userName", result.userName);
+              await AsyncStorage.setItem("userType", result.userType);
+              // await AsyncStorage.setItem("userDetails", result);
+
+              if (result.userType == "tourist") {
+                navigation.navigate("TouristHome");
+              } else if (result.userType == "HotelOwner") {
+                navigation.navigate("HotelHome");
+              } else if (result.userType == "tourGuide");
+              {
+                navigation.navigate("TouristHome");
+              }
+            } catch (e) {
+              console.log(e);
             }
           } else {
             Alert.alert("Auth faild.");
