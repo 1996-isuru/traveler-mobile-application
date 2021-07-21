@@ -81,7 +81,7 @@ const GuideHome = ({ navigation }) => {
         <SafeAreaView>
           <View style={styles.menuWrapper}>
             <Image source={profile} style={styles.profileImage} />
-            <Text style={styles.name}>Saman Kumara</Text>
+            <Text style={styles.name}>Sama Kumara</Text>
           </View>
         </SafeAreaView>
 

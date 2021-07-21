@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import Sign_up_navigation from "./Sign-up-navigation";
+// import Sign_up_navigation from "./Sign-up-navigation";
 import TouristTabNavigator from "./TouristTabNavigator";
 import AuthNavigator from "./AuthNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
 import GuideTabNavigator from "./GuideTabNavigator";
+import HotelTabNavigator from "./HotelTabNavigator";
 const MainStack = createStackNavigator();
+
 
 
 const AppNavContainer = () => {
@@ -50,6 +52,10 @@ const AppNavContainer = () => {
        <MainStack.Screen 
            name="GuideTabNavigator"
            component={GuideTabNavigator}
+       />
+       <MainStack.Screen 
+           name="HotelTabNavigator"
+           component={HotelTabNavigator}
        />
         {/* <Sign_up_navigation /> */}
         {/* {isLogin ? <TouristTabNavigator /> : <Sign_up_navigation /> } */}

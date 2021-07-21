@@ -36,14 +36,17 @@ const LogIn = ({ navigation }) => {
               await AsyncStorage.setItem("userName", result.userName);
               await AsyncStorage.setItem("userType", result.userType);
               // await AsyncStorage.setItem("userDetails", result);
-
+              console.log(result.userType);
               if (result.userType == "tourist") {
+                console.log("tourist");
                 navigation.navigate("TouristTabNavigator");
-              } else if (result.userType == "HotelOwner") {
-                navigation.navigate("GuideTabNavigator");
-              } else if (result.userType == "tourGuide");
+              } else if (result.userType == "hotelManagement") {
+                console.log("hotelllllllll");
+                navigation.navigate("HotelTabNavigator");
+              } else
               { 
-                navigation.navigate("GuideTabNavigator");
+                console.log("guideeeeeeeee");
+                navigation.navigate("TouristTabNavigator");
               }
             } catch (e) {
               console.log(e);
@@ -53,7 +56,6 @@ const LogIn = ({ navigation }) => {
           }
         });
     }
-    // navigation.navigate("HotelHome");
   };
 
   return (
