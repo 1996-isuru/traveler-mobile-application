@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import Sign_up_navigation from "./src/navigation/Sign-up-navigation";
+import AppNavContainer from "./src/navigation";
 
 const App = () => {
   const [loaded] = useFonts({
@@ -15,9 +15,9 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Sign_up_navigation />
-    </NavigationContainer>
+    <AppNavContainer>
+      
+    </AppNavContainer>
   );
 };
 

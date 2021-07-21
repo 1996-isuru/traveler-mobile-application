@@ -38,12 +38,12 @@ const LogIn = ({ navigation }) => {
               // await AsyncStorage.setItem("userDetails", result);
 
               if (result.userType == "tourist") {
-                navigation.navigate("TouristHome");
+                navigation.navigate("TouristTabNavigator");
               } else if (result.userType == "HotelOwner") {
-                navigation.navigate("HotelHome");
+                navigation.navigate("GuideTabNavigator");
               } else if (result.userType == "tourGuide");
-              {
-                navigation.navigate("TouristHome");
+              { 
+                navigation.navigate("GuideTabNavigator");
               }
             } catch (e) {
               console.log(e);
