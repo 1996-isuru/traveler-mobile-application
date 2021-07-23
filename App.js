@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import AppNavContainer from "./src/navigation";
+import AppNavContainer from "./src/navigation/index";
 
 const App = () => {
   const [loaded] = useFonts({
@@ -15,9 +15,11 @@ const App = () => {
   }
 
   return (
+    <NavigationContainer>
     <AppNavContainer>
       
     </AppNavContainer>
+    </NavigationContainer>
   );
 };
 

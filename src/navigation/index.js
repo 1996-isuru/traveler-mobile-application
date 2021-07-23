@@ -1,66 +1,121 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-// import Sign_up_navigation from "./Sign-up-navigation";
-import TouristTabNavigator from "./TouristTabNavigator";
-import AuthNavigator from "./AuthNavigator";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import GuideTabNavigator from "./GuideTabNavigator";
+
+
+
+import SignIn from "../screens/signIn_signUp/SignInScreen.js";
+import SignUp from "../screens/signIn_signUp/SignUpScreen.js";
+import Splash from "../screens/signIn_signUp/SplashScreen";
+import Map from "../screens/maps/main_map"; 
+import PreDefineTrips from "../screens/pre-define-trip/preDefineTrips";
+import PreDefineTripDetails from "../screens/pre-define-trip/preDefineTripDetails";
+import TouristProfile from "../screens/tourist/TouristProfile";
+import TouristTabNavigator from "./TouristTabNavigator";
+import GuideHome from '../screens/guide/GuideHome';
+// import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
+import GuideProfile from "../screens/guide/GuideProfile.js";
+import GuideTabNavigator from "./GuideTabNavigator.js";
+import GuideBookedDetails from "../screens/guide/GuideBookedDetails.js";
+import GuideAddListDet from "../screens/guide/GuideAddDetails.js";
+import GuideAddList from "../screens/guide/GuideAddList.js";
+import HotelHome from "../screens/hotelOwner/HotelOwnerHome.js";
+import HotelPackageDetals from "../screens/hotelOwner/HotelPackgeDeta.js";
+import TouristHome from "../screens/tourist/TouristHome.js";
 import HotelTabNavigator from "./HotelTabNavigator";
-const MainStack = createStackNavigator();
+import GuideList from "../screens/tourist/GuideList.js";
+import HotelList from "../screens/hotelPackagesScreen/HoteList";
 
-
+const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
-  //getting async storage data
-//   const [userToken, setToken] = useState(null);
-//   const [isLogin, setisLogin] = useState(false);
-//   const [userName, setUserName] = useState(null);
-
-//   React.useEffect(() => {
-//     getData();
-//   }, []);
-
-//   const getData = async () => {
-//     try {
-//       const token = await AsyncStorage.getItem("token");
-//       //  const userName = await AsyncStorage.getItem("userName");
-//       //  const email = await AsyncStorage.getItem("userEmail");
-
-//       setToken(token);
-//       //  setEmail(email);
-//       //  setUserName(userName);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   if (userToken != null) {
-//     setisLogin = true;
-//   }
-  //getting async storage data
-
   return (
-    <NavigationContainer>
-      <MainStack.Navigator initialRouteName={"AuthNavigator"}>
-       <MainStack.Screen 
-           name="Auth"
-           component={AuthNavigator}
-       />
-       <MainStack.Screen 
-           name="TouristTabNavigator"
-           component={TouristTabNavigator}
-       />
-       <MainStack.Screen 
-           name="GuideTabNavigator"
-           component={GuideTabNavigator}
-       />
-       <MainStack.Screen 
-           name="HotelTabNavigator"
-           component={HotelTabNavigator}
-       />
-        {/* <Sign_up_navigation /> */}
-        {/* {isLogin ? <TouristTabNavigator /> : <Sign_up_navigation /> } */}
-      </MainStack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName={"Splash"}>
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Splash"
+        component={Splash}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="SignUp"
+        component={SignUp}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="SignIn"
+        component={SignIn}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="TouristHome"
+        component={TouristTabNavigator}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="TouristProfile"
+        component={TouristProfile}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideList"
+        component={GuideList}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="HotelList"
+        component={HotelList}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Map"
+        component={Map}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="PreDefineTrips"
+        component={PreDefineTrips}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="PreDefineTripDetails"
+        component={PreDefineTripDetails}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideHome"
+        component={GuideTabNavigator}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideProfile"
+        component={GuideProfile}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="HotelHome"
+        component={HotelTabNavigator}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideBookedDetails"
+        component={GuideBookedDetails}
+      />
+       <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideAddList"
+        component={GuideAddList}
+      /> 
+       <Stack.Screen
+        options={{ headerShown: false }}
+        name="GuideAddListDet"
+        component={GuideAddListDet}
+      /> 
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="HotelPackageDetals"
+        component={HotelPackageDetals}
+      />
+    </Stack.Navigator>
   );
 };
 

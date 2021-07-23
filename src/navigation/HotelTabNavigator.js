@@ -23,7 +23,7 @@ const HotelTabNavigator = () => {
       }}
       initialRouteName={"HotelHome"}
     >
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Map"
         component={Map}
         options={{
@@ -31,7 +31,7 @@ const HotelTabNavigator = () => {
             <Entypo name="map" size={32} color={color} />
           ),
         }}
-      /> */}
+      />
 
       <Tab.Screen
         name="HotelHome"
@@ -43,7 +43,7 @@ const HotelTabNavigator = () => {
         }}
       />
 
-      {/* <Tab.Screen
+      <Tab.Screen
         name="prePlanTripData"
         component={prePlanTripData}
         options={{
@@ -51,9 +51,9 @@ const HotelTabNavigator = () => {
             <Entypo name="home" size={32} color={color} />
           ),
         }}
-      /> */}
+      />
 
-      {/* <Tab.Screen
+      <Tab.Screen
         name="GuideProfile"
         component={GuideProfile}
         options={{
@@ -61,7 +61,7 @@ const HotelTabNavigator = () => {
             <Entypo name="user" size={32} color={color} />
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
