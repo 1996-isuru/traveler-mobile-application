@@ -39,14 +39,14 @@ const LogIn = ({ navigation }) => {
               console.log(result.userType);
               if (result.userType == "tourist") {
                 console.log("tourist");
-                navigation.navigate("TouristTabNavigator");
+                navigation.navigate("TouristHome");
               } else if (result.userType == "hotelManagement") {
                 console.log("hotelllllllll");
-                navigation.navigate("HotelTabNavigator");
+                navigation.navigate("HotelHome");
               } else
               { 
                 console.log("guideeeeeeeee");
-                navigation.navigate("TouristTabNavigator");
+                navigation.navigate("GuideHome");
               }
             } catch (e) {
               console.log(e);
