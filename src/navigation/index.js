@@ -1,8 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-
-
 import SignIn from "../screens/signIn_signUp/SignInScreen.js";
 import SignUp from "../screens/signIn_signUp/SignUpScreen.js";
 import Splash from "../screens/signIn_signUp/SplashScreen";
@@ -24,6 +22,7 @@ import TouristHome from "../screens/tourist/TouristHome.js";
 import HotelTabNavigator from "./HotelTabNavigator";
 import GuideList from "../screens/tourist/GuideList.js";
 import HotelList from "../screens/hotelPackagesScreen/HoteList";
+import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +33,11 @@ const AppNavContainer = () => {
         options={{ headerShown: false }}
         name="Splash"
         component={Splash}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="GetStarted"
+        component={GetStarted}
       />
       <Stack.Screen
         options={{ headerShown: false }}

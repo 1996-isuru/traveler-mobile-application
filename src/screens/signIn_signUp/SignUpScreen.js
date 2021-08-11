@@ -21,7 +21,7 @@ import {
 } from "../../constants/index";
 import { RadioButton } from "react-native-paper";
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({ route, navigation }) => {
   const [userName, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -44,7 +44,11 @@ const SignUp = ({ navigation }) => {
           },
           body: JSON.stringify({ userName, email, password, checked }),
         });
-        navigation.navigate("SignIn");
+        navigation.navigate("GetStarted", {
+          userName,
+          email,
+          checked
+        });
       } else {
         Alert.alert("Password are not same.");
       }
