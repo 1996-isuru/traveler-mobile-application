@@ -10,19 +10,64 @@ import {
 } from "react-native";
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from 'expo-image-picker';
 
 const GetStarted = ({ route, navigation }) => {
   const [email, setEmail] = useState(null);
   const [userName, setUserName] = useState(null);
   const [userType, setUsertype] = useState(null);
+  const [image, setImage] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
     let { userName, email, checked } = route.params;
 
     setEmail(email);
     setUserName(userName);
     setUsertype(checked);
+    
   });
+//pickImag from gallery
+  const pickImageGallery = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  //pickImag from camera
+  const pickImageCamera = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const onLogin = async () => {
     // if (!password || !email) {
@@ -97,8 +142,24 @@ const GetStarted = ({ route, navigation }) => {
         >
           {userName}
         </Text>
-
+        <Text
+          style={{
+            ...FONTS.h2,
+            color: COLORS.navy,
+            textAlign: "center",
+            fontSize: 30,
+          }}
+        >
+          Lets Setup Your Profile
+        </Text>
         <View style={{ flex: 1, paddingTop: 50 }}>
+        <TouchableOpacity onPress={pickImageGallery}>
+        <View style={{alignItems: "center"}}>
+          <Image style={{width: 100, height: 100, borderRadius: 50}}
+          source={images.avatar_1} />
+        </View>
+        </TouchableOpacity>
+
           <View style={{ padding: 10 }}>
             <Text style={styles.text_footer}>Email</Text>
             <View style={styles.action}>
