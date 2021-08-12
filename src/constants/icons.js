@@ -43,7 +43,9 @@ export const pic = require("../assets/icons1/pic.png");
 export const profile = require("../assets/icons1/profile.png");
 export const saved = require("../assets/icons1/saved.png");
 export const todo = require("../assets/icons1/todo.png");
+export const camera = require("../assets/icons1/camera.png");
 export const travelerLogo = require("../assets/icons1/travelerLogo.png");
+export const gallery = require("../assets/icons1/gallery.png");
 
 export default {
     book,
@@ -61,5 +63,7 @@ export default {
     profile,
     saved,
     todo,
-    travelerLogo
+    travelerLogo,
+    camera,
+    gallery
 }
