@@ -32,14 +32,32 @@ const GetStarted = ({ route, navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    console.log("iiiiiiiiii");
-    let { userName, email, checked } = route.params;
+  // useEffect(() => {
+  //   console.log("iiiiiiiiii");
+  //   let { userName, email, checked } = route.params;
 
-    setEmail(email);
-    setUserName(userName);
-    setUsertype(checked);
-  });
+  //   setEmail(email);
+  //   setUserName(userName);
+  //   setUsertype(checked);
+  // });
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const userName1 = await AsyncStorage.getItem("userName");
+      const email1 = await AsyncStorage.getItem("userEmail");
+      const type1 = await AsyncStorage.getItem("userType");
+      
+      setEmail(email1);
+      setUserName(userName1);
+      setUsertype(type1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //pickImag from gallery
   const pickImageGallery = async () => {
@@ -117,9 +135,6 @@ const GetStarted = ({ route, navigation }) => {
     })
       .then((res) => res.json())
       .then(async (result) => {
-        await AsyncStorage.setItem("userEmail", email);
-        await AsyncStorage.setItem("userName", userName);
-        await AsyncStorage.setItem("userType", userType);
         if (userType == "tourist") {
           navigation.navigate("TouristHome");
         } else if (userType == "hotelManagement") {

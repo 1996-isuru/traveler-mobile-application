@@ -27,12 +27,13 @@ const SignUp = ({ route, navigation }) => {
   const [password, setPassword] = useState(null);
   const [reEnterPassword, setreEnterPassword] = useState(null);
   const [checked, setChecked] = useState(null);  //that is the user type
+  const [firstLogin, setFirstLogin] = useState(null);
 
   const registerUserAccount = () => {
     console.log(
       JSON.stringify({ userName, email, password, reEnterPassword, checked })
     );
-
+    setFirstLogin("first");
     if (!userName || !email || !password || !reEnterPassword || !checked) {
       Alert.alert("Please fill all fields.");
     } else {
@@ -44,10 +45,11 @@ const SignUp = ({ route, navigation }) => {
           },
           body: JSON.stringify({ userName, email, password, checked }),
         });
-        navigation.navigate("GetStarted", {
+        navigation.navigate("SignIn", {
           userName,
           email,
-          checked
+          checked,
+          firstLogin
         });
       } else {
         Alert.alert("Password are not same.");

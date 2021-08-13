@@ -11,9 +11,23 @@ import {
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LogIn = ({ navigation }) => {
+const LogIn = ({ navigation, route }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [firstLogi, setFirstLogin] = useState("");
+
+  useEffect(() => {
+    if(route.params){
+    let { userName, email, checked, firstLogin } = route.params;
+
+    console.log("llllllllllllll");
+    setFirstLogin(firstLogin);
+    console.log(firstLogin)
+    // setEmail(email);
+    // setUserName(userName);
+    // setUsertype(checked);
+    }
+  });
 
   const onLogin = async () => {
     if (!password || !email) {
@@ -36,18 +50,23 @@ const LogIn = ({ navigation }) => {
               await AsyncStorage.setItem("userName", result.userName);
               await AsyncStorage.setItem("userType", result.userType);
               // await AsyncStorage.setItem("userDetails", result);
-              console.log(result.userType);
-              if (result.userType == "tourist") {
-                console.log("tourist");
-                navigation.navigate("TouristHome");
-              } else if (result.userType == "hotelManagement") {
-                console.log("hotelllllllll");
-                navigation.navigate("HotelHome");
-              } else
-              { 
-                console.log("guideeeeeeeee");
-                navigation.navigate("GuideHome");
+              if(firstLogi === ""){
+                if (result.userType == "tourist") {
+                  // setFirstLogin(null);
+                  navigation.navigate("TouristHome");
+                } else if (result.userType == "hotelManagement") {
+                  // setFirstLogin(null);
+                  navigation.navigate("HotelHome");
+                } else
+                { 
+                  // setFirstLogin(null);
+                  navigation.navigate("GuideHome");
+                }
+              } else {
+                // setFirstLogin("");
+                navigation.navigate("GetStarted");
               }
+              
             } catch (e) {
               console.log(e);
             }
