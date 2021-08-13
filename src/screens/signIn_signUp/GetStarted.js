@@ -6,10 +6,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Alert,
   Modal,
-  Pressable,
-  Button,
 } from "react-native";
 import {
   images,
@@ -23,21 +20,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
 
 const GetStarted = ({ route, navigation }) => {
+  const [living, setLiving] = useState(null);
   const [email, setEmail] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [profilePic, setProfilePic] = useState(
+    "file:///data/user/0/host.exp.exponent/cache/ExperienceData/UNVERIFIED-192.168.8.126-traveler-mobile-application/ImagePicker/6104bf06-dd30-45d7-8cf6-3500d9fa1b30.jpg"
+  );
+
   const [userName, setUserName] = useState(null);
   const [userType, setUsertype] = useState(null);
-  const [image, setImage] = useState(null);
 
   const [modalVisible, setModalVisible] = useState(false);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     if (Platform.OS !== "web") {
-  //       const { status } =
-  //         await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //     }
-  //   })();
-  // }, []);
 
   useEffect(() => {
     console.log("iiiiiiiiii");
@@ -47,9 +40,9 @@ const GetStarted = ({ route, navigation }) => {
     setUserName(userName);
     setUsertype(checked);
   });
+
   //pickImag from gallery
   const pickImageGallery = async () => {
-    console.log("iiiiiiiiii");
     if (Platform.OS !== "web") {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -60,20 +53,20 @@ const GetStarted = ({ route, navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
+    setProfilePic(data.uri);
+    setModalVisible(false);
     if (!data.cancelled) {
-      let newfile = { 
-        uri:data.uri,
-        type:`test/${data.uri.split(".")[1]}`,
-        name:`test.${data.uri.split(".")[1]}`
-      }
+      let newfile = {
+        uri: data.uri,
+        type: `test/${data.uri.split(".")[1]}`,
+        name: `test.${data.uri.split(".")[1]}`,
+      };
       handleUpload(newfile);
     }
   };
 
   //pickImag from camera
   const pickImageCamera = async () => {
-    
     if (Platform.OS !== "web") {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -84,85 +77,64 @@ const GetStarted = ({ route, navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(data);
-    console.log(data.uri);
+    setProfilePic(data.uri);
+    setModalVisible(false);
     if (!data.cancelled) {
-      let newfile = { 
-        uri:data.uri,
-        type:`test/${data.uri.split(".")[1]}`,
-        name:`test.${data.uri.split(".")[1]}`
-      }
+      let newfile = {
+        uri: data.uri,
+        type: `test/${data.uri.split(".")[1]}`,
+        name: `test.${data.uri.split(".")[1]}`,
+      };
       handleUpload(newfile);
     }
   };
 
   const handleUpload = (image) => {
-    const data = new FormData()
-    data.append('file', image)
-    data.append('upload_preset', 'traveler')
-    data.append('cloud_name','dv4fzdix5')
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "traveler");
+    data.append("cloud_name", "dv4fzdix5");
 
-    fetch('https://api.cloudinary.com/v1_1/dv4fzdix5/image/upload', {
+    fetch("https://api.cloudinary.com/v1_1/dv4fzdix5/image/upload", {
       method: "post",
-      body:data,
+      body: data,
     })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log("skskskkssdddddddd");
-      console.log(data);
-    }) 
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
-  const onLogin = async () => {
-    // if (!password || !email) {
-    //   Alert.alert("Enter all fields.");
-    // } else {
-    //   fetch(localhost + "/user/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email, password }),
-    //   })
-    //     .then((res) => res.json())
-    //     .then(async (result) => {
-    //       // console.log(result);
-    //       if (result.message === "Auth successful") {
-    //         try {
-    //           await AsyncStorage.setItem("token", result.token);
-    //           await AsyncStorage.setItem("userEmail", email);
-    //           await AsyncStorage.setItem("userName", result.userName);
-    //           await AsyncStorage.setItem("userType", result.userType);
-    //           // await AsyncStorage.setItem("userDetails", result);
-    //           console.log(result.userType);
-    //           if (result.userType == "tourist") {
-    //             console.log("tourist");
-    //             navigation.navigate("TouristHome");
-    //           } else if (result.userType == "hotelManagement") {
-    //             console.log("hotelllllllll");
-    //             navigation.navigate("HotelHome");
-    //           } else
-    //           {
-    //             console.log("guideeeeeeeee");
-    //             navigation.navigate("GuideHome");
-    //           }
-    //         } catch (e) {
-    //           console.log(e);
-    //         }
-    //       } else {
-    //         Alert.alert("Auth faild.");
-    //       }
-    //     });
-    // }
+  const getStarted = async () => {
+    console.log(JSON.stringify({ email, living, bio, profilePic }));
+
+    fetch(localhost + "/user/getstarted", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, living, bio, profilePic }),
+    })
+      .then((res) => res.json())
+      .then(async (result) => {
+        await AsyncStorage.setItem("userEmail", email);
+        await AsyncStorage.setItem("userName", userName);
+        await AsyncStorage.setItem("userType", userType);
+        if (userType == "tourist") {
+          navigation.navigate("TouristHome");
+        } else if (userType == "hotelManagement") {
+          navigation.navigate("HotelHome");
+        } else
+        { 
+          navigation.navigate("GuideHome");
+        }
+      });
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={images.main}
-          // style={styles.footer}
-        />
+        <Image source={images.main} />
       </View>
       <View style={styles.footer}>
         <Text
@@ -191,7 +163,7 @@ const GetStarted = ({ route, navigation }) => {
             ...FONTS.h2,
             color: COLORS.navy,
             textAlign: "center",
-            fontSize: 30,
+            fontSize: 23,
           }}
         >
           Lets Setup Your Profile
@@ -200,40 +172,36 @@ const GetStarted = ({ route, navigation }) => {
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <View style={{ alignItems: "center" }}>
               <Image
-                style={{ width: 100, height: 100, borderRadius: 50 }}
-                source={images.avatar_1}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 50,
+                  borderColor: COLORS.black,
+                }}
+                source={{ uri: profilePic }}
               />
             </View>
           </TouchableOpacity>
 
           <View style={{ padding: 10 }}>
-            <Text style={styles.text_footer}>Email</Text>
+            <Text style={styles.text_footer}>Add living in</Text>
             <View style={styles.action}>
               <TextInput
-                placeholder="Your Email"
+                // placeholder="Add living in"
                 style={styles.TextInput}
-                onChangeText={(email) => setEmail(email)}
+                onChangeText={(living) => setLiving(living)}
               />
             </View>
           </View>
           <View style={{ padding: 10 }}>
-            <Text style={styles.text_footer}>Password</Text>
+            <Text style={styles.text_footer}>Add bio</Text>
             <View style={styles.action}>
               <TextInput
-                placeholder="Password"
+                // placeholder="Add bio"
                 style={styles.TextInput}
-                onChangeText={(password) => setPassword(password)}
+                onChangeText={(bio) => setBio(bio)}
               />
             </View>
-          </View>
-          <View>
-            <TouchableOpacity>
-              <Text
-                style={{ fontWeight: "bold", textAlign: "center", padding: 5 }}
-              >
-                Forget Password?
-              </Text>
-            </TouchableOpacity>
           </View>
           <TouchableOpacity
             style={[
@@ -245,7 +213,7 @@ const GetStarted = ({ route, navigation }) => {
                 marginTop: 10,
               },
             ]}
-            onPress={onLogin}
+            onPress={getStarted}
           >
             <Text style={{ ...FONTS.h1, color: COLORS.white }}>
               Get Started
@@ -378,7 +346,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 10,
     borderBottomWidth: 1,
-    // borderBottomColor: "#f2f2f2",
     paddingBottom: 0,
   },
   textInput: {
