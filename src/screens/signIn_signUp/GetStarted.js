@@ -50,7 +50,7 @@ const GetStarted = ({ route, navigation }) => {
       const userName1 = await AsyncStorage.getItem("userName");
       const email1 = await AsyncStorage.getItem("userEmail");
       const type1 = await AsyncStorage.getItem("userType");
-      
+
       setEmail(email1);
       setUserName(userName1);
       setUsertype(type1);
@@ -136,12 +136,23 @@ const GetStarted = ({ route, navigation }) => {
       .then((res) => res.json())
       .then(async (result) => {
         if (userType == "tourist") {
-          navigation.navigate("TouristHome");
+          // navigation.navigate("TouristHome");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "TouristHome" }],
+          });
         } else if (userType == "hotelManagement") {
-          navigation.navigate("HotelHome");
-        } else
-        { 
-          navigation.navigate("GuideHome");
+          // navigation.navigate("HotelHome");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "HotelHome" }],
+          });
+        } else {
+          // navigation.navigate("GuideHome");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "GuideHome" }],
+          });
         }
       });
   };

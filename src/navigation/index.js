@@ -255,6 +255,47 @@ const AppNavContainer = () => {
                 name="SignIn"
                 component={SignIn}
               />
+
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TouristHome"
+                component={TouristTabNavigator}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TouristProfile"
+                component={TouristProfile}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelList"
+                component={HotelList}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="Map"
+                component={Map}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="GuideList"
+                component={GuideList}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="PreDefineTrips"
+                component={PreDefineTrips}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="PreDefineTripDetails"
+                component={PreDefineTripDetails}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelPackageDetals"
+                component={HotelPackageDetals}
+              />
             </>
           )}
         </Stack.Navigator>

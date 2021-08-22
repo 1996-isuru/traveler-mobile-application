@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
+// import { StackActions, NavigationActions } from 'react-navigation';
 
 export default TouristProfile = ({navigation}) => {
 
@@ -9,8 +10,10 @@ export default TouristProfile = ({navigation}) => {
      
       try {
           await AsyncStorage.removeItem("token");
-          navigation.navigate("TouristHome");
-          return true;
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'SignIn' }],
+          });
       }
       catch(exception) {
           return false;

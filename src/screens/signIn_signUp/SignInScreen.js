@@ -20,9 +20,9 @@ const LogIn = ({ navigation, route }) => {
     if(route.params){
     let { userName, email, checked, firstLogin } = route.params;
 
-    console.log("llllllllllllll");
+    // console.log("llllllllllllll");
     setFirstLogin(firstLogin);
-    console.log(firstLogin)
+    // console.log(firstLogin)
     // setEmail(email);
     // setUserName(userName);
     // setUsertype(checked);
@@ -53,18 +53,34 @@ const LogIn = ({ navigation, route }) => {
               if(firstLogi === ""){
                 if (result.userType == "tourist") {
                   // setFirstLogin(null);
-                  navigation.navigate("TouristHome");
+                  // navigation.navigate("TouristHome");
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'TouristHome' }],
+                  });
                 } else if (result.userType == "hotelManagement") {
                   // setFirstLogin(null);
-                  navigation.navigate("HotelHome");
+                  // navigation.navigate("HotelHome");
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'HotelHome' }],
+                  });
                 } else
                 { 
                   // setFirstLogin(null);
-                  navigation.navigate("GuideHome");
+                  // navigation.navigate("GuideHome");
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'GuideHome' }],
+                  });
                 }
               } else {
                 // setFirstLogin("");
-                navigation.navigate("GetStarted");
+                // navigation.navigate("GetStarted");
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'GetStarted' }],
+                });
               }
               
             } catch (e) {

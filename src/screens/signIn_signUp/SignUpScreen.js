@@ -45,11 +45,20 @@ const SignUp = ({ route, navigation }) => {
           },
           body: JSON.stringify({ userName, email, password, checked }),
         });
-        navigation.navigate("SignIn", {
-          userName,
-          email,
-          checked,
-          firstLogin
+        // navigation.navigate("SignIn", {
+        //   userName,
+        //   email,
+        //   checked,
+        //   firstLogin
+        // });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'SignIn', params: {
+            userName,
+            email,
+            checked,
+            firstLogin
+          }}]
         });
       } else {
         Alert.alert("Password are not same.");
