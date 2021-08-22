@@ -17,15 +17,9 @@ const LogIn = ({ navigation, route }) => {
   const [firstLogi, setFirstLogin] = useState("");
 
   useEffect(() => {
-    if(route.params){
-    let { userName, email, checked, firstLogin } = route.params;
-
-    // console.log("llllllllllllll");
-    setFirstLogin(firstLogin);
-    // console.log(firstLogin)
-    // setEmail(email);
-    // setUserName(userName);
-    // setUsertype(checked);
+    if (route.params) {
+      let { userName, email, checked, firstLogin } = route.params;
+      setFirstLogin(firstLogin);
     }
   });
 
@@ -42,47 +36,35 @@ const LogIn = ({ navigation, route }) => {
       })
         .then((res) => res.json())
         .then(async (result) => {
-          // console.log(result);
           if (result.message === "Auth successful") {
             try {
               await AsyncStorage.setItem("token", result.token);
               await AsyncStorage.setItem("userEmail", email);
               await AsyncStorage.setItem("userName", result.userName);
               await AsyncStorage.setItem("userType", result.userType);
-              // await AsyncStorage.setItem("userDetails", result);
-              if(firstLogi === ""){
+              if (firstLogi === "") {
                 if (result.userType == "tourist") {
-                  // setFirstLogin(null);
-                  // navigation.navigate("TouristHome");
                   navigation.reset({
                     index: 0,
-                    routes: [{ name: 'TouristHome' }],
+                    routes: [{ name: "TouristHome" }],
                   });
                 } else if (result.userType == "hotelManagement") {
-                  // setFirstLogin(null);
-                  // navigation.navigate("HotelHome");
                   navigation.reset({
                     index: 0,
-                    routes: [{ name: 'HotelHome' }],
+                    routes: [{ name: "HotelHome" }],
                   });
-                } else
-                { 
-                  // setFirstLogin(null);
-                  // navigation.navigate("GuideHome");
+                } else {
                   navigation.reset({
                     index: 0,
-                    routes: [{ name: 'GuideHome' }],
+                    routes: [{ name: "GuideHome" }],
                   });
                 }
               } else {
-                // setFirstLogin("");
-                // navigation.navigate("GetStarted");
                 navigation.reset({
                   index: 0,
-                  routes: [{ name: 'GetStarted' }],
+                  routes: [{ name: "GetStarted" }],
                 });
               }
-              
             } catch (e) {
               console.log(e);
             }
@@ -96,10 +78,7 @@ const LogIn = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={images.main}
-          // style={styles.footer}
-        />
+        <Image source={images.main} />
       </View>
       <View style={styles.footer}>
         <Text
@@ -140,6 +119,19 @@ const LogIn = ({ navigation, route }) => {
                 style={{ fontWeight: "bold", textAlign: "center", padding: 5 }}
               >
                 Forget Password?
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("SignUp");
+              }}
+            >
+              <Text
+                style={{ fontWeight: "bold", textAlign: "center", padding: 5 }}
+              >
+                If you are not register.
               </Text>
             </TouchableOpacity>
           </View>

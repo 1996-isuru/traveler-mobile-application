@@ -26,7 +26,7 @@ const SignUp = ({ route, navigation }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [reEnterPassword, setreEnterPassword] = useState(null);
-  const [checked, setChecked] = useState(null);  //that is the user type
+  const [checked, setChecked] = useState(null); //that is the user type
   const [firstLogin, setFirstLogin] = useState(null);
 
   const registerUserAccount = () => {
@@ -53,12 +53,17 @@ const SignUp = ({ route, navigation }) => {
         // });
         navigation.reset({
           index: 0,
-          routes: [{ name: 'SignIn', params: {
-            userName,
-            email,
-            checked,
-            firstLogin
-          }}]
+          routes: [
+            {
+              name: 'SignIn',
+              params: {
+                userName,
+                email,
+                checked,
+                firstLogin,
+              },
+            },
+          ],
         });
       } else {
         Alert.alert("Password are not same.");

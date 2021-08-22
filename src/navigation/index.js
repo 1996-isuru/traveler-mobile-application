@@ -177,7 +177,6 @@ const AppNavContainer = () => {
                         name="GuideList"
                         component={GuideList}
                       />
-
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="Map"
@@ -268,11 +267,6 @@ const AppNavContainer = () => {
               />
               <Stack.Screen
                 options={{ headerShown: false }}
-                name="HotelList"
-                component={HotelList}
-              />
-              <Stack.Screen
-                options={{ headerShown: false }}
                 name="Map"
                 component={Map}
               />
@@ -290,6 +284,36 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="PreDefineTripDetails"
                 component={PreDefineTripDetails}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelHome"
+                component={HotelTabNavigator}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="GuideAddList"
+                component={GuideAddList}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="GuideHome"
+                component={GuideTabNavigator}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelList"
+                component={HotelList}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="GuideProfile"
+                component={GuideProfile}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="GuideBookedDetails"
+                component={GuideBookedDetails}
               />
               <Stack.Screen
                 options={{ headerShown: false }}
