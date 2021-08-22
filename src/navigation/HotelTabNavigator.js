@@ -6,7 +6,7 @@ import HotelHome from "../screens/hotelOwner/HotelOwnerHome";
 // import Map from "../screens/maps/main_map";
 import colors from "../assets/asse/colors/colors";
 import prePlanTripData from '../screens/pre-define-trip/preDefineTrips';
-
+import HotelProfile from "../screens/hotelOwner/HotelProfile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import 'react-native-gesture-handler';
 
@@ -54,8 +54,8 @@ const HotelTabNavigator = () => {
       />
 
       <Tab.Screen
-        name="GuideProfile"
-        component={GuideProfile}
+        name="HotelProfile"
+        component={HotelProfile}
         options={{
           tabBarIcon: ({ color }) => (
             <Entypo name="user" size={32} color={color} />

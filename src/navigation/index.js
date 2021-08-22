@@ -26,6 +26,7 @@ import GuideList from "../screens/tourist/GuideList.js";
 import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
+import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
 
 const Stack = createStackNavigator();
 
@@ -153,6 +154,21 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="GuideAddList"
                         component={GuideAddList}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelProfile"
+                        component={HotelProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PreDefineTrips"
+                        component={PreDefineTrips}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PreDefineTripDetails"
+                        component={PreDefineTripDetails}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -319,6 +335,11 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="HotelPackageDetals"
                 component={HotelPackageDetals}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelProfile"
+                component={HotelProfile}
               />
             </>
           )}
