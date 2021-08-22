@@ -31,35 +31,35 @@ const Splash = ({ navigation }) => {
   //   )
   // }
 
-  React.useEffect(() => {
-    getData();
-  }, []);
+  // React.useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const getData = () => {
-    try {
-      // AsyncStorage.getItem('token')
-      //     .then(value => {
-      //         if (value != null) {
-      //            console.log(value);
-      //             navigation.navigate('SignUp');
-      //         }
-      //     })
-      let token = AsyncStorage.getItem("token");
-      let userType =  AsyncStorage.getItem("userType");
+  // const getData = () => {
+  //   try {
+  //     // AsyncStorage.getItem('token')
+  //     //     .then(value => {
+  //     //         if (value != null) {
+  //     //            console.log(value);
+  //     //             navigation.navigate('SignUp');
+  //     //         }
+  //     //     })
+  //     let token = AsyncStorage.getItem("token");
+  //     let userType =  AsyncStorage.getItem("userType");
 
-      if (token != null) {
-        if (userType == "tourist") {
-          navigation.navigate("TouristHome");
-        } else if (userType == "HotelOwner") {
-          navigation.navigate("HotelHome");
-        } else if (userType == "tourGuide") {
-          navigation.navigate("GuideHome");
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (token != null) {
+  //       if (userType == "tourist") {
+  //         navigation.navigate("TouristHome");
+  //       } else if (userType == "HotelOwner") {
+  //         navigation.navigate("HotelHome");
+  //       } else if (userType == "tourGuide") {
+  //         navigation.navigate("GuideHome");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
