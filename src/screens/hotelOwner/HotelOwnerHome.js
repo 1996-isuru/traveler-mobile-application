@@ -20,32 +20,6 @@ import guideData from "../../assets/asse/data/guideData";
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 
 const HotelHome = ({ navigation }) => {
-  const renderHotelItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("HotelList", {
-            item: item,
-          })
-        }
-      >
-        <ImageBackground
-          source={item.image}
-          style={[
-            styles.hotelItem,
-            { marginLeft: item.id === "hotel-1" ? 20 : 0 },
-          ]}
-          imageStyle={styles.hotelItemImage}
-        >
-          <Text style={styles.hotelItemTitle}>{item.title}</Text>
-          <View style={styles.hotelItemLocationWrapper}>
-            <Entypo name="location-pin" size={18} color={colors.white} />
-            <Text style={styles.hotelItemLocationText}>{item.location}</Text>
-          </View>
-        </ImageBackground>
-      </TouchableOpacity>
-    );
-  };
   const renderGuideItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -81,7 +55,7 @@ const HotelHome = ({ navigation }) => {
         <SafeAreaView>
           <View style={styles.menuWrapper}>
             <Image source={profile} style={styles.profileImage} />
-            <Text style={styles.name}>Hilton</Text>
+            <Text style={styles.name}>Hilto</Text>
           </View>
         </SafeAreaView>
 
@@ -90,39 +64,52 @@ const HotelHome = ({ navigation }) => {
           <Text style={styles.planTitle}>Hotel Packages</Text>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <TouchableOpacity
-              style={{backgroundColor:'#003580', borderRadius: 20, width: 140, marginLeft: 20, marginBottom: 20}}
+              style={{
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                marginLeft: 20,
+                marginBottom: 20,
+              }}
               onPress={() => alert("Not Ready Yet")}
             >
-              <Text style={{alignItems:'center', color:COLORS.white, marginLeft: 25, marginTop: 7}}>
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginLeft: 25,
+                  marginTop: 7,
+                }}
+              >
                 Add a Packages
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{backgroundColor:'#003580', borderRadius: 20, width: 140, alignItems:'center', marginLeft:80, marginBottom: 20, height:40}}
+              style={{
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                alignItems: "center",
+                marginLeft: 80,
+                marginBottom: 20,
+                height: 40,
+              }}
               onPress={() => navigation.navigate("GuideAddList")}
             >
-              <Text style={{alignItems:'center', color:COLORS.white, marginTop:7 }} >
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginTop: 7,
+                }}
+              >
                 My Packages
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* Hotel */}
-        <View style={styles.hotelWrapper}>
-          <Text style={styles.hotelTitle}>Hotels Nearby</Text>
-
-          <View style={styles.hotelItemWrapper}>
-            <FlatList
-              data={hotelData}
-              renderItem={renderHotelItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-        {/* Guide */}
+        {/* Boking details */}
         <View style={styles.hotelWrapper}>
           <Text style={styles.hotelTitle}>Booking Details</Text>
           <View style={{ flexDirection: "row" }}>
