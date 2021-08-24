@@ -165,6 +165,10 @@ const AppNavContainer = () => {
                     name="HotelProfile"
                     component={HotelProfile}
                   />
+
+                  {/* Hotel component */}
+
+                  {/* Hotel component */}
                 </>
               ) : (
                 <>
@@ -261,6 +265,9 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+                      {/* Hotel component */}
+
+                      {/* Hotel component */}
                     </>
                   ) : (
                     <>
@@ -355,6 +362,9 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+                      {/* Hotel component */}
+
+                      {/* Hotel component */}
                     </>
                   )}
                 </>
@@ -369,11 +379,6 @@ const AppNavContainer = () => {
               />
               <Stack.Screen
                 options={{ headerShown: false }}
-                name="GetStarted"
-                component={GetStarted}
-              />
-              <Stack.Screen
-                options={{ headerShown: false }}
                 name="SignUp"
                 component={SignUp}
               />
@@ -382,7 +387,11 @@ const AppNavContainer = () => {
                 name="SignIn"
                 component={SignIn}
               />
-
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="GetStarted"
+                component={GetStarted}
+              />
               <Stack.Screen
                 options={{ headerShown: false }}
                 name="TouristHome"
@@ -453,6 +462,9 @@ const AppNavContainer = () => {
                 name="HotelProfile"
                 component={HotelProfile}
               />
+              {/* Hotel component */}
+
+              {/* Hotel component */}
             </>
           )}
         </Stack.Navigator>

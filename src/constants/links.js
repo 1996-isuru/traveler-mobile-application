@@ -1,2 +1,2 @@
-const localhost = 'http://2b59-2402-4000-2280-9f7d-6c2c-934a-ac28-7087.ngrok.io';
+const localhost = 'http://d4b7-2402-4000-2381-fcaa-86-f989-4532-4f4c.ngrok.io';
 export default localhost;
