@@ -11,6 +11,7 @@ import {
   SafeAreaView,
 } from "react-native";
 // import { SafeAreaView } from "react-native-safe-area-context";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../assets/asse/colors/colors";
 import profile from "../../assets/asse/images/pic.png";
 // import profile from '../assets/images/pic.png';
