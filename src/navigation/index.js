@@ -82,13 +82,28 @@ const AppNavContainer = () => {
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
-                    name="TouristProfile"
-                    component={TouristProfile}
+                    name="Splash"
+                    component={Splash}
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
-                    name="HotelList"
-                    component={HotelList}
+                    name="GetStarted"
+                    component={GetStarted}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SignUp"
+                    component={SignUp}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SignIn"
+                    component={SignIn}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="TouristProfile"
+                    component={TouristProfile}
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
@@ -112,18 +127,43 @@ const AppNavContainer = () => {
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
+                    name="HotelHome"
+                    component={HotelTabNavigator}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="GuideAddList"
+                    component={GuideAddList}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="GuideHome"
+                    component={GuideTabNavigator}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="HotelList"
+                    component={HotelList}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="GuideProfile"
+                    component={GuideProfile}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="GuideBookedDetails"
+                    component={GuideBookedDetails}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
                     name="HotelPackageDetals"
                     component={HotelPackageDetals}
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
-                    name="SignUp"
-                    component={SignUp}
-                  />
-                  <Stack.Screen
-                    options={{ headerShown: false }}
-                    name="SignIn"
-                    component={SignIn}
+                    name="HotelProfile"
+                    component={HotelProfile}
                   />
                 </>
               ) : (
@@ -137,38 +177,13 @@ const AppNavContainer = () => {
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="Map"
-                        component={Map}
+                        name="Splash"
+                        component={Splash}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="HotelList"
-                        component={HotelList}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="GuideBookedDetails"
-                        component={GuideBookedDetails}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="GuideAddList"
-                        component={GuideAddList}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="HotelProfile"
-                        component={HotelProfile}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="PreDefineTrips"
-                        component={PreDefineTrips}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="PreDefineTripDetails"
-                        component={PreDefineTripDetails}
+                        name="GetStarted"
+                        component={GetStarted}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -180,18 +195,16 @@ const AppNavContainer = () => {
                         name="SignIn"
                         component={SignIn}
                       />
-                    </>
-                  ) : (
-                    <>
+
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="GuideHome"
-                        component={GuideTabNavigator}
+                        name="TouristHome"
+                        component={TouristTabNavigator}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="GuideList"
-                        component={GuideList}
+                        name="TouristProfile"
+                        component={TouristProfile}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -200,8 +213,8 @@ const AppNavContainer = () => {
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="HotelList"
-                        component={HotelList}
+                        name="GuideList"
+                        component={GuideList}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -212,6 +225,21 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="PreDefineTripDetails"
                         component={PreDefineTripDetails}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideAddList"
+                        component={GuideAddList}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideHome"
+                        component={GuideTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelList"
+                        component={HotelList}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -225,13 +253,31 @@ const AppNavContainer = () => {
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="GuideAddList"
-                        component={GuideAddList}
+                        name="HotelPackageDetals"
+                        component={HotelPackageDetals}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
-                        name="HotelPackageDetals"
-                        component={HotelPackageDetals}
+                        name="HotelProfile"
+                        component={HotelProfile}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideHome"
+                        component={GuideTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="Splash"
+                        component={Splash}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GetStarted"
+                        component={GetStarted}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -242,6 +288,72 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="SignIn"
                         component={SignIn}
+                      />
+
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristHome"
+                        component={TouristTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristProfile"
+                        component={TouristProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="Map"
+                        component={Map}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideList"
+                        component={GuideList}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PreDefineTrips"
+                        component={PreDefineTrips}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PreDefineTripDetails"
+                        component={PreDefineTripDetails}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelHome"
+                        component={HotelTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideAddList"
+                        component={GuideAddList}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelList"
+                        component={HotelList}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideProfile"
+                        component={GuideProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="GuideBookedDetails"
+                        component={GuideBookedDetails}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelPackageDetals"
+                        component={HotelPackageDetals}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelProfile"
+                        component={HotelProfile}
                       />
                     </>
                   )}

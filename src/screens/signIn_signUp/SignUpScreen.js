@@ -55,7 +55,7 @@ const SignUp = ({ route, navigation }) => {
           index: 0,
           routes: [
             {
-              name: 'SignIn',
+              name: "SignIn",
               params: {
                 userName,
                 email,
