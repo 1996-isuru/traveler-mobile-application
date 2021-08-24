@@ -27,3 +27,43 @@
 //     star,
 //     user,
 // }
+
+export const book = require("../assets/icons1/book.png");
+export const cafe = require("../assets/icons1/cafe.png");
+export const camp = require("../assets/icons1/camp.png");
+export const explore = require("../assets/icons1/explore.png");
+export const guide = require("../assets/icons1/guide.png");
+export const home = require("../assets/icons1/home.png");
+export const hotel = require("../assets/icons1/hotel.png");
+export const log = require("../assets/icons1/log.png");
+export const map = require("../assets/icons1/map.png");
+export const movies = require("../assets/icons1/movies.png");
+export const outdoor = require("../assets/icons1/outdoor.png");
+export const pic = require("../assets/icons1/pic.png");
+export const profile = require("../assets/icons1/profile.png");
+export const saved = require("../assets/icons1/saved.png");
+export const todo = require("../assets/icons1/todo.png");
+export const camera = require("../assets/icons1/camera.png");
+export const travelerLogo = require("../assets/icons1/travelerLogo.png");
+export const gallery = require("../assets/icons1/gallery.png");
+
+export default {
+    book,
+    cafe,
+    camp,
+    explore,
+    guide,
+    home,
+    hotel,
+    log,
+    map,
+    movies,
+    outdoor,
+    pic,
+    profile,
+    saved,
+    todo,
+    travelerLogo,
+    camera,
+    gallery
+}

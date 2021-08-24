@@ -11,9 +11,17 @@ import {
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LogIn = ({ navigation }) => {
+const LogIn = ({ navigation, route }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [firstLogi, setFirstLogin] = useState("");
+
+  useEffect(() => {
+    if (route.params) {
+      let { userName, email, checked, firstLogin } = route.params;
+      setFirstLogin(firstLogin);
+    }
+  });
 
   const onLogin = async () => {
     if (!password || !email) {
@@ -28,25 +36,34 @@ const LogIn = ({ navigation }) => {
       })
         .then((res) => res.json())
         .then(async (result) => {
-          // console.log(result);
           if (result.message === "Auth successful") {
             try {
               await AsyncStorage.setItem("token", result.token);
-              await AsyncStorage.setItem("userEmail", result.userEmail);
+              await AsyncStorage.setItem("userEmail", email);
               await AsyncStorage.setItem("userName", result.userName);
               await AsyncStorage.setItem("userType", result.userType);
-              // await AsyncStorage.setItem("userDetails", result);
-              console.log(result.userType);
-              if (result.userType == "tourist") {
-                console.log("tourist");
-                navigation.navigate("TouristHome");
-              } else if (result.userType == "hotelManagement") {
-                console.log("hotelllllllll");
-                navigation.navigate("HotelHome");
-              } else
-              { 
-                console.log("guideeeeeeeee");
-                navigation.navigate("GuideHome");
+              if (firstLogi === "") {
+                if (result.userType == "tourist") {
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "TouristHome" }],
+                  });
+                } else if (result.userType == "hotelManagement") {
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "HotelHome" }],
+                  });
+                } else {
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: "GuideHome" }],
+                  });
+                }
+              } else {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "GetStarted" }],
+                });
               }
             } catch (e) {
               console.log(e);
@@ -61,10 +78,7 @@ const LogIn = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image
-          source={images.main}
-          // style={styles.footer}
-        />
+        <Image source={images.main} />
       </View>
       <View style={styles.footer}>
         <Text
@@ -105,6 +119,19 @@ const LogIn = ({ navigation }) => {
                 style={{ fontWeight: "bold", textAlign: "center", padding: 5 }}
               >
                 Forget Password?
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("SignUp");
+              }}
+            >
+              <Text
+                style={{ fontWeight: "bold", textAlign: "center", padding: 5 }}
+              >
+                If you are not register.
               </Text>
             </TouchableOpacity>
           </View>

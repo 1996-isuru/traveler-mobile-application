@@ -5,8 +5,8 @@ import Entypo from "react-native-vector-icons/Entypo";
 import HotelHome from "../screens/hotelOwner/HotelOwnerHome";
 // import Map from "../screens/maps/main_map";
 import colors from "../assets/asse/colors/colors";
-import prePlanTripData from '../screens/pre-define-trip/preDefineTrips';
-
+import prePlanTripData from "../screens/pre-define-trip/preDefineTrips";
+import HotelProfile from "../screens/hotelOwner/HotelProfile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import 'react-native-gesture-handler';
 
@@ -24,15 +24,14 @@ const HotelTabNavigator = () => {
       initialRouteName={"HotelHome"}
     >
       <Tab.Screen
-        name="Map"
-        component={Map}
+        name="prePlanTripData"
+        component={prePlanTripData}
         options={{
           tabBarIcon: ({ color }) => (
-            <Entypo name="map" size={32} color={color} />
+            <Entypo name="home" size={32} color={color} />
           ),
         }}
       />
-
       <Tab.Screen
         name="HotelHome"
         component={HotelHome}
@@ -44,18 +43,8 @@ const HotelTabNavigator = () => {
       />
 
       <Tab.Screen
-        name="prePlanTripData"
-        component={prePlanTripData}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Entypo name="home" size={32} color={color} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="GuideProfile"
-        component={GuideProfile}
+        name="HotelProfile"
+        component={HotelProfile}
         options={{
           tabBarIcon: ({ color }) => (
             <Entypo name="user" size={32} color={color} />

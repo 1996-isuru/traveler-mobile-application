@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 
-export default GuideProfile = ({ navigation }) => {
+export default HotelProfile = ({ navigation }) => {
   const logOut = async () => {
     try {
       await AsyncStorage.removeItem("token");
@@ -27,7 +27,7 @@ export default GuideProfile = ({ navigation }) => {
         }}
         onPress={logOut}
       >
-        <Text style={{ ...FONTS.h1, color: COLORS.white }}>Sign out</Text>
+        <Text style={{ ...FONTS.h1, color: COLORS.white }}>Sign outt</Text>
       </TouchableOpacity>
     </View>
   );
