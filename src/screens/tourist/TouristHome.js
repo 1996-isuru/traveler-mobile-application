@@ -130,7 +130,7 @@ const TouristHome = ({ navigation }) => {
           <Text style={styles.planTitle}>Make a Tour Plan</Text>
           <TouchableOpacity
             style={styles.buttonWrapper}
-            onPress={() => alert("Not Ready Yet")}
+            onPress={() => navigation.navigate("TourPlanMap")}
           >
             <Text style style={styles.buttonText}>
               New Trip

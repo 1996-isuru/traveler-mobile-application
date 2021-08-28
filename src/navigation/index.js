@@ -27,6 +27,7 @@ import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
+import TourPlanMap from "../screens/tourist/TourPlan/TourPlanMap.js";
 
 const Stack = createStackNavigator();
 
@@ -75,11 +76,23 @@ const AppNavContainer = () => {
             <>
               {userType === "tourist" ? (
                 <>
+                  {/* Tourist component */}
                   <Stack.Screen
                     options={{ headerShown: false }}
                     name="TouristHome"
                     component={TouristTabNavigator}
                   />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="TouristProfile"
+                    component={TouristProfile}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="TourPlanMap"
+                    component={TourPlanMap}
+                  />
+                  {/* Tourist component */}
                   <Stack.Screen
                     options={{ headerShown: false }}
                     name="Splash"
@@ -99,11 +112,6 @@ const AppNavContainer = () => {
                     options={{ headerShown: false }}
                     name="SignIn"
                     component={SignIn}
-                  />
-                  <Stack.Screen
-                    options={{ headerShown: false }}
-                    name="TouristProfile"
-                    component={TouristProfile}
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
@@ -199,17 +207,6 @@ const AppNavContainer = () => {
                         name="SignIn"
                         component={SignIn}
                       />
-
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristHome"
-                        component={TouristTabNavigator}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristProfile"
-                        component={TouristProfile}
-                      />
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="Map"
@@ -265,6 +262,25 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+
+                      {/* Tourist component */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristHome"
+                        component={TouristTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristProfile"
+                        component={TouristProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TourPlanMap"
+                        component={TourPlanMap}
+                      />
+                      {/* Tourist component */}
+
                       {/* Hotel component */}
 
                       {/* Hotel component */}
@@ -295,17 +311,6 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="SignIn"
                         component={SignIn}
-                      />
-
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristHome"
-                        component={TouristTabNavigator}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristProfile"
-                        component={TouristProfile}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -362,6 +367,25 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+
+                      {/* Tourist component */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristHome"
+                        component={TouristTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristProfile"
+                        component={TouristProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TourPlanMap"
+                        component={TourPlanMap}
+                      />
+                      {/* Tourist component */}
+
                       {/* Hotel component */}
 
                       {/* Hotel component */}
@@ -391,16 +415,6 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="GetStarted"
                 component={GetStarted}
-              />
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="TouristHome"
-                component={TouristTabNavigator}
-              />
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="TouristProfile"
-                component={TouristProfile}
               />
               <Stack.Screen
                 options={{ headerShown: false }}
@@ -462,6 +476,25 @@ const AppNavContainer = () => {
                 name="HotelProfile"
                 component={HotelProfile}
               />
+
+              {/* Tourist component */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TouristHome"
+                component={TouristTabNavigator}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TouristProfile"
+                component={TouristProfile}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TourPlanMap"
+                component={TourPlanMap}
+              />
+              {/* Tourist component */}
+
               {/* Hotel component */}
 
               {/* Hotel component */}
