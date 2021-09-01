@@ -1,5 +1,3 @@
-import { icons, images, SIZES, COLORS, FONTS } from "../../../constants/index";
-// import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import React from 'react';
 import MapView, {Marker} from 'react-native-maps';
 
@@ -16,5 +14,4 @@ const MyMapView = (props) => {
         </MapView>
     )
 }
-
-export default TourPlanMap;
+export default MyMapView;
