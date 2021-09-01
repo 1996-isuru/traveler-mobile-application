@@ -1,20 +1,37 @@
 import { icons, images, SIZES, COLORS, FONTS } from "../../../constants/index";
-// import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+} from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import React from 'react';
-import MapView, {Marker} from 'react-native-maps';
 
-const MyMapView = (props) => {
-    return (
-        <MapView
-            style={{ flex: 1 }}
-            region={props.region}
-            showsUserLocation={true}
-            onRegionChange={(reg) => props.onRegionChange(reg)}>
+const TourPlanMap = (props) => {
+  function renderMap() {
+    return(
+        <View style={{flex: 1}}>
+            <MapView
+            style={{
+                flex: 1
+            }}>
 
-            <Marker
-                coordinate={props.region} />
-        </MapView>
+            </MapView>
+        </View>
     )
+}
+
+return(
+    <View style={{flex: 1}}>
+        {renderMap()}
+    </View>
+)
 }
 
 export default TourPlanMap;

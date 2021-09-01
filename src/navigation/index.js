@@ -28,6 +28,7 @@ import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
 import TourPlanMap from "../screens/tourist/TourPlan/TourPlanMap.js";
+import MapContainer from "../screens/tourist/TourPlan/AutoCompleteSearch/Containers/MapContainers.js";
 
 const Stack = createStackNavigator();
 
@@ -173,6 +174,11 @@ const AppNavContainer = () => {
                     name="HotelProfile"
                     component={HotelProfile}
                   />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="MapContainer"
+                    component={MapContainer}
+                  />
 
                   {/* Hotel component */}
 
@@ -279,6 +285,11 @@ const AppNavContainer = () => {
                         name="TourPlanMap"
                         component={TourPlanMap}
                       />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="MapContainer"
+                        component={MapContainer}
+                      />
                       {/* Tourist component */}
 
                       {/* Hotel component */}
@@ -383,6 +394,11 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="TourPlanMap"
                         component={TourPlanMap}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="MapContainer"
+                        component={MapContainer}
                       />
                       {/* Tourist component */}
 
@@ -492,6 +508,11 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="TourPlanMap"
                 component={TourPlanMap}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="MapContainer"
+                component={MapContainer}
               />
               {/* Tourist component */}
 
