@@ -29,6 +29,7 @@ import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
 import TourPlanMap from "../screens/tourist/TourPlan/TourPlanMap.js";
 import MapContainer from "../screens/tourist/TourPlan/AutoCompleteSearch/Containers/MapContainers.js";
+import StripeApp from "../screens/paypents/HotelPayments/StripeApp.js";
 
 const Stack = createStackNavigator();
 
@@ -183,6 +184,14 @@ const AppNavContainer = () => {
                   {/* Hotel component */}
 
                   {/* Hotel component */}
+
+                  {/* paymet gateway */}
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="StripeApp"
+                    component={StripeApp}
+                  />
+                  {/* paymet gateway */}
                 </>
               ) : (
                 <>
@@ -295,6 +304,14 @@ const AppNavContainer = () => {
                       {/* Hotel component */}
 
                       {/* Hotel component */}
+
+                      {/* paymet gateway */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="StripeApp"
+                        component={StripeApp}
+                      />
+                      {/* paymet gateway */}
                     </>
                   ) : (
                     <>
@@ -405,6 +422,14 @@ const AppNavContainer = () => {
                       {/* Hotel component */}
 
                       {/* Hotel component */}
+
+                      {/* paymet gateway */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="StripeApp"
+                        component={StripeApp}
+                      />
+                      {/* paymet gateway */}
                     </>
                   )}
                 </>
@@ -519,6 +544,14 @@ const AppNavContainer = () => {
               {/* Hotel component */}
 
               {/* Hotel component */}
+
+              {/* paymet gateway */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="StripeApp"
+                component={StripeApp}
+              />
+              {/* paymet gateway */}
             </>
           )}
         </Stack.Navigator>
