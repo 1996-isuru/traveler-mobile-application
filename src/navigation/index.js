@@ -30,7 +30,7 @@ import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
 import TourPlanMap from "../screens/tourist/TourPlan/TourPlanMap.js";
 import MapContainer from "../screens/tourist/TourPlan/AutoCompleteSearch/Containers/MapContainers.js";
 import StripeApp from "../screens/paypents/HotelPayments/StripeApp.js";
-
+// import { StripeProvider } from "@stripe/stripe-react-native";
 const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
@@ -546,6 +546,7 @@ const AppNavContainer = () => {
               {/* Hotel component */}
 
               {/* paymet gateway */}
+
               <Stack.Screen
                 options={{ headerShown: false }}
                 name="StripeApp"

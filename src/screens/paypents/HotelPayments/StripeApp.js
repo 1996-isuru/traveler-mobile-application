@@ -1,57 +1,99 @@
 import React, { useState } from "react";
-import { icons, images, SIZES, COLORS, FONTS, localhost } from "../../../constants/index";
+import {
+  icons,
+  images,
+  SIZES,
+  COLORS,
+  FONTS,
+  localhost,
+} from "../../../constants/index";
 import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { CardField, useConfirmPayment } from "@stripe/stripe-react-native";
 
 //ADD localhost address of your server
 // const API_URL = "http://localhost:3000";
 
-const StripeApp = (props) => {
+const StripeApp = () => {
+  // const [name, setName] = useState("");
   const [email, setEmail] = useState();
   const [cardDetails, setCardDetails] = useState();
   const { confirmPayment, loading } = useConfirmPayment();
 
-  const fetchPaymentIntentClientSecret = async () => {
-    const response = await fetch(localhost + "payment/create-payment-intent", {
+  // const fetchPaymentIntentClientSecret = async () => {
+  //   console.log("ddddddddd");
+  //   console.log(localhost);
+  //   const response = await fetch(localhost + "/payment/create-payment-intent", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       paymentMethodtype: 'card',
+  //       currency: 'usd'
+  //     })
+  //   });
+  //   const { clientSecret, error } = await response.json();
+  //   return { clientSecret, error };
+  // };
+
+  const handlePayPress = async () => {
+    const response = await fetch(localhost + "/payment/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        paymentMethodType: "card",
+        currency: "usd",
+      }),
     });
-    const { clientSecret, error } = await response.json();
-    return { clientSecret, error };
-  };
+    const { clientsecret } = await response.json();
 
-  const handlePayPress = async () => {
-    //1.Gather the customer's billing information (e.g., email)
-    if (!cardDetails?.complete || !email) {
-      Alert.alert("Please enter Complete card details and Email");
-      return;
+    const { error, paymentIntent } = await confirmPayment(clientsecret, {
+      type: "Card",
+      billingDetails: { email },
+    });
+
+    if (error) {
+      console.log("sssssss");
+      console.log("ErroR::::::::", error.message);
+      alert(`Payment Confirmation Error ${error.message}`);
+    } else if (paymentIntent) {
+      alert("Payment Successful");
+      console.log("Payment successful ", paymentIntent);
     }
-    const billingDetails = {
-      email: email,
-    };
-    //2.Fetch the intent client secret from the backend
-    try {
-      const { clientSecret, error } = await fetchPaymentIntentClientSecret();
-      //2. confirm the payment
-      if (error) {
-        console.log("Unable to process payment");
-      } else {
-        const { paymentIntent, error } = await confirmPayment(clientSecret, {
-          type: "Card",
-          billingDetails: billingDetails,
-        });
-        if (error) {
-          alert(`Payment Confirmation Error ${error.message}`);
-        } else if (paymentIntent) {
-          alert("Payment Successful");
-          console.log("Payment successful ", paymentIntent);
-        }
-      }
-    } catch (e) {
-      console.log(e);
-    }
+
+    // //1.Gather the customer's billing information (e.g., email)
+    // if (!cardDetails?.complete || !email) {
+    //   Alert.alert("Please enter Complete card details and Email");
+    //   return;
+    // }
+    // const billingDetails = {
+    //   email: email,
+    // };
+    // //2.Fetch the intent client secret from the backend
+    // try {
+    //   const { clientsecret, error } = await fetchPaymentIntentClientSecret();
+    //   //2. confirm the payment
+    //   if (error) {
+    //     console.log("Unable to process payment");
+    //   } else {
+    //     const { paymentIntent, error } = await confirmPayment(clientsecret, {
+    //       type: "Card",
+    //       billingDetails: billingDetails,
+    //     });
+    // if (error) {
+    //     console.log('sssssss');
+    //   console.log("ErroR::::::::", error.message);
+    //   alert(`Payment Confirmation Error ${error.message}`);
+    // } else if (paymentIntent) {
+    //   alert("Payment Successful");
+    //   console.log("Payment successful ", paymentIntent);
+    // }
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
     //3.Confirm the payment with the card details
   };
 
@@ -65,7 +107,7 @@ const StripeApp = (props) => {
         style={styles.input}
       />
       <CardField
-        postalCodeEnabled={true}
+        postalCodeEnabled={false}
         placeholder={{
           number: "4242 4242 4242 4242",
         }}
