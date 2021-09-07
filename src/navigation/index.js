@@ -30,6 +30,9 @@ import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
 import TourPlanMap from "../screens/tourist/TourPlan/TourPlanMap.js";
 import MapContainer from "../screens/tourist/TourPlan/AutoCompleteSearch/Containers/MapContainers.js";
 import StripeApp from "../screens/paypents/HotelPayments/StripeApp.js";
+import ChatScreen from "../screens/group_chat/ChatScreen";
+import PlanedTours from "../screens/tourist/TourPlan/PlanedTours/PlanedTours.js";
+import SharedTourPost from "../screens/SharedTourPost.js/SharedTourPosts.js";
 // import { StripeProvider } from "@stripe/stripe-react-native";
 const Stack = createStackNavigator();
 
@@ -192,6 +195,28 @@ const AppNavContainer = () => {
                     component={StripeApp}
                   />
                   {/* paymet gateway */}
+
+                  {/* Chat */}
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="ChatScreen"
+                    component={ChatScreen}
+                  />
+                  {/* Chat */}
+
+                  {/* Planed Tours */}
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="PlanedTours"
+                    component={PlanedTours}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SharedTourPost"
+                    component={SharedTourPost}
+                  />
+
+                  {/* Planed Tours */}
                 </>
               ) : (
                 <>
@@ -312,6 +337,27 @@ const AppNavContainer = () => {
                         component={StripeApp}
                       />
                       {/* paymet gateway */}
+
+                      {/* Chat */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatScreen"
+                        component={ChatScreen}
+                      />
+                      {/* Chat */}
+
+                      {/* Planed Tours */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PlanedTours"
+                        component={PlanedTours}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="SharedTourPost"
+                        component={SharedTourPost}
+                      />
+                      {/* Planed Tours */}
                     </>
                   ) : (
                     <>
@@ -430,6 +476,27 @@ const AppNavContainer = () => {
                         component={StripeApp}
                       />
                       {/* paymet gateway */}
+
+                      {/* Chat */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatScreen"
+                        component={ChatScreen}
+                      />
+                      {/* Chat */}
+
+                      {/* Planed Tours */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PlanedTours"
+                        component={PlanedTours}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="SharedTourPost"
+                        component={SharedTourPost}
+                      />
+                      {/* Planed Tours */}
                     </>
                   )}
                 </>
@@ -553,6 +620,27 @@ const AppNavContainer = () => {
                 component={StripeApp}
               />
               {/* paymet gateway */}
+
+              {/* Chat */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="ChatScreen"
+                component={ChatScreen}
+              />
+              {/* Chat */}
+
+              {/* Planed Tours */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="PlanedTours"
+                component={PlanedTours}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="SharedTourPost"
+                component={SharedTourPost}
+              />
+              {/* Planed Tours */}
             </>
           )}
         </Stack.Navigator>

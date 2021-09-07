@@ -128,14 +128,42 @@ const TouristHome = ({ navigation }) => {
         {/* Plan */}
         <View style={styles.planWrapper}>
           <Text style={styles.planTitle}>Make a Tour Plan</Text>
-          <TouchableOpacity
-            style={styles.buttonWrapper}
-            onPress={() => navigation.navigate("MapContainer")}
-          >
-            <Text style style={styles.buttonText}>
-              New Trip
-            </Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              style={{
+                marginHorizontal: 100,
+                marginTop: 20,
+                marginBottom: 20,
+                backgroundColor: colors.darkBlue,
+                marginLeft: 20,
+                // alignItems: "center",
+                paddingVertical: 15,
+                borderRadius: 50,
+              }}
+              onPress={() => navigation.navigate("MapContainer")}
+            >
+              <Text style style={styles.buttonText}>
+                New Trip
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                marginHorizontal: 100,
+                marginTop: 20,
+                marginBottom: 20,
+                backgroundColor: colors.darkBlue,
+                // alignItems: "center",
+                marginRight: 10,
+                paddingVertical: 15,
+                borderRadius: 50,
+              }}
+              onPress={() => navigation.navigate("PlanedTours")}
+            >
+              <Text style style={styles.buttonText}>
+                New Trip
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         {/* Activities */}
         <View style={styles.activitiesWrapper}>

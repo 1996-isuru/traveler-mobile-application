@@ -35,7 +35,7 @@ const StripeApp = () => {
   //   const { clientSecret, error } = await response.json();
   //   return { clientSecret, error };
   // };
-
+w
   const handlePayPress = async () => {
     const response = await fetch(localhost + "/payment/create-payment-intent", {
       method: "POST",
