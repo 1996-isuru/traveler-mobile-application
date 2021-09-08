@@ -9,6 +9,10 @@ import {
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
+  Modal,
+  Pressable,
+  Alert,
+  TextInput,
 } from "react-native";
 // import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../assets/asse/colors/colors";
@@ -20,12 +24,14 @@ import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
 
 const TouristHome = ({ navigation }) => {
   //getting async storage data
   const [userToken, setToken] = useState(null);
   const [userEmail, setEmail] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     getData();
@@ -115,6 +121,75 @@ const TouristHome = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Popup when click new tour */}
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <View style={styles.footer}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  textAlign: "center",
+                  fontSize: 30,
+                  marginTop: -130,
+                }}
+              >
+                Tour Details
+              </Text>
+              <View style={{ flex: 1, paddingTop: 20 }}>
+                <View>
+                  <Text style={styles.text_footer}>Tour Name: </Text>
+                  <View style={styles.action}>
+                    <TextInput
+                      placeholder="Your Email"
+                      // style={styles.TextInput}
+                      //   onChangeText={(email) => setEmail(email)}
+                    />
+                  </View>
+                </View>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>From </Text>
+                  <View style={styles.action}>
+                    <TextInput
+                      placeholder="Password"
+                      // style={styles.TextInput}
+                      //   onChangeText={(password) => setPassword(password)}
+                    />
+                  </View>
+                </View>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>To</Text>
+                  <View style={styles.action}>
+                    <TextInput
+                      placeholder="Your Email"
+                      // style={styles.TextInput}
+                      //   onChangeText={(email) => setEmail(email)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Create Tour</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      </View>
+      {/* Popup when click new tour */}
+
       <ScrollView>
         {/* Header */}
 
@@ -140,7 +215,7 @@ const TouristHome = ({ navigation }) => {
                 paddingVertical: 15,
                 borderRadius: 50,
               }}
-              onPress={() => navigation.navigate("MapInput")}
+              onPress={() => setModalVisible(true)}
             >
               <Text style style={styles.buttonText}>
                 New Trip
@@ -341,6 +416,76 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     color: colors.white,
+  },
+
+  //model style
+
+  //model input
+  action: {
+    flexDirection: "row",
+    marginTop: 10,
+    borderBottomWidth: 1,
+    // borderBottomColor: "#f2f2f2",
+    paddingBottom: 0,
+  },
+  textInput: {
+    marginTop: Platform.OS === "ios" ? 0 : 12,
+    paddingLeft: 10,
+    color: "#05375a",
+  },
+  footer: {
+    flex: Platform.OS === "ios" ? 3 : 5,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 30,
+    paddingVertical: 150,
+  },
+  text_footer: {
+    color: "#05375a",
+    fontSize: 18,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    marginTop: 130,
+    margin: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 export default TouristHome;

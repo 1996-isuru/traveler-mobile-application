@@ -27,7 +27,7 @@ import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
-import TourPlanMap from "../screens/tourist/TourPlan/TourPlanMap.js";
+import TourPlanMap from "../screens/tourist/TourPlan/CreateTour/CreatePlanMainPage.js";
 import MapInput from "../screens/tourist/TourPlan/AutoCompleteSearch/MapInput";
 import StripeApp from "../screens/paypents/HotelPayments/StripeApp.js";
 import ChatScreen from "../screens/group_chat/ChatScreen";

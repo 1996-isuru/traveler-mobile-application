@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { icons, images, SIZES, COLORS, FONTS } from "../../../constants/index";
+import {
+  icons,
+  images,
+  SIZES,
+  COLORS,
+  FONTS,
+} from "../../../../constants/index";
 import {
   View,
   Text,
@@ -177,9 +183,20 @@ const TourPlanMap = ({ navigation }) => {
       >
         {/* trip info */}
         <Text style={{ ...FONTS.h4 }}>{item.name}</Text>
-        <View style={{ flexDirection: "row", paddingTop: 30, justifyContent: 'space-between' }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingTop: 30,
+            justifyContent: "space-between",
+          }}
+        >
           <Button
-            style={{ fontSize: 20, backgroundColor: '02B3C5', padding: 90,  borderRadius: 10 }}
+            style={{
+              fontSize: 20,
+              backgroundColor: "02B3C5",
+              padding: 90,
+              borderRadius: 10,
+            }}
             title="Change"
           ></Button>
           <Button
