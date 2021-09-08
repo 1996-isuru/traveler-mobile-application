@@ -140,7 +140,7 @@ const TouristHome = ({ navigation }) => {
                 paddingVertical: 15,
                 borderRadius: 50,
               }}
-              onPress={() => navigation.navigate("MapContainer")}
+              onPress={() => navigation.navigate("MapInput")}
             >
               <Text style style={styles.buttonText}>
                 New Trip
