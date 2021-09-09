@@ -14,12 +14,9 @@ import {
   Alert,
   TextInput,
 } from "react-native";
-// import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../assets/asse/colors/colors";
 import profile from "../../assets/asse/images/pic.png";
-// import profile from '../assets/images/pic.png';
 import Entypo from "react-native-vector-icons/Entypo";
-
 import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
@@ -168,7 +165,7 @@ const TouristHome = ({ navigation }) => {
               }),
             });
             setModalVisible(!modalVisible);
-            navigation.navigate("PlanedTours");
+            navigation.navigate("TourPlanMap");
           } else {
             console.log("add tour");
             fetch(localhost + "/tourplan/addtour", {
@@ -193,7 +190,7 @@ const TouristHome = ({ navigation }) => {
                   Alert.alert("Tour Name exists");
                 } else {
                   setModalVisible(!modalVisible);
-                  navigation.navigate("PlanedTours");
+                  navigation.navigate("TourPlanMap");
                 }
               });
           }
@@ -215,6 +212,19 @@ const TouristHome = ({ navigation }) => {
           }}
         >
           <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  marginTop: -10,
+                  marginLeft: 260,
+                  fontSize: 25,
+                }}
+              >
+                X
+              </Text>
+            </TouchableOpacity>
             <View style={styles.footer}>
               <Text
                 style={{
@@ -270,10 +280,8 @@ const TouristHome = ({ navigation }) => {
                 </View>
               </View>
             </View>
-
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              // onPress={() => setModalVisible(!modalVisible)}
               onPress={registerTour}
             >
               <Text style={styles.textStyle}>Create Tour</Text>
@@ -285,7 +293,6 @@ const TouristHome = ({ navigation }) => {
 
       <ScrollView>
         {/* Header */}
-
         <SafeAreaView>
           <View style={styles.menuWrapper}>
             <Image source={profile} style={styles.profileImage} />

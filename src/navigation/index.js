@@ -29,10 +29,10 @@ import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
 import TourPlanMap from "../screens/tourist/TourPlan/CreateTour/CreatePlanMainPage.js";
 import MapInput from "../screens/tourist/TourPlan/AutoCompleteSearch/MapInput";
-import StripeApp from "../screens/paypents/HotelPayments/StripeApp.js";
 import ChatScreen from "../screens/group_chat/ChatScreen";
 import PlanedTours from "../screens/tourist/TourPlan/PlanedTours/PlanedTours.js";
 import SharedTourPost from "../screens/SharedTourPost.js/SharedTourPosts.js";
+import ChatList from "../screens/group_chat/ChatList.js";
 // import { StripeProvider } from "@stripe/stripe-react-native";
 const Stack = createStackNavigator();
 
@@ -188,19 +188,16 @@ const AppNavContainer = () => {
 
                   {/* Hotel component */}
 
-                  {/* paymet gateway */}
-                  <Stack.Screen
-                    options={{ headerShown: false }}
-                    name="StripeApp"
-                    component={StripeApp}
-                  />
-                  {/* paymet gateway */}
-
                   {/* Chat */}
                   <Stack.Screen
                     options={{ headerShown: false }}
                     name="ChatScreen"
                     component={ChatScreen}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="ChatList"
+                    component={ChatList}
                   />
                   {/* Chat */}
 
@@ -330,19 +327,16 @@ const AppNavContainer = () => {
 
                       {/* Hotel component */}
 
-                      {/* paymet gateway */}
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="StripeApp"
-                        component={StripeApp}
-                      />
-                      {/* paymet gateway */}
-
                       {/* Chat */}
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="ChatScreen"
                         component={ChatScreen}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatList"
+                        component={ChatList}
                       />
                       {/* Chat */}
 
@@ -469,19 +463,16 @@ const AppNavContainer = () => {
 
                       {/* Hotel component */}
 
-                      {/* paymet gateway */}
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="StripeApp"
-                        component={StripeApp}
-                      />
-                      {/* paymet gateway */}
-
                       {/* Chat */}
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="ChatScreen"
                         component={ChatScreen}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatList"
+                        component={ChatList}
                       />
                       {/* Chat */}
 
@@ -612,20 +603,16 @@ const AppNavContainer = () => {
 
               {/* Hotel component */}
 
-              {/* paymet gateway */}
-
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="StripeApp"
-                component={StripeApp}
-              />
-              {/* paymet gateway */}
-
               {/* Chat */}
               <Stack.Screen
                 options={{ headerShown: false }}
                 name="ChatScreen"
                 component={ChatScreen}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="ChatList"
+                component={ChatList}
               />
               {/* Chat */}
 

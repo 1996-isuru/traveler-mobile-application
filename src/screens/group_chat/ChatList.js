@@ -11,7 +11,7 @@ import {
   PostTime,
   MessageText,
   TextSection,
-} from "../../TouristStyle/MessageStyles";
+} from "./style/ChatListStyle";
 import {
   icons,
   images,
@@ -19,7 +19,7 @@ import {
   COLORS,
   FONTS,
   localhost,
-} from "../../../../constants/index";
+} from "../../constants/index";
 
 const Messages = [
   {
@@ -64,7 +64,7 @@ const Messages = [
   },
 ];
 
-const PlanedTours = ({ navigation }) => {
+const ChatList = ({ navigation }) => {
   return (
     <Container>
       <FlatList
@@ -95,4 +95,4 @@ const PlanedTours = ({ navigation }) => {
   );
 };
 
-export default PlanedTours;
+export default ChatList;
