@@ -44,13 +44,13 @@ const TouristHome = ({ navigation }) => {
 
   //create tour
   const [tourName, setTourName] = useState(null);
-  const [startLocationName, setStartLocationName] = useState(null);
-  const [startLocationName, setStartLocationName] = useState(null);
-  const [startLocationLatitude, setStartLocationLatitude] = useState(null);
-  const [startLocationLongitude, setStartLocatinLongitude] = useState(null);
-  const [endLocationName, setEndLocationName] = useState(null);
-  const [endLocationLatitude, setEndLocationLatitude] = useState(null);
-  const [endLocationLongitude, setEndLocatinLongitude] = useState(null);
+  const [startLocationName, setStartLocationName] = useState("lllllll");
+  const [startLocationLatitude, setStartLocationLatitude] = useState("lllllll");
+  const [startLocationLongitude, setStartLocatinLongitude] =
+    useState("lllllll");
+  const [endLocationName, setEndLocationName] = useState("lllllll");
+  const [endLocationLatitude, setEndLocationLatitude] = useState("lllllll");
+  const [endLocationLongitude, setEndLocatinLongitude] = useState("lllllll");
 
   useEffect(() => {
     getData();
@@ -137,19 +137,67 @@ const TouristHome = ({ navigation }) => {
     );
   };
 
-  const registerTour = () => {
+  const registerTour = async () => {
     if (!tourName) {
       Alert.alert("Please fill all fields.");
     } else {
-      fetch(localhost + "/tourplan/plantourdetails", {
+      fetch(localhost + "/tourplan/checktour", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userEmail, tourName }),
-      });
-      setModalVisible(!modalVisible);
-      navigation.navigate("SignUp");
+        body: JSON.stringify({ userEmail }),
+      })
+        .then((res) => res.json())
+        .then(async (result) => {
+          if (result.message === "Already not Created") {
+            fetch(localhost + "/tourplan/plantourdetails", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userEmail,
+                tourName,
+                startLocationName,
+                startLocationLatitude,
+                startLocationLongitude,
+                endLocationName,
+                endLocationLatitude,
+                endLocationLongitude,
+              }),
+            });
+            setModalVisible(!modalVisible);
+            navigation.navigate("PlanedTours");
+          } else {
+            console.log("add tour");
+            fetch(localhost + "/tourplan/addtour", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userEmail,
+                tourName,
+                startLocationName,
+                startLocationLatitude,
+                startLocationLongitude,
+                endLocationName,
+                endLocationLatitude,
+                endLocationLongitude,
+              }),
+            })
+              .then((res) => res.json())
+              .then(async (result) => {
+                if (result.message === "Tour Name exists") {
+                  Alert.alert("Tour Name exists");
+                } else {
+                  setModalVisible(!modalVisible);
+                  navigation.navigate("PlanedTours");
+                }
+              });
+          }
+        });
     }
   };
 
