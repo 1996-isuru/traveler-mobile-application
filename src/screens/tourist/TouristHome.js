@@ -42,6 +42,16 @@ const TouristHome = ({ navigation }) => {
   const [userName, setUserName] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //create tour
+  const [tourName, setTourName] = useState(null);
+  const [startLocationName, setStartLocationName] = useState(null);
+  const [startLocationName, setStartLocationName] = useState(null);
+  const [startLocationLatitude, setStartLocationLatitude] = useState(null);
+  const [startLocationLongitude, setStartLocatinLongitude] = useState(null);
+  const [endLocationName, setEndLocationName] = useState(null);
+  const [endLocationLatitude, setEndLocationLatitude] = useState(null);
+  const [endLocationLongitude, setEndLocatinLongitude] = useState(null);
+
   useEffect(() => {
     getData();
   }, []);
@@ -88,7 +98,6 @@ const TouristHome = ({ navigation }) => {
     );
   };
   const renderGuideItem = ({ item }) => {
-    // console.log("sssssssssssss");
     return (
       <TouchableOpacity
         onPress={() =>
@@ -128,6 +137,22 @@ const TouristHome = ({ navigation }) => {
     );
   };
 
+  const registerTour = () => {
+    if (!tourName) {
+      Alert.alert("Please fill all fields.");
+    } else {
+      fetch(localhost + "/tourplan/plantourdetails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userEmail, tourName }),
+      });
+      setModalVisible(!modalVisible);
+      navigation.navigate("SignUp");
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Popup when click new tour */}
@@ -161,7 +186,7 @@ const TouristHome = ({ navigation }) => {
                     <TextInput
                       placeholder="Tour Name:"
                       // style={styles.TextInput}
-                      //   onChangeText={(email) => setEmail(email)}
+                      onChangeText={(tourNamee) => setTourName(tourNamee)}
                     />
                   </View>
                 </View>
@@ -200,7 +225,8 @@ const TouristHome = ({ navigation }) => {
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              // onPress={() => setModalVisible(!modalVisible)}
+              onPress={registerTour}
             >
               <Text style={styles.textStyle}>Create Tour</Text>
             </Pressable>
