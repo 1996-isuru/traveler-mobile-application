@@ -24,7 +24,16 @@ import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
+import {
+  images,
+  SIZES,
+  COLORS,
+  FONTS,
+  localhost,
+  GOOGLE_API_KEY,
+} from "../../constants/index";
+import MapInput from "./TourPlan/AutoCompleteSearch/MapInput";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const TouristHome = ({ navigation }) => {
   //getting async storage data
@@ -150,7 +159,7 @@ const TouristHome = ({ navigation }) => {
                   <Text style={styles.text_footer}>Tour Name: </Text>
                   <View style={styles.action}>
                     <TextInput
-                      placeholder="Your Email"
+                      placeholder="Tour Name:"
                       // style={styles.TextInput}
                       //   onChangeText={(email) => setEmail(email)}
                     />
@@ -159,20 +168,30 @@ const TouristHome = ({ navigation }) => {
                 <View style={{ paddingTop: 10 }}>
                   <Text style={styles.text_footer}>From </Text>
                   <View style={styles.action}>
-                    <TextInput
-                      placeholder="Password"
-                      // style={styles.TextInput}
-                      //   onChangeText={(password) => setPassword(password)}
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details = null) => {
+                        console.log(data, details);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
                     />
                   </View>
                 </View>
                 <View style={{ paddingTop: 10 }}>
                   <Text style={styles.text_footer}>To</Text>
                   <View style={styles.action}>
-                    <TextInput
-                      placeholder="Your Email"
-                      // style={styles.TextInput}
-                      //   onChangeText={(email) => setEmail(email)}
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details = null) => {
+                        console.log(data, details);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
                     />
                   </View>
                 </View>
@@ -459,6 +478,7 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
+    height: 500,
     shadowOffset: {
       width: 0,
       height: 2,
