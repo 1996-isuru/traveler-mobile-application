@@ -13,6 +13,7 @@ import {
   Pressable,
   Alert,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import colors from "../../assets/asse/colors/colors";
 import profile from "../../assets/asse/images/pic.png";
@@ -29,7 +30,6 @@ import {
   localhost,
   GOOGLE_API_KEY,
 } from "../../constants/index";
-import MapInput from "./TourPlan/AutoCompleteSearch/MapInput";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const TouristHome = ({ navigation }) => {
@@ -38,6 +38,7 @@ const TouristHome = ({ navigation }) => {
   const [userEmail, setEmail] = useState(null);
   const [userName, setUserName] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
 
   //create tour
   const [tourName, setTourName] = useState(null);
@@ -138,6 +139,8 @@ const TouristHome = ({ navigation }) => {
     if (!tourName) {
       Alert.alert("Please fill all fields.");
     } else {
+      setModalVisible(!modalVisible);
+      setIsloadingCreateTour(true);
       fetch(localhost + "/tourplan/checktour", {
         method: "POST",
         headers: {
@@ -164,7 +167,7 @@ const TouristHome = ({ navigation }) => {
                 endLocationLongitude,
               }),
             });
-            setModalVisible(!modalVisible);
+            setIsloadingCreateTour(!modalVisible);
             navigation.navigate("TourPlanMap");
           } else {
             console.log("add tour");
@@ -189,7 +192,7 @@ const TouristHome = ({ navigation }) => {
                 if (result.message === "Tour Name exists") {
                   Alert.alert("Tour Name exists");
                 } else {
-                  setModalVisible(!modalVisible);
+                  setIsloadingCreateTour(!modalVisible);
                   navigation.navigate("TourPlanMap");
                 }
               });
@@ -200,6 +203,32 @@ const TouristHome = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* loading model */}
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isloadingCreateTour}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!isloadingCreateTour);
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              padding: 10,
+            }}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </Modal>
+      </View>
+      {/* loading model */}
+
       {/* Popup when click new tour */}
       <View style={styles.centeredView}>
         <Modal
