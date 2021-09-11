@@ -229,9 +229,10 @@ const TourPlanMap = ({ navigation }) => {
             paddingVertical: 15,
             borderRadius: 50,
           }}
+          onPress={() => navigation.navigate("FinalizeMapView")}
         >
           <Text style style={styles.buttonText}>
-            New Trip
+          Finalize MapView
           </Text>
         </TouchableOpacity>
       </View>

@@ -10,7 +10,7 @@ import {
   GOOGLE_API_KEY,
 } from "../../../../constants/index";
 
-const FinalizeMapView = ({ navigation }) => {
+const FinalizeMapView = () => {
   const mapView = React.useRef();
 
   const [streetName, setStreetName] = React.useState("");
@@ -18,9 +18,9 @@ const FinalizeMapView = ({ navigation }) => {
   const [toLocation, setToLocation] = React.useState(null);
   const [region, setRegion] = React.useState(null);
 
-  const [duration, setDuration] = React.useState(0);
-  const [isReady, setIsReady] = React.useState(false);
-  const [angle, setAngle] = React.useState(0);
+//   const [duration, setDuration] = React.useState(0);
+//   const [isReady, setIsReady] = React.useState(false);
+//   const [angle, setAngle] = React.useState(0);
 
   React.useEffect(() => {
     const initialCurrentLocation = {
@@ -29,15 +29,35 @@ const FinalizeMapView = ({ navigation }) => {
         latitude: 1.5496614931250685,
         longitude: 110.36381866919922,
       },
-      location: {
+      location1: {
         latitude: 1.5347282806345879,
         longitude: 110.35632207358996,
       },
+      location2: {
+        latitude: 1.556306570595712,
+        longitude: 110.35504616746915,
+      },
+      markers: [{
+        title: 'narammala',
+        coordinates: {
+          latitude: 3.148561,
+          longitude: 101.652778
+        },
+      },
+      {
+        title: 'Katupotha',
+        coordinates: {
+          latitude: 3.149771,
+          longitude: 101.655449
+        },  
+      }]
+
     };
 
     let fromLoc = initialCurrentLocation.gps;
-    let toLoc = initialCurrentLocation.location;
+    let toLoc = initialCurrentLocation.location1;
     let street = initialCurrentLocation.streetName;
+    let loc2 = initialCurrentLocation.location2;
 
     let mapRegion = {
       latitude: (fromLoc.latitude + toLoc.latitude) / 2,
@@ -50,18 +70,8 @@ const FinalizeMapView = ({ navigation }) => {
     setFromLocation(fromLoc);
     setToLocation(toLoc);
     setRegion(mapRegion);
+    console.log(streetName);
   }, []);
-
-  function calculateAngle(coordinates) {
-    let startLat = coordinates[0]["latitude"];
-    let startLng = coordinates[0]["longitude"];
-    let endLat = coordinates[1]["latitude"];
-    let endLng = coordinates[1]["longitude"];
-    let dx = endLat - startLat;
-    let dy = endLng - startLng;
-
-    return (Math.atan2(dy, dx) * 180) / Math.PI;
-  }
 
   function renderMap() {
     const destinationMarker = () => (
@@ -104,7 +114,7 @@ const FinalizeMapView = ({ navigation }) => {
         coordinate={fromLocation}
         anchor={{ x: 0.5, y: 0.5 }}
         flat={true}
-        rotation={angle}
+        // rotation={angle}
       >
         <Image
           source={icons.camp}
@@ -131,82 +141,10 @@ const FinalizeMapView = ({ navigation }) => {
             strokeWidth={5}
             strokeColor={COLORS.primary}
             optimizeWaypoints={true}
-            onReady={(result) => {
-              setDuration(result.duration);
-
-              if (!isReady) {
-                // Fit route into maps
-                mapView.current.fitToCoordinates(result.coordinates, {
-                  edgePadding: {
-                    right: SIZES.width / 20,
-                    bottom: SIZES.height / 4,
-                    left: SIZES.width / 20,
-                    top: SIZES.height / 8,
-                  },
-                });
-
-                // Reposition the car
-                let nextLoc = {
-                  latitude: result.coordinates[0]["latitude"],
-                  longitude: result.coordinates[0]["longitude"],
-                };
-
-                if (result.coordinates.length >= 2) {
-                  let angle = calculateAngle(result.coordinates);
-                  setAngle(angle);
-                }
-
-                setFromLocation(nextLoc);
-                setIsReady(true);
-              }
-            }}
           />
           {destinationMarker()}
-          {fromLocation ? carIcon() : null}
+          {carIcon()}
         </MapView>
-      </View>
-    );
-  }
-
-  function renderDestinationHeader() {
-    return (
-      <View
-        style={{
-          position: "absolute",
-          top: 50,
-          left: 0,
-          right: 0,
-          height: 50,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            width: SIZES.width * 0.9,
-            paddingVertical: SIZES.padding,
-            paddingHorizontal: SIZES.padding * 2,
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.white,
-          }}
-        >
-          <Image
-            source={icons.red_pin}
-            style={{
-              width: 30,
-              height: 30,
-              marginRight: SIZES.padding,
-            }}
-          />
-
-          <View style={{ flex: 1 }}>
-            <Text style={{ ...FONTS.body3 }}>{streetName}</Text>
-          </View>
-
-          <Text style={{ ...FONTS.body3 }}>{Math.ceil(duration)} mins</Text>
-        </View>
       </View>
     );
   }
@@ -214,7 +152,6 @@ const FinalizeMapView = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       {renderMap()}
-      {renderDestinationHeader()}
     </View>
   );
 };

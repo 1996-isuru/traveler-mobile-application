@@ -12,7 +12,6 @@ import PreDefineTripDetails from "../screens/pre-define-trip/preDefineTripDetail
 import TouristProfile from "../screens/tourist/TouristProfile";
 import TouristTabNavigator from "./TouristTabNavigator";
 import GuideHome from "../screens/guide/GuideHome";
-// import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
 import GuideProfile from "../screens/guide/GuideProfile.js";
 import GuideTabNavigator from "./GuideTabNavigator.js";
 import GuideBookedDetails from "../screens/guide/GuideBookedDetails.js";
@@ -33,7 +32,7 @@ import ChatScreen from "../screens/group_chat/ChatScreen";
 import PlanedTours from "../screens/tourist/TourPlan/PlanedTours/PlanedTours.js";
 import SharedTourPost from "../screens/SharedTourPost.js/SharedTourPosts.js";
 import ChatList from "../screens/group_chat/ChatList.js";
-// import { StripeProvider } from "@stripe/stripe-react-native";
+import FinalizeMapView from "../screens/tourist/TourPlan/FInalMap/FinalizeMapView.js";
 const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
@@ -212,6 +211,11 @@ const AppNavContainer = () => {
                     name="SharedTourPost"
                     component={SharedTourPost}
                   />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="FinalizeMapView"
+                    component={FinalizeMapView}
+                  />
 
                   {/* Planed Tours */}
                 </>
@@ -351,6 +355,11 @@ const AppNavContainer = () => {
                         name="SharedTourPost"
                         component={SharedTourPost}
                       />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="FinalizeMapView"
+                        component={FinalizeMapView}
+                      />
                       {/* Planed Tours */}
                     </>
                   ) : (
@@ -486,6 +495,11 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="SharedTourPost"
                         component={SharedTourPost}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="FinalizeMapView"
+                        component={FinalizeMapView}
                       />
                       {/* Planed Tours */}
                     </>
@@ -626,6 +640,11 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="SharedTourPost"
                 component={SharedTourPost}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="FinalizeMapView"
+                component={FinalizeMapView}
               />
               {/* Planed Tours */}
             </>
