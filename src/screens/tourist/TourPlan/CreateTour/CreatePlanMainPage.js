@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import {
-  icons,
   images,
   SIZES,
   COLORS,
   FONTS,
+  localhost,
+  GOOGLE_API_KEY,
 } from "../../../../constants/index";
 import {
   View,
@@ -14,15 +15,19 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
-  ImageBackground,
+  ActivityIndicator,
   SafeAreaView,
   Button,
+  Modal,
+  Pressable,
+  Alert,
 } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import colors from "../../../../assets/asse/colors/colors";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const prePlanTripData = [
   {
-    id: 1,
+    id: 11,
     name: "Colombo to Jaffa",
     photo: images.trip1,
     duration: "3 Days",
@@ -44,7 +49,7 @@ const prePlanTripData = [
     ],
   },
   {
-    id: 2,
+    id: 22,
     name: "Colombo To NuwaEliya",
     photo: images.trip4,
     duration: "2 Days",
@@ -68,103 +73,183 @@ const prePlanTripData = [
       },
     ],
   },
-  {
-    id: 3,
-    name: "Colombo to Kandy",
-    photo: images.trip4,
-    duration: "4 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5238753474714375,
-      longitude: 110.34261833833622,
-    },
-    photo: [
-      {
-        photo: images.trip7,
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "Colombo to Anuradhapura",
-    photo: images.trip8,
-    duration: "2 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5578068150528928,
-      longitude: 110.35482523764315,
-    },
-    photo: [
-      {
-        photo: images.sushi,
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Colombo to Katharagama",
-    photo: images.trip11,
-    duration: "5 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.558050496260768,
-      longitude: 110.34743759630511,
-    },
-    photo: [
-      {
-        photo: images.trip12,
-      },
-      {
-        photo: images.trip11,
-      },
-      {
-        photo: images.trip10,
-      },
-      {
-        photo: images.trip9,
-      },
-    ],
-  },
-  {
-    id: 6,
-    name: "Kurunegala to Mathara",
-    photo: images.trip9,
-    duration: "5 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5573478487252896,
-      longitude: 110.35568783282145,
-    },
-    photo: [
-      {
-        photo: images.trip1,
-      },
-      {
-        photo: images.trip2,
-      },
-      {
-        photo: images.trip12,
-      },
-    ],
-  },
 ];
 
 const TourPlanMap = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [restaurants, setRestaurants] = useState(prePlanTripData);
 
+  //add location
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
+
+  function popUpAddLocation() {
+    const AddLocation = () => {
+      Alert.alert("ssssssss");
+    };
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  marginTop: -10,
+                  marginLeft: 260,
+                  fontSize: 25,
+                }}
+              >
+                X
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  textAlign: "center",
+                  fontSize: 30,
+                  marginTop: -130,
+                }}
+              >
+                Tour Details
+              </Text>
+              <View style={{ flex: 1, paddingTop: 20 }}>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>Add Location: </Text>
+                  <View style={styles.action}>
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details = null) => {
+                        console.log(data, details);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={AddLocation}
+            >
+              <Text style={styles.textStyle}>Add Location</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+
+  function LoadingIcon() {
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isloadingCreateTour}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!isloadingCreateTour);
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              padding: 10,
+            }}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+  //add location
+
+  function renderMainButton() {
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 10,
+            marginTop: 20,
+            marginBottom: 20,
+            backgroundColor: colors.blue,
+            // marginLeft: 20,
+            // alignItems: "center",
+            paddingVertical: 15,
+          }}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style style={styles.buttonText}>
+            Add New Location
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 30,
+            marginTop: 20,
+            marginBottom: 20,
+            backgroundColor: colors.blue,
+            // alignItems: "center",
+            // marginRight: 10,
+            paddingVertical: 15,
+          }}
+          onPress={() => navigation.navigate("ChatScreen")}
+        >
+          <Text style style={styles.buttonText}>
+            Group Chat
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 20,
+            marginTop: 20,
+            marginBottom: 20,
+            backgroundColor: colors.blue,
+            // alignItems: "center",
+            // marginRight: 10,
+            paddingVertical: 15,
+            borderRadius: 50,
+          }}
+        >
+          <Text style style={styles.buttonText}>
+            New Trip
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   //renderMainCategory function start
   function renderMainCategories() {
     return (
-      <View style={{ padding: SIZES.padding * 2, marginTop: 25 }}>
+      <View style={{ padding: SIZES.padding * 2 }}>
         <Text style={{ ...FONTS.h2, textAlign: "center" }}>Plan your tour</Text>
       </View>
     );
   }
 
-  function renderRestaurantList() {
+  function renderLocationList() {
     const renderItem = ({ item }) => (
-      <TouchableOpacity
+      <View
         style={{
           marginBottom: SIZES.padding * 2,
           flex: 1,
@@ -176,9 +261,6 @@ const TourPlanMap = ({ navigation }) => {
           marginRight: 5,
           borderRadius: 30,
           marginTop: 20,
-        }}
-        onPress={() => {
-          navigation.navigate("PreDefineTripDetails");
         }}
       >
         {/* trip info */}
@@ -204,7 +286,7 @@ const TourPlanMap = ({ navigation }) => {
             title="Remove"
           ></Button>
         </View>
-      </TouchableOpacity>
+      </View>
     );
 
     return (
@@ -224,7 +306,10 @@ const TourPlanMap = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       {renderMainCategories()}
-      {renderRestaurantList()}
+      {renderMainButton()}
+      {renderLocationList()}
+      {popUpAddLocation()}
+      {LoadingIcon()}
     </SafeAreaView>
   );
 };
@@ -249,6 +334,76 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 1,
   },
+
+  //Add location
+  action: {
+    flexDirection: "row",
+    marginTop: 10,
+    borderBottomWidth: 1,
+    // borderBottomColor: "#f2f2f2",
+    paddingBottom: 0,
+  },
+  textInput: {
+    marginTop: Platform.OS === "ios" ? 0 : 12,
+    paddingLeft: 10,
+    color: "#05375a",
+  },
+  footer: {
+    flex: Platform.OS === "ios" ? 3 : 5,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 30,
+    paddingVertical: 150,
+  },
+  text_footer: {
+    color: "#05375a",
+    fontSize: 18,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    marginTop: 130,
+    margin: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    height: 500,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  //Add location
 });
 
 export default TourPlanMap;

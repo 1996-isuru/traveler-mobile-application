@@ -73,7 +73,7 @@ const PlanedTours = ({ navigation }) => {
         renderItem={({ item }) => (
           <Card
             onPress={() =>
-              navigation.navigate("ChatScreen", { userName: item.userName })
+              navigation.navigate("TourPlanMap", { userName: item.userName })
             }
           >
             <UserInfo>
