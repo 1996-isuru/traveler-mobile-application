@@ -57,7 +57,7 @@ const FinalizeMapView = () => {
     let fromLoc = initialCurrentLocation.gps;
     let toLoc = initialCurrentLocation.location1;
     let street = initialCurrentLocation.streetName;
-    let loc2 = initialCurrentLocation.location2;
+    // let loc2 = initialCurrentLocation.location2;
 
     let mapRegion = {
       latitude: (fromLoc.latitude + toLoc.latitude) / 2,

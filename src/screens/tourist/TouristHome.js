@@ -31,6 +31,7 @@ import {
   GOOGLE_API_KEY,
 } from "../../constants/index";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Geocoder from "react-native-geocoding";
 
 const TouristHome = ({ navigation }) => {
   //getting async storage data
@@ -42,13 +43,12 @@ const TouristHome = ({ navigation }) => {
 
   //create tour
   const [tourName, setTourName] = useState(null);
-  const [startLocationName, setStartLocationName] = useState("lllllll");
-  const [startLocationLatitude, setStartLocationLatitude] = useState("lllllll");
-  const [startLocationLongitude, setStartLocatinLongitude] =
-    useState("lllllll");
-  const [endLocationName, setEndLocationName] = useState("lllllll");
-  const [endLocationLatitude, setEndLocationLatitude] = useState("lllllll");
-  const [endLocationLongitude, setEndLocatinLongitude] = useState("lllllll");
+  const [startLocationName, setStartLocationName] = useState(null);
+  const [startLocationLatitude, setStartLocationLatitude] = useState(null);
+  const [startLocationLongitude, setStartLocatinLongitude] = useState(null);
+  const [endLocationName, setEndLocationName] = useState(null);
+  const [endLocationLatitude, setEndLocationLatitude] = useState(null);
+  const [endLocationLongitude, setEndLocatinLongitude] = useState(null);
 
   useEffect(() => {
     getData();
@@ -201,6 +201,34 @@ const TouristHome = ({ navigation }) => {
     }
   };
 
+  //get geocode
+  function geocodeStartLocation(data) {
+    setStartLocationName(data.description);
+    Geocoder.init(GOOGLE_API_KEY);
+    // Search by address
+    Geocoder.from(data.description)
+      .then((json) => {
+        var location = json.results[0].geometry.location;
+        console.log(location);
+        setStartLocationLatitude(location.lat);
+        setStartLocatinLongitude(location.lng);
+      })
+      .catch((error) => console.warn(error));
+  }
+  function geocodeEndLocation(data) {
+    setEndLocationName(data.description);
+    Geocoder.init(GOOGLE_API_KEY);
+    // Search by address
+    Geocoder.from(data.description)
+      .then((json) => {
+        var location = json.results[0].geometry.location;
+        console.log(location);
+        setEndLocationLatitude(location.lat);
+        setEndLocatinLongitude(location.lng);
+      })
+      .catch((error) => console.warn(error));
+  }
+
   return (
     <View style={styles.container}>
       {/* loading model */}
@@ -282,8 +310,8 @@ const TouristHome = ({ navigation }) => {
                   <View style={styles.action}>
                     <GooglePlacesAutocomplete
                       placeholder="Search"
-                      onPress={(data, details = null) => {
-                        console.log(data, details);
+                      onPress={(data, details) => {
+                        geocodeEndLocation(data);
                       }}
                       query={{
                         key: GOOGLE_API_KEY,
@@ -297,8 +325,8 @@ const TouristHome = ({ navigation }) => {
                   <View style={styles.action}>
                     <GooglePlacesAutocomplete
                       placeholder="Search"
-                      onPress={(data, details = null) => {
-                        console.log(data, details);
+                      onPress={(data, details) => {
+                        geocodeStartLocation(data);
                       }}
                       query={{
                         key: GOOGLE_API_KEY,
