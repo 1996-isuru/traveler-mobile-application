@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   images,
   SIZES,
@@ -24,7 +24,8 @@ import {
 } from "react-native";
 import colors from "../../../../assets/asse/colors/colors";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Geocoder from "react-native-geocoding";
 const prePlanTripData = [
   {
     id: 11,
@@ -76,16 +77,82 @@ const prePlanTripData = [
 ];
 
 const TourPlanMap = ({ navigation }) => {
+  //getting async storage data
+  const [userToken, setToken] = useState(null);
+  const [userEmail, setEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const userName = await AsyncStorage.getItem("userName");
+      const email = await AsyncStorage.getItem("userEmail");
+
+      setToken(token);
+      setEmail(email);
+      setUserName(userName);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //getting async storage data
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [restaurants, setRestaurants] = useState(prePlanTripData);
+  const [tourName, setTourName] = useState("nuwaraeli");
 
   //add location
   const [modalVisible, setModalVisible] = useState(false);
   const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
+  const [selectLocationName, setSelectLocationName] = useState(null);
+  const [selectLocationLatitude, setSelectLocationLatitude] = useState(null);
+  const [selectLocationLongitude, setSelectLocatinLongitude] = useState(null);
 
   function popUpAddLocation() {
-    const AddLocation = () => {
-      Alert.alert("ssssssss");
+    //get geocode
+    function geocodeSelectLocation(data) {
+      Geocoder.init(GOOGLE_API_KEY);
+      // Search by address
+      Geocoder.from(data.description)
+        .then((json) => {
+          var location = json.results[0].geometry.location;
+          console.log(location);
+          setSelectLocationLatitude(location.lat);
+          setSelectLocatinLongitude(location.lng);
+        })
+        .catch((error) => console.warn(error));
+    }
+    const AddLocation = async () => {
+      if (!selectLocationName) {
+        Alert.alert("Enter Location Name");
+      } else {
+        console.log("Add Location");
+
+        fetch(localhost + "/tourplan/addnewlocation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail,
+            tourName,
+            selectLocationName,
+            selectLocationLatitude,
+            selectLocationLongitude,
+          }),
+        })
+          .then((res) => res.json())
+          .then(async (result) => {
+            if (result.message === "Tour Location already added") {
+              Alert.alert("Tour Location already added");
+            } else {
+              setModalVisible(false);
+            }
+          });
+      }
     };
     return (
       <View style={styles.centeredView}>
@@ -122,16 +189,17 @@ const TourPlanMap = ({ navigation }) => {
                   marginTop: -130,
                 }}
               >
-                Tour Details
+                Add Location
               </Text>
               <View style={{ flex: 1, paddingTop: 20 }}>
                 <View style={{ paddingTop: 10 }}>
-                  <Text style={styles.text_footer}>Add Location: </Text>
+                  <Text style={styles.text_footer}>Location: </Text>
                   <View style={styles.action}>
                     <GooglePlacesAutocomplete
                       placeholder="Search"
                       onPress={(data, details = null) => {
-                        console.log(data, details);
+                        setSelectLocationName(data.description);
+                        geocodeSelectLocation(data);
                       }}
                       query={{
                         key: GOOGLE_API_KEY,
@@ -232,7 +300,7 @@ const TourPlanMap = ({ navigation }) => {
           onPress={() => navigation.navigate("FinalizeMapView")}
         >
           <Text style style={styles.buttonText}>
-          Finalize MapView
+            Finalize MapView
           </Text>
         </TouchableOpacity>
       </View>

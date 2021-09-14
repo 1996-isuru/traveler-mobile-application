@@ -170,7 +170,7 @@ const TouristHome = ({ navigation }) => {
             setIsloadingCreateTour(!modalVisible);
             navigation.navigate("TourPlanMap");
           } else {
-            console.log("add tour");
+            console.log("Already Created");
             fetch(localhost + "/tourplan/addtour", {
               method: "POST",
               headers: {
@@ -190,6 +190,7 @@ const TouristHome = ({ navigation }) => {
               .then((res) => res.json())
               .then(async (result) => {
                 if (result.message === "Tour Name exists") {
+                  setIsloadingCreateTour(!modalVisible);
                   Alert.alert("Tour Name exists");
                 } else {
                   setIsloadingCreateTour(!modalVisible);
@@ -216,7 +217,7 @@ const TouristHome = ({ navigation }) => {
       .catch((error) => console.warn(error));
   }
   function geocodeEndLocation(data) {
-    setEndLocationName(data.description);
+    setEndLocationName(data.description );
     Geocoder.init(GOOGLE_API_KEY);
     // Search by address
     Geocoder.from(data.description)
