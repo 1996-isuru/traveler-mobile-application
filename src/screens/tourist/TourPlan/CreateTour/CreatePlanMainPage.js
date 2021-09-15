@@ -81,6 +81,8 @@ const TourPlanMap = ({ navigation }) => {
   const [userToken, setToken] = useState(null);
   const [userEmail, setEmail] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [tourId, setTourId] = useState(null);
+  const [tourprofileid, settourprofileid] = useState(null);
   useEffect(() => {
     getData();
   }, []);
@@ -90,10 +92,15 @@ const TourPlanMap = ({ navigation }) => {
       const token = await AsyncStorage.getItem("token");
       const userName = await AsyncStorage.getItem("userName");
       const email = await AsyncStorage.getItem("userEmail");
-
+      const tripid = await AsyncStorage.getItem("tourObject");
+      const tourprofileidd = await AsyncStorage.getItem("tourprofileid");
+      console.log(tripid);
+      console.log(tourprofileidd);
+      setTourId(tripid);
       setToken(token);
       setEmail(email);
       setUserName(userName);
+      settourprofileid(tourprofileidd);
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +109,7 @@ const TourPlanMap = ({ navigation }) => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [restaurants, setRestaurants] = useState(prePlanTripData);
-  const [tourName, setTourName] = useState("nuwaraeli");
+  const [tourName, setTourName] = useState("laol");
 
   //add location
   const [modalVisible, setModalVisible] = useState(false);
@@ -137,6 +144,8 @@ const TourPlanMap = ({ navigation }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            tourId,
+            tourprofileid,
             userEmail,
             tourName,
             selectLocationName,
@@ -146,10 +155,10 @@ const TourPlanMap = ({ navigation }) => {
         })
           .then((res) => res.json())
           .then(async (result) => {
-            if (result.message === "Tour Location already added") {
-              Alert.alert("Tour Location already added");
-            } else {
+            if (result.message === "Location added") {
               setModalVisible(false);
+            } else {
+              Alert.alert("Tour Location already added");
             }
           });
       }

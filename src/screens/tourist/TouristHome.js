@@ -166,9 +166,26 @@ const TouristHome = ({ navigation }) => {
                 endLocationLatitude,
                 endLocationLongitude,
               }),
-            });
-            setIsloadingCreateTour(!modalVisible);
-            navigation.navigate("TourPlanMap");
+            })
+              .then((res) => res.json())
+              .then(async (result) => {
+                // let count = result.result.tours.length;
+                // let co = parseInt(count)
+                // console.log(result.result._id);
+                // console.log(result.result.tours[0]._id);
+                let tour_object_id = result.tourid;
+                let tour_profile_id = result.tourprofileid;
+                console.log(tour_object_id);
+                console.log(tour_profile_id);
+                try {
+                  await AsyncStorage.setItem("tourObjectid", tour_object_id);
+                  await AsyncStorage.setItem("tourprofileid", tour_profile_id);
+                  setIsloadingCreateTour(!modalVisible);
+                  navigation.navigate("TourPlanMap");
+                } catch (error) {
+                  // Error saving data
+                }
+              });
           } else {
             console.log("Already Created");
             fetch(localhost + "/tourplan/addtour", {
@@ -193,8 +210,21 @@ const TouristHome = ({ navigation }) => {
                   setIsloadingCreateTour(!modalVisible);
                   Alert.alert("Tour Name exists");
                 } else {
-                  setIsloadingCreateTour(!modalVisible);
-                  navigation.navigate("TourPlanMap");
+                  let object_id = result.tourid;
+                  let tour_profile_id = result.tourprofileid;
+                  console.log(object_id);
+                  console.log(tour_profile_id);
+                  try {
+                    await AsyncStorage.setItem("tourObject", object_id);
+                    await AsyncStorage.setItem(
+                      "tourprofileid",
+                      tour_profile_id
+                    );
+                    setIsloadingCreateTour(!modalVisible);
+                    navigation.navigate("TourPlanMap");
+                  } catch (error) {
+                    // Error saving data
+                  }
                 }
               });
           }
@@ -217,7 +247,7 @@ const TouristHome = ({ navigation }) => {
       .catch((error) => console.warn(error));
   }
   function geocodeEndLocation(data) {
-    setEndLocationName(data.description );
+    setEndLocationName(data.description);
     Geocoder.init(GOOGLE_API_KEY);
     // Search by address
     Geocoder.from(data.description)
