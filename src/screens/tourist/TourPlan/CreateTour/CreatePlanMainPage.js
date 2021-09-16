@@ -76,7 +76,7 @@ const prePlanTripData = [
   },
 ];
 
-const TourPlanMap = ({ navigation }) => {
+const TourPlanMap = ({ route, navigation }) => {
   //getting async storage data
   const [userToken, setToken] = useState(null);
   const [userEmail, setEmail] = useState(null);
@@ -84,6 +84,10 @@ const TourPlanMap = ({ navigation }) => {
   const [tourId, setTourId] = useState(null);
   const [tourprofileid, settourprofileid] = useState(null);
   useEffect(() => {
+    let { object_id, tour_profile_id } = route.params;
+    setTourId(object_id);
+    settourprofileid(tour_profile_id);
+    // console.log(tourId);
     getData();
   }, []);
 
@@ -92,15 +96,14 @@ const TourPlanMap = ({ navigation }) => {
       const token = await AsyncStorage.getItem("token");
       const userName = await AsyncStorage.getItem("userName");
       const email = await AsyncStorage.getItem("userEmail");
-      const tripid = await AsyncStorage.getItem("tourObject");
-      const tourprofileidd = await AsyncStorage.getItem("tourprofileid");
-      console.log(tripid);
-      console.log(tourprofileidd);
-      setTourId(tripid);
+      // const tripid = await AsyncStorage.getItem("tourObject");
+      // const tourprofileidd = await AsyncStorage.getItem("tourprofileid");
+      // console.log(tripid);
+      // console.log(tourprofileidd);
+
       setToken(token);
       setEmail(email);
       setUserName(userName);
-      settourprofileid(tourprofileidd);
     } catch (error) {
       console.log(error);
     }

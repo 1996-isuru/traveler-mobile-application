@@ -175,16 +175,20 @@ const TouristHome = ({ navigation }) => {
                 // console.log(result.result.tours[0]._id);
                 let tour_object_id = result.tourid;
                 let tour_profile_id = result.tourprofileid;
-                console.log(tour_object_id);
-                console.log(tour_profile_id);
-                try {
-                  await AsyncStorage.setItem("tourObjectid", tour_object_id);
-                  await AsyncStorage.setItem("tourprofileid", tour_profile_id);
-                  setIsloadingCreateTour(!modalVisible);
-                  navigation.navigate("TourPlanMap");
-                } catch (error) {
-                  // Error saving data
-                }
+                // console.log(tour_object_id);
+                // console.log(tour_profile_id);
+                navigation.navigate("TourPlanMap", {
+                  object_id,
+                  tour_profile_id,
+                });
+                // try {
+                //   await AsyncStorage.setItem("tourObjectid", tour_object_id);
+                //   await AsyncStorage.setItem("tourprofileid", tour_profile_id);
+                //   setIsloadingCreateTour(!modalVisible);
+                //   navigation.navigate("TourPlanMap");
+                // } catch (error) {
+                //   // Error saving data
+                // }
               });
           } else {
             console.log("Already Created");
@@ -212,19 +216,23 @@ const TouristHome = ({ navigation }) => {
                 } else {
                   let object_id = result.tourid;
                   let tour_profile_id = result.tourprofileid;
-                  console.log(object_id);
-                  console.log(tour_profile_id);
-                  try {
-                    await AsyncStorage.setItem("tourObject", object_id);
-                    await AsyncStorage.setItem(
-                      "tourprofileid",
-                      tour_profile_id
-                    );
-                    setIsloadingCreateTour(!modalVisible);
-                    navigation.navigate("TourPlanMap");
-                  } catch (error) {
-                    // Error saving data
-                  }
+                  // console.log(object_id);
+                  // console.log(tour_profile_id);
+                  navigation.navigate("TourPlanMap", {
+                    object_id,
+                    tour_profile_id,
+                  });
+                  // try {
+                  //   await AsyncStorage.setItem("tourObject", object_id);
+                  //   await AsyncStorage.setItem(
+                  //     "tourprofileid",
+                  //     tour_profile_id
+                  //   );
+                  //   setIsloadingCreateTour(!modalVisible);
+                  //   // navigation.navigate("TourPlanMap");
+                  // } catch (error) {
+                  //   // Error saving data
+                  // }
                 }
               });
           }
@@ -420,9 +428,11 @@ const TouristHome = ({ navigation }) => {
                 paddingVertical: 15,
                 borderRadius: 10,
               }}
-              onPress={() => navigation.navigate("PlanedTours", {
-                    userEmail
-                })}
+              onPress={() =>
+                navigation.navigate("PlanedTours", {
+                  userEmail,
+                })
+              }
             >
               <Text style style={styles.buttonText}>
                 Trip List
