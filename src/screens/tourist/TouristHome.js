@@ -34,10 +34,6 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import Geocoder from "react-native-geocoding";
 
 const TouristHome = ({ navigation }) => {
-  //getting async storage data
-  const [userToken, setToken] = useState(null);
-  const [userEmail, setEmail] = useState(null);
-  const [userName, setUserName] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
 
@@ -50,6 +46,10 @@ const TouristHome = ({ navigation }) => {
   const [endLocationLatitude, setEndLocationLatitude] = useState(null);
   const [endLocationLongitude, setEndLocatinLongitude] = useState(null);
 
+  //getting async storage data
+  const [userToken, setToken] = useState(null);
+  const [userEmail, setEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
   useEffect(() => {
     getData();
   }, []);
@@ -398,10 +398,10 @@ const TouristHome = ({ navigation }) => {
                 marginTop: 20,
                 marginBottom: 20,
                 backgroundColor: colors.darkBlue,
-                marginLeft: 20,
+                marginLeft: 30,
                 // alignItems: "center",
                 paddingVertical: 15,
-                borderRadius: 50,
+                borderRadius: 10,
               }}
               onPress={() => setModalVisible(true)}
             >
@@ -418,12 +418,14 @@ const TouristHome = ({ navigation }) => {
                 // alignItems: "center",
                 marginRight: 10,
                 paddingVertical: 15,
-                borderRadius: 50,
+                borderRadius: 10,
               }}
-              onPress={() => navigation.navigate("PlanedTours")}
+              onPress={() => navigation.navigate("PlanedTours", {
+                    userEmail
+                })}
             >
               <Text style style={styles.buttonText}>
-                New Trip
+                Trip List
               </Text>
             </TouchableOpacity>
           </View>

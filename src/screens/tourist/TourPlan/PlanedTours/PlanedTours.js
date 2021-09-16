@@ -1,5 +1,15 @@
-import React from "react";
-import { View, Text, Button, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  Alert,
+  ActivityIndicator,
+  SafeAreaView,
+  Modal,
+} from "react-native";
 import {
   Container,
   Card,
@@ -64,35 +74,126 @@ const Messages = [
   },
 ];
 
-const PlanedTours = ({ navigation }) => {
-  return (
-    <Container>
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const PlanedTours = ({ route, navigation }) => {
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
+
+  //getting async storage data
+  const [userEmail, setEmail] = useState(null);
+  const [receivedTripList, setReceivedTripList] = useState(null);
+  useEffect(() => {
+    getroutedata();
+  }, [getroutedata]);
+  //getting async storage data
+
+  const getroutedata = async () => {
+    let { userEmail } = route.params;
+    setEmail(userEmail);
+    console.log("s");
+    console.log(userEmail);
+    fetch(localhost + "/tourplan/showtourlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userEmail,
+      }),
+    })
+      .then((res) => res.json())
+      .then(async (result) => {
+        if (result.message === "No created tours") {
+          setIsloadingCreateTour(false);
+          Alert.alert("No created tours");
+        } else {
+          // console.log(result.message._id);
+          setReceivedTripList(result.message.tours);
+          if (setIsloadingCreateTour) {
+            setIsloadingCreateTour(false);
+            // Alert.alert("have a create tour");
+          }
+        }
+      });
+  };
+
+  //tourlist function
+  function rendertourList() {
+    // console.log("kkkkkkkkkkk");
+    // console.log(receivedTripList);
+    const renderItem = ({ item }) => (
+      <Container>
+        <Card
+          onPress={() =>
+            navigation.navigate("TourPlanMap", { userName: item.planTourName })
+          }
+        >
+          <UserInfo>
+            <UserImgWrapper>
+              <UserImg source={images.avatar_1} />
+            </UserImgWrapper>
+            <TextSection>
+              <UserInfoText>
+                <UserName>{item.planTourName}</UserName>
+                <PostTime>{item.planTourName}</PostTime>
+              </UserInfoText>
+              <MessageText>{item.planTourName}</MessageText>
+            </TextSection>
+          </UserInfo>
+        </Card>
+      </Container>
+    );
+
+    return (
       <FlatList
-        data={Messages}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Card
-            onPress={() =>
-              navigation.navigate("TourPlanMap", { userName: item.userName })
-            }
-          >
-            <UserInfo>
-              <UserImgWrapper>
-                <UserImg source={images.avatar_1} />
-              </UserImgWrapper>
-              <TextSection>
-                <UserInfoText>
-                  <UserName>{item.userName}</UserName>
-                  <PostTime>{item.messageTime}</PostTime>
-                </UserInfoText>
-                <MessageText>{item.messageText}</MessageText>
-              </TextSection>
-            </UserInfo>
-          </Card>
-        )}
+        data={receivedTripList}
+        keyExtractor={(item) => item._id}
+        renderItem={renderItem}
       />
-    </Container>
+    );
+  }
+
+  function LoadingIcon() {
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isloadingCreateTour}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              padding: 10,
+            }}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+  return (
+    <SafeAreaView style={styles.container}>
+      {rendertourList()}
+      {LoadingIcon()}
+    </SafeAreaView>
   );
 };
 
 export default PlanedTours;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#DDFCFF",
+    flex: 1,
+    justifyContent: "space-between",
+    padding: 20,
+    margin: 10,
+    borderColor: "#000080",
+  },
+  //Add location
+});
