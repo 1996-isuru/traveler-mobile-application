@@ -78,6 +78,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PlanedTours = ({ route, navigation }) => {
   const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
+  const [tourprofileid, settourprofileid] = useState(null);
 
   //getting async storage data
   const [userEmail, setEmail] = useState(null);
@@ -107,6 +108,7 @@ const PlanedTours = ({ route, navigation }) => {
           setIsloadingCreateTour(false);
           Alert.alert("No created tours");
         } else {
+          settourprofileid(result.message._id);
           // console.log(result.message._id);
           setReceivedTripList(result.message.tours);
           if (setIsloadingCreateTour) {
@@ -124,9 +126,11 @@ const PlanedTours = ({ route, navigation }) => {
     const renderItem = ({ item }) => (
       <Container>
         <Card
-          onPress={() =>
-            navigation.navigate("TourPlanMap", { userName: item.planTourName })
-          }
+          onPress={() => {
+            let object_id = item._id;
+            // console.log(object_id);
+            navigation.navigate("TourPlanMap", { object_id, tourprofileid });
+          }}
         >
           <UserInfo>
             <UserImgWrapper>

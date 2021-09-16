@@ -84,10 +84,12 @@ const TourPlanMap = ({ route, navigation }) => {
   const [tourId, setTourId] = useState(null);
   const [tourprofileid, settourprofileid] = useState(null);
   useEffect(() => {
-    let { object_id, tour_profile_id } = route.params;
+    let { object_id, tourprofileid } = route.params;
+    console.log(object_id);
     setTourId(object_id);
-    settourprofileid(tour_profile_id);
-    // console.log(tourId);
+    settourprofileid(tourprofileid);
+    console.log(tourId);
+    // console.log(tourprofileid)
     getData();
   }, []);
 
