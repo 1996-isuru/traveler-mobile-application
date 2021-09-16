@@ -173,13 +173,13 @@ const TouristHome = ({ navigation }) => {
                 // let co = parseInt(count)
                 // console.log(result.result._id);
                 // console.log(result.result.tours[0]._id);
-                let tour_object_id = result.tourid;
-                let tour_profile_id = result.tourprofileid;
-                // console.log(tour_object_id);
-                // console.log(tour_profile_id);
+                let object_id = result.tourid;
+                let tourprofileid = result.tourprofileid;
+                console.log(tour_object_id);
+                console.log(tourprofileid);
                 navigation.navigate("TourPlanMap", {
                   object_id,
-                  tour_profile_id,
+                  tourprofileid,
                 });
                 // try {
                 //   await AsyncStorage.setItem("tourObjectid", tour_object_id);
@@ -215,12 +215,13 @@ const TouristHome = ({ navigation }) => {
                   Alert.alert("Tour Name exists");
                 } else {
                   let object_id = result.tourid;
-                  let tour_profile_id = result.tourprofileid;
+                  let tourprofileid = result.tourprofileid;
                   // console.log(object_id);
-                  // console.log(tour_profile_id);
+                  // console.log(tourprofileid);
+                  setIsloadingCreateTour(!modalVisible);
                   navigation.navigate("TourPlanMap", {
                     object_id,
-                    tour_profile_id,
+                    tourprofileid,
                   });
                   // try {
                   //   await AsyncStorage.setItem("tourObject", object_id);
@@ -248,7 +249,7 @@ const TouristHome = ({ navigation }) => {
     Geocoder.from(data.description)
       .then((json) => {
         var location = json.results[0].geometry.location;
-        console.log(location);
+        // console.log(location);
         setStartLocationLatitude(location.lat);
         setStartLocatinLongitude(location.lng);
       })

@@ -131,7 +131,7 @@ const TourPlanMap = ({ route, navigation }) => {
       Geocoder.from(data.description)
         .then((json) => {
           var location = json.results[0].geometry.location;
-          console.log(location);
+          // console.log(location);
           setSelectLocationLatitude(location.lat);
           setSelectLocatinLongitude(location.lng);
         })
