@@ -252,7 +252,7 @@ const FinalizeMapView = ({ route, navigation }) => {
           }}
         >
           <Image
-            source={icons.red_pin}
+            source={icons.book}
             style={{
               width: 30,
               height: 30,
@@ -267,21 +267,6 @@ const FinalizeMapView = ({ route, navigation }) => {
           <Text style={{ ...FONTS.body3 }}>{Math.ceil(duration)} mins</Text>
         </View>
       </View>
-    );
-  }
-
-  function renderDeliveryInfo() {
-    return (
-      <View
-        style={{
-          position: "absolute",
-          bottom: 50,
-          left: 0,
-          right: 0,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      ></View>
     );
   }
 
@@ -334,7 +319,6 @@ const FinalizeMapView = ({ route, navigation }) => {
     <View style={{ flex: 1 }}>
       {renderMap()}
       {renderDestinationHeader()}
-      {renderDeliveryInfo()}
       {renderButtons()}
     </View>
   );
