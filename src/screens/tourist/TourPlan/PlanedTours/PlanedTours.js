@@ -91,8 +91,8 @@ const PlanedTours = ({ route, navigation }) => {
   const getroutedata = async () => {
     let { userEmail } = route.params;
     setEmail(userEmail);
-    console.log("s");
-    console.log(userEmail);
+    // console.log("s");
+    // console.log(userEmail);
     fetch(localhost + "/tourplan/showtourlist", {
       method: "POST",
       headers: {
@@ -204,6 +204,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-  }
+  },
   //Add location
 });

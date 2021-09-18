@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -79,12 +79,23 @@ const FinalizeMapView = ({ route, navigation }) => {
   const [fromLocation, setFromLocation] = React.useState(null);
   const [toLocation, setToLocation] = React.useState(null);
   const [region, setRegion] = React.useState(null);
-
   const [duration, setDuration] = React.useState(0);
   const [isReady, setIsReady] = React.useState(false);
   // const [angle, setAngle] = React.useState(0);
 
+  //route data
+  const [tourId, setTourId] = useState(null);
+  const [tourprofileid, settourprofileid] = useState(null);
+
   React.useEffect(() => {
+    //route data fetch
+    let { tourId, tourprofileid } = route.params;
+    setTourId(tourId);
+    settourprofileid(tourprofileid);
+    console.log("object_id", tourId);
+    console.log("tourprofileid", tourprofileid);
+    //route data fetch
+
     let fromLoc = currentLocation.gps;
     let toLoc = restaurantt.location;
     let street = currentLocation.streetName;
@@ -101,7 +112,34 @@ const FinalizeMapView = ({ route, navigation }) => {
     setFromLocation(fromLoc);
     setToLocation(toLoc);
     setRegion(mapRegion);
+
+    // get render details
+    getMapDetails();
   }, []);
+
+  const getMapDetails = async () => {
+    fetch(localhost + "/tourplan/rendermap", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tourId,
+        tourprofileid,
+      }),
+    })
+      .then((res) => res.json())
+      .then(async (result) => {
+        if (result.message === "get_map_details") {
+          console.log(result);
+          // setIsloadingCreateTour(false);
+          console.log(result);
+        } else {
+          console.log(result);
+          Alert.alert("No created tours");
+        }
+      });
+  };
 
   function zoomIn() {
     let newRegion = {
@@ -128,8 +166,10 @@ const FinalizeMapView = ({ route, navigation }) => {
   }
 
   function renderMap() {
-    console.log("ddd", toLocation);
-    console.log("from location", fromLocation);
+    // console.log(tourId);
+    // console.log(tourprofileid);
+    // console.log("ddd", toLocation);
+    // console.log("from location", fromLocation);
     const destinationMarker = () => (
       <Marker coordinate={toLocation}>
         <View
@@ -316,8 +356,6 @@ const FinalizeMapView = ({ route, navigation }) => {
       </View>
     );
   }
-
-
 
   return (
     <View style={{ flex: 1 }}>

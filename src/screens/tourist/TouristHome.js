@@ -175,9 +175,9 @@ const TouristHome = ({ navigation }) => {
                 // console.log(result.result.tours[0]._id);
                 let object_id = result.tourid;
                 let tourprofileid = result.tourprofileid;
-                console.log("tourhome");
-                console.log(tour_object_id);
-                console.log(tourprofileid);
+                // console.log("tourhome");
+                // console.log(tour_object_id);
+                // console.log(tourprofileid);
                 navigation.navigate("TourPlanMap", {
                   object_id,
                   tourprofileid,
@@ -263,7 +263,7 @@ const TouristHome = ({ navigation }) => {
     Geocoder.from(data.description)
       .then((json) => {
         var location = json.results[0].geometry.location;
-        console.log(location);
+        // console.log(location);
         setEndLocationLatitude(location.lat);
         setEndLocatinLongitude(location.lng);
       })

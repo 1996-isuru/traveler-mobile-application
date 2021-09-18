@@ -90,7 +90,7 @@ const TourPlanMap = ({ route, navigation }) => {
     setTourId(object_id);
     settourprofileid(tourprofileid);
     // console.log("tourId");
-    // console.log(tourId);
+    // console.log("tourId:",tourId);
     // console.log(tourprofileid)
     getData();
   }, []);
@@ -126,6 +126,7 @@ const TourPlanMap = ({ route, navigation }) => {
   const [selectLocationLongitude, setSelectLocatinLongitude] = useState(null);
 
   function popUpAddLocation() {
+    // console.log("tourId::",tourId);
     //get geocode
     function geocodeSelectLocation(data) {
       Geocoder.init(GOOGLE_API_KEY);
@@ -143,7 +144,7 @@ const TourPlanMap = ({ route, navigation }) => {
       if (!selectLocationName) {
         Alert.alert("Enter Location Name");
       } else {
-        console.log("Add Location");
+        // console.log("Add Location");
 
         fetch(localhost + "/tourplan/addnewlocation", {
           method: "POST",
@@ -268,8 +269,8 @@ const TourPlanMap = ({ route, navigation }) => {
   //add location
 
   function renderMainButton() {
-    console.log(tourId);
-    console.log(tourprofileid);
+    // console.log(tourId);
+    // console.log(tourprofileid);
     return (
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
@@ -315,7 +316,13 @@ const TourPlanMap = ({ route, navigation }) => {
             paddingVertical: 15,
             borderRadius: 50,
           }}
-          onPress={() => navigation.navigate("FinalizeMapView")}
+          // onPress={() => navigation.navigate("FinalizeMapView")}
+          onPress={() =>
+            navigation.navigate("FinalizeMapView", {
+              tourId,
+              tourprofileid,
+            })
+          }
         >
           <Text style style={styles.buttonText}>
             Finalize MapView
