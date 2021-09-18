@@ -199,5 +199,11 @@ const styles = StyleSheet.create({
     margin: 10,
     borderColor: "#000080",
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  }
   //Add location
 });

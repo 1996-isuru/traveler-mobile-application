@@ -85,10 +85,12 @@ const TourPlanMap = ({ route, navigation }) => {
   const [tourprofileid, settourprofileid] = useState(null);
   useEffect(() => {
     let { object_id, tourprofileid } = route.params;
-    console.log(object_id);
+    // console.log("object_id");
+    // console.log(object_id);
     setTourId(object_id);
     settourprofileid(tourprofileid);
-    console.log(tourId);
+    // console.log("tourId");
+    // console.log(tourId);
     // console.log(tourprofileid)
     getData();
   }, []);
@@ -266,6 +268,8 @@ const TourPlanMap = ({ route, navigation }) => {
   //add location
 
   function renderMainButton() {
+    console.log(tourId);
+    console.log(tourprofileid);
     return (
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity

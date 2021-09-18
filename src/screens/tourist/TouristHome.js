@@ -175,6 +175,7 @@ const TouristHome = ({ navigation }) => {
                 // console.log(result.result.tours[0]._id);
                 let object_id = result.tourid;
                 let tourprofileid = result.tourprofileid;
+                console.log("tourhome");
                 console.log(tour_object_id);
                 console.log(tourprofileid);
                 navigation.navigate("TourPlanMap", {

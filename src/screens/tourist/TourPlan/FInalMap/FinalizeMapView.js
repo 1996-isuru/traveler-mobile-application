@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  FlatList,
+  ActivityIndicator,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
@@ -30,8 +30,8 @@ const FinalizeMapView = ({ route, navigation }) => {
     photo: images.burger_restaurant_1,
     duration: "30 - 45 min",
     location: {
-      latitude: 1.5347282806345879,
-      longitude: 110.35632207358996,
+      latitude: 7.2905715,
+      longitude: 80.6337262,
     },
     courier: {
       avatar: images.main,
@@ -68,8 +68,8 @@ const FinalizeMapView = ({ route, navigation }) => {
   const currentLocation = {
     streetName: "Kuching",
     gps: {
-      latitude: 1.5496614931250685,
-      longitude: 110.36381866919922,
+      latitude: 7.550534499999999,
+      longitude: 80.1908642,
     },
   };
 
@@ -128,6 +128,8 @@ const FinalizeMapView = ({ route, navigation }) => {
   }
 
   function renderMap() {
+    console.log("ddd", toLocation);
+    console.log("from location", fromLocation);
     const destinationMarker = () => (
       <Marker coordinate={toLocation}>
         <View
@@ -171,7 +173,7 @@ const FinalizeMapView = ({ route, navigation }) => {
         // rotation={angle}
       >
         <Image
-          source={icons.car}
+          source={icons.book}
           style={{
             width: 40,
             height: 40,
@@ -315,6 +317,8 @@ const FinalizeMapView = ({ route, navigation }) => {
     );
   }
 
+
+
   return (
     <View style={{ flex: 1 }}>
       {renderMap()}
@@ -323,5 +327,17 @@ const FinalizeMapView = ({ route, navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+  },
+});
 
 export default FinalizeMapView;
