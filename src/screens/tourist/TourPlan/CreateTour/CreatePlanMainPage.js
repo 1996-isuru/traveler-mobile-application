@@ -26,55 +26,6 @@ import colors from "../../../../assets/asse/colors/colors";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Geocoder from "react-native-geocoding";
-const prePlanTripData = [
-  {
-    id: 11,
-    name: "Colombo to Jaffa",
-    photo: images.trip1,
-    duration: "3 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.5347282806345879,
-      longitude: 110.35632207358996,
-    },
-    photo: [
-      {
-        photo: images.trip2,
-      },
-      {
-        photo: images.trip3,
-      },
-      {
-        photo: images.trip4,
-      },
-    ],
-  },
-  {
-    id: 22,
-    name: "Colombo To NuwaEliya",
-    photo: images.trip4,
-    duration: "2 Days",
-    lenth: "200Km",
-    location: {
-      latitude: 1.556306570595712,
-      longitude: 110.35504616746915,
-    },
-    photo: [
-      {
-        photo: images.trip5,
-      },
-      {
-        photo: images.trip6,
-      },
-      {
-        photo: images.trip7,
-      },
-      {
-        photo: images.trip1,
-      },
-    ],
-  },
-];
 
 const TourPlanMap = ({ route, navigation }) => {
   //getting async storage data
@@ -85,7 +36,9 @@ const TourPlanMap = ({ route, navigation }) => {
   const [tourprofileid, settourprofileid] = useState(null);
   const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [removeModalVisible, setRemoveModalVisible] = useState(false);
   const [selectLocationList, setSelectLocationList] = useState(null);
+  const [removeLocationId, setRemoveLocationId] = useState(null);
   useEffect(() => {
     let { object_id, tourprofileid } = route.params;
     setTourId(object_id);
@@ -96,8 +49,8 @@ const TourPlanMap = ({ route, navigation }) => {
 
   function getlocations() {
     let { object_id, tourprofileid } = route.params;
-    console.log("object_id", object_id);
-    console.log("tourprofileid", tourprofileid);
+    // console.log("object_id", object_id);
+    // console.log("tourprofileid", tourprofileid);
     fetch(localhost + "/tourplan/locationlist", {
       method: "POST",
       headers: {
@@ -110,12 +63,12 @@ const TourPlanMap = ({ route, navigation }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         if (result.message === "get_location_details") {
           // console.log(result.tourStart.latitude);
           // console.log(result.tourStart.longitude);
           // console.log(result.tourEnd.latitude);
-          // console.log(result);
+          console.log(result.selectLocation);
           setSelectLocationList(result.selectLocation);
           setIsloadingCreateTour(false);
         } else {
@@ -140,7 +93,6 @@ const TourPlanMap = ({ route, navigation }) => {
   //getting async storage data
 
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [restaurants, setRestaurants] = useState(prePlanTripData);
   const [tourName, setTourName] = useState("laol");
 
   //add location
@@ -184,6 +136,7 @@ const TourPlanMap = ({ route, navigation }) => {
           .then((res) => res.json())
           .then(async (result) => {
             if (result.message === "Location added") {
+              getlocations();
               setModalVisible(false);
             } else {
               Alert.alert("Tour Location already added");
@@ -398,6 +351,19 @@ const TourPlanMap = ({ route, navigation }) => {
           <Button
             style={{ fontSize: 20, backgroundColor: "green", padding: 30 }}
             title="Remove"
+            // onPress={() => setRemoveModalVisible(true)}
+            // onPress={(data, details = null) => {
+            //   setRemoveModalVisible(true);
+            //   // console.log(data._id);
+            //   setRemoveLocationId(data);
+            // }}
+            onPress={(data, details = null) => {
+              setRemoveModalVisible(true);
+              // console.log(item._id);
+              setRemoveLocationId(item._id);
+              // setSelectLocationName(data.description);
+              // geocodeSelectLocation(data);
+            }}
           ></Button>
         </View>
       </View>
@@ -416,6 +382,98 @@ const TourPlanMap = ({ route, navigation }) => {
     );
   }
 
+  function popUpRemoveLocation() {
+    // function RemoveLocation(item){
+    //   // const [selectLocationList, setSelectLocationList] = useState(null);
+    //   setSelectLocationList(item._id);
+    //   console.log(item._id);
+    //   console.log("ssssssssaaaaaaawwwwwwww");
+    //   // setRemoveModalVisible(false);
+    // };
+    const RemoveLocationApi = () => {
+      fetch(localhost + "/tourplan/removelocation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tourId,
+          tourprofileid,
+          removeLocationId
+        }),
+      })
+        .then((res) => res.json())
+        .then(async (result) => {
+          if (result.message === "remove_location_details") {
+            getlocations();
+            setRemoveModalVisible(false);
+          } else {
+            Alert.alert("Tour Location already added");
+          }
+        });
+      // console.log(removeLocationId);
+      // console.log("ssssssssaaaaaaawwwwwwww");
+      // setRemoveModalVisible(false);
+    };
+
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 22,
+        }}
+      >
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={removeModalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setRemoveModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setRemoveModalVisible(false)}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  marginTop: -10,
+                  marginLeft: 260,
+                  fontSize: 25,
+                }}
+              >
+                X
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  textAlign: "center",
+                  fontSize: 20,
+                  marginTop: -90,
+                  marginBottom: 70,
+                }}
+              >
+                Are you sure remove Location?
+              </Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={RemoveLocationApi}
+              >
+                <Text style={styles.textStyle}>Remove Location</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+
   //main return
   return (
     <SafeAreaView style={styles.container}>
@@ -423,6 +481,7 @@ const TourPlanMap = ({ route, navigation }) => {
       {renderMainButton()}
       {renderLocationList()}
       {popUpAddLocation()}
+      {popUpRemoveLocation()}
       {LoadingIcon()}
     </SafeAreaView>
   );
@@ -481,14 +540,14 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    marginTop: 130,
+    marginTop: 200,
     margin: 40,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
-    height: 500,
+    height: 400,
     shadowOffset: {
       width: 0,
       height: 2,

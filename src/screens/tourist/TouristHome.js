@@ -217,7 +217,7 @@ const TouristHome = ({ navigation }) => {
                 } else {
                   let object_id = result.tourid;
                   let tourprofileid = result.tourprofileid;
-                  // console.log(object_id);
+                  console.log(result);
                   // console.log(tourprofileid);
                   setIsloadingCreateTour(!modalVisible);
                   navigation.navigate("TourPlanMap", {
