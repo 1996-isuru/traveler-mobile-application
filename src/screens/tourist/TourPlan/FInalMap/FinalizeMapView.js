@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -18,7 +17,7 @@ import {
   SIZES,
   GOOGLE_API_KEY,
   images,
-  localhost
+  localhost,
 } from "../../../../constants/index";
 
 const FinalizeMapView = ({ route, navigation }) => {
@@ -67,64 +66,58 @@ const FinalizeMapView = ({ route, navigation }) => {
     ],
   };
 
-  const currentLocation = {
-    streetName: "Kuching",
-    gps: {
-      latitude: 7.550534499999999,
-      longitude: 80.1908642,
-    },
-  };
+  // const currentLocation = {
+  //   streetName: "Kuching",
+  //   gps: {
+  //     latitude: 7.550534499999999,
+  //     longitude: 80.1908642,
+  //   },
+  // };
 
-  const mapView = React.useRef();
-  const [restaurant, setRestaurant] = React.useState(null);
-  const [streetName, setStreetName] = React.useState("");
+  const mapView = React.createRef();
   const [fromLocation, setFromLocation] = React.useState(null);
   const [toLocation, setToLocation] = React.useState(null);
   const [region, setRegion] = React.useState(null);
   const [duration, setDuration] = React.useState(0);
   const [isReady, setIsReady] = React.useState(false);
-  // const [angle, setAngle] = React.useState(0);
-
-  //route data
-  const [tourIdd, setTourIdd] = useState(null);
-  const [tourprofileidd, settourprofileidd] = useState(null);
 
   //loading icon
   const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
 
   React.useEffect(() => {
-    //route data fetch
-    let { tourId, tourprofileid } = route.params;
-    setTourIdd(tourId);
-    settourprofileidd(tourprofileid);
-
-    //route data fetch
-
+    getMapDetails();
+    const currentLocation = {
+      gps: {
+        latitude: 7.2905715,
+        longitude: 80.6337262,
+      },
+    };
+    const toLocation = {
+      location: {
+        latitude: 7.550534499999999,
+        longitude: 80.1908642,
+      },
+    };
+    // console.log(currentLocation.gps);
     let fromLoc = currentLocation.gps;
-    let toLoc = restaurantt.location;
-    let street = currentLocation.streetName;
-
+    let toLoc = toLocation.location;
+    console.log(fromLoc);
+    console.log(toLoc);
+    setToLocation(toLoc);
+    setFromLocation(fromLoc);
     let mapRegion = {
       latitude: (fromLoc.latitude + toLoc.latitude) / 2,
       longitude: (fromLoc.longitude + toLoc.longitude) / 2,
       latitudeDelta: Math.abs(fromLoc.latitude - toLoc.latitude) * 2,
       longitudeDelta: Math.abs(fromLoc.longitude - toLoc.longitude) * 2,
     };
-    // calculateAngle
-    setRestaurant(restaurant);
-    setStreetName(street);
-    setFromLocation(fromLoc);
-    setToLocation(toLoc);
     setRegion(mapRegion);
-
-    // get render details
-    getMapDetails();
   }, []);
 
-  const getMapDetails = async () => {
+  function getMapDetails() {
+    let { tourId, tourprofileid } = route.params;
     console.log("object_id", tourId);
     console.log("tourprofileid", tourprofileid);
-    let { tourId, tourprofileid } = route.params;
     fetch(localhost + "/tourplan/rendermap", {
       method: "POST",
       headers: {
@@ -136,16 +129,23 @@ const FinalizeMapView = ({ route, navigation }) => {
       }),
     })
       .then((res) => res.json())
-      .then(async (result) => {
+      .then((result) => {
         if (result.message === "get_map_details") {
-          console.log(result);
+          console.log(result.tourStart.latitude);
+          console.log(result.tourStart.longitude);
+          console.log(result.tourEnd.latitude);
+          console.log(result.tourEnd.longitude);
           setIsloadingCreateTour(false);
         } else {
           console.log(result);
           Alert.alert("No created tours");
         }
       });
-  };
+  }
+
+  // if (!region && !fromLocation & !toLocation) {
+
+  // }
 
   function zoomIn() {
     let newRegion = {
@@ -174,8 +174,8 @@ const FinalizeMapView = ({ route, navigation }) => {
   function renderMap() {
     // console.log(tourId);
     // console.log(tourprofileid);
-    // console.log("ddd", toLocation);
-    // console.log("from location", fromLocation);
+    console.log("ddd", toLocation);
+    console.log("from location", fromLocation);
     const destinationMarker = () => (
       <Marker coordinate={toLocation}>
         <View
@@ -309,7 +309,7 @@ const FinalizeMapView = ({ route, navigation }) => {
           />
 
           <View style={{ flex: 1 }}>
-            <Text style={{ ...FONTS.body3 }}>{streetName}</Text>
+            <Text style={{ ...FONTS.body3 }}>narammla</Text>
           </View>
 
           <Text style={{ ...FONTS.body3 }}>{Math.ceil(duration)} mins</Text>
@@ -389,10 +389,10 @@ const FinalizeMapView = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
+      {LoadingIcon()}
       {renderMap()}
       {renderDestinationHeader()}
       {renderButtons()}
-      {LoadingIcon()}
     </View>
   );
 };
@@ -408,7 +408,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   centeredView: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,

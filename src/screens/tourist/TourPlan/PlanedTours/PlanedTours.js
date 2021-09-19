@@ -35,7 +35,7 @@ const Messages = [
   {
     id: "1",
     userName: "Jenny Doe",
-    // userImg: require('../assets/users/user-3.jpg'),
+    // userImg: require('../xassets/users/user-3.jpg'),
     messageTime: "4 mins ago",
     messageText:
       "Hey there, this is my test for a post of my social app in React Native.",
@@ -173,6 +173,7 @@ const PlanedTours = ({ route, navigation }) => {
               justifyContent: "space-around",
               padding: 10,
             }}
+            visible={isloadingCreateTour}
           >
             <ActivityIndicator size="large" color="#0000ff" />
           </View>

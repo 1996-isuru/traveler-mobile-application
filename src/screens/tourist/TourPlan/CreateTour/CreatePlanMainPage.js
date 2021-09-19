@@ -83,28 +83,53 @@ const TourPlanMap = ({ route, navigation }) => {
   const [userName, setUserName] = useState(null);
   const [tourId, setTourId] = useState(null);
   const [tourprofileid, settourprofileid] = useState(null);
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectLocationList, setSelectLocationList] = useState(null);
   useEffect(() => {
     let { object_id, tourprofileid } = route.params;
-    // console.log("object_id");
-    // console.log(object_id);
     setTourId(object_id);
     settourprofileid(tourprofileid);
-    // console.log("tourId");
-    // console.log("tourId:",tourId);
-    // console.log(tourprofileid)
     getData();
+    getlocations();
   }, []);
+
+  function getlocations() {
+    let { object_id, tourprofileid } = route.params;
+    console.log("object_id", object_id);
+    console.log("tourprofileid", tourprofileid);
+    fetch(localhost + "/tourplan/locationlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        object_id,
+        tourprofileid,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.message === "get_location_details") {
+          // console.log(result.tourStart.latitude);
+          // console.log(result.tourStart.longitude);
+          // console.log(result.tourEnd.latitude);
+          // console.log(result);
+          setSelectLocationList(result.selectLocation);
+          setIsloadingCreateTour(false);
+        } else {
+          console.log(result);
+          Alert.alert("No created tours");
+        }
+      });
+  }
 
   const getData = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
       const userName = await AsyncStorage.getItem("userName");
       const email = await AsyncStorage.getItem("userEmail");
-      // const tripid = await AsyncStorage.getItem("tourObject");
-      // const tourprofileidd = await AsyncStorage.getItem("tourprofileid");
-      // console.log(tripid);
-      // console.log(tourprofileidd);
-
       setToken(token);
       setEmail(email);
       setUserName(userName);
@@ -119,14 +144,12 @@ const TourPlanMap = ({ route, navigation }) => {
   const [tourName, setTourName] = useState("laol");
 
   //add location
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
+
   const [selectLocationName, setSelectLocationName] = useState(null);
   const [selectLocationLatitude, setSelectLocationLatitude] = useState(null);
   const [selectLocationLongitude, setSelectLocatinLongitude] = useState(null);
 
   function popUpAddLocation() {
-    // console.log("tourId::",tourId);
     //get geocode
     function geocodeSelectLocation(data) {
       Geocoder.init(GOOGLE_API_KEY);
@@ -134,7 +157,6 @@ const TourPlanMap = ({ route, navigation }) => {
       Geocoder.from(data.description)
         .then((json) => {
           var location = json.results[0].geometry.location;
-          // console.log(location);
           setSelectLocationLatitude(location.lat);
           setSelectLocatinLongitude(location.lng);
         })
@@ -144,8 +166,6 @@ const TourPlanMap = ({ route, navigation }) => {
       if (!selectLocationName) {
         Alert.alert("Enter Location Name");
       } else {
-        // console.log("Add Location");
-
         fetch(localhost + "/tourplan/addnewlocation", {
           method: "POST",
           headers: {
@@ -358,7 +378,7 @@ const TourPlanMap = ({ route, navigation }) => {
         }}
       >
         {/* trip info */}
-        <Text style={{ ...FONTS.h4 }}>{item.name}</Text>
+        <Text style={{ ...FONTS.h4 }}>{item.tourselectLocationName}</Text>
         <View
           style={{
             flexDirection: "row",
@@ -385,8 +405,8 @@ const TourPlanMap = ({ route, navigation }) => {
 
     return (
       <FlatList
-        data={restaurants}
-        keyExtractor={(item) => `${item.id}`}
+        data={selectLocationList}
+        keyExtractor={(item) => `${item._id}`}
         renderItem={renderItem}
         contentContainerStyl={{
           paddingHorizontal: SIZES.padding * 2,
