@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Modal,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
@@ -17,6 +18,7 @@ import {
   SIZES,
   GOOGLE_API_KEY,
   images,
+  localhost
 } from "../../../../constants/index";
 
 const FinalizeMapView = ({ route, navigation }) => {
@@ -84,16 +86,18 @@ const FinalizeMapView = ({ route, navigation }) => {
   // const [angle, setAngle] = React.useState(0);
 
   //route data
-  const [tourId, setTourId] = useState(null);
-  const [tourprofileid, settourprofileid] = useState(null);
+  const [tourIdd, setTourIdd] = useState(null);
+  const [tourprofileidd, settourprofileidd] = useState(null);
+
+  //loading icon
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
 
   React.useEffect(() => {
     //route data fetch
     let { tourId, tourprofileid } = route.params;
-    setTourId(tourId);
-    settourprofileid(tourprofileid);
-    console.log("object_id", tourId);
-    console.log("tourprofileid", tourprofileid);
+    setTourIdd(tourId);
+    settourprofileidd(tourprofileid);
+
     //route data fetch
 
     let fromLoc = currentLocation.gps;
@@ -118,6 +122,9 @@ const FinalizeMapView = ({ route, navigation }) => {
   }, []);
 
   const getMapDetails = async () => {
+    console.log("object_id", tourId);
+    console.log("tourprofileid", tourprofileid);
+    let { tourId, tourprofileid } = route.params;
     fetch(localhost + "/tourplan/rendermap", {
       method: "POST",
       headers: {
@@ -132,8 +139,7 @@ const FinalizeMapView = ({ route, navigation }) => {
       .then(async (result) => {
         if (result.message === "get_map_details") {
           console.log(result);
-          // setIsloadingCreateTour(false);
-          console.log(result);
+          setIsloadingCreateTour(false);
         } else {
           console.log(result);
           Alert.alert("No created tours");
@@ -357,11 +363,36 @@ const FinalizeMapView = ({ route, navigation }) => {
     );
   }
 
+  function LoadingIcon() {
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isloadingCreateTour}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              padding: 10,
+            }}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       {renderMap()}
       {renderDestinationHeader()}
       {renderButtons()}
+      {LoadingIcon()}
     </View>
   );
 };
@@ -375,6 +406,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
   },
 });
 
