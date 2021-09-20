@@ -46,6 +46,10 @@ export default HotelProfile = ({ navigation }) => {
               onPress={() => navigation.navigate("HotelEdit")}>
                 <Text>Edit Profile</Text> 
               </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonContainer}
+              onPress={() => navigation.navigate("VerificationSubmit")}>
+                <Text>Verify Account</Text> 
+              </TouchableOpacity>
             </View>
         </View>
       </View>

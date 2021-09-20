@@ -97,10 +97,13 @@ const TourPlanMap = ({ route, navigation }) => {
   const [tourName, setTourName] = useState("laol");
 
   //add location
-
   const [selectLocationName, setSelectLocationName] = useState(null);
   const [selectLocationLatitude, setSelectLocationLatitude] = useState(null);
   const [selectLocationLongitude, setSelectLocatinLongitude] = useState(null);
+
+  //change start and end location
+  const [startChange, setStartChage] = useState(null);
+  const [endChange, setEndChange] = useState(null);
 
   function popUpAddLocation() {
     //get geocode
@@ -181,6 +184,234 @@ const TourPlanMap = ({ route, navigation }) => {
                 }}
               >
                 Add Location
+              </Text>
+              <View style={{ flex: 1, paddingTop: 20 }}>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>Location: </Text>
+                  <View style={styles.action}>
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details = null) => {
+                        setSelectLocationName(data.description);
+                        geocodeSelectLocation(data);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={AddLocation}
+            >
+              <Text style={styles.textStyle}>Add Location</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+
+  const [modalVisible1, setModalVisible1] = useState(false);
+
+  function popUpStartLocationChange() {
+    //get geocode
+    function geocodeSelectLocation(data) {
+      Geocoder.init(GOOGLE_API_KEY);
+      // Search by address
+      Geocoder.from(data.description)
+        .then((json) => {
+          var location = json.results[0].geometry.location;
+          setSelectLocationLatitude(location.lat);
+          setSelectLocatinLongitude(location.lng);
+        })
+        .catch((error) => console.warn(error));
+    }
+    const AddLocation = async () => {
+      if (!selectLocationName) {
+        Alert.alert("Enter Location Name");
+      } else {
+        // fetch(localhost + "/tourplan/changestart", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     tourId,
+        //     tourprofileid,
+        //     selectLocationName,
+        //     selectLocationLatitude,
+        //     selectLocationLongitude,
+        //   }),
+        // })
+        //   .then((res) => res.json())
+        //   .then(async (result) => {
+        //     if (result.message === "Location added") {
+        //       getlocations();
+        //       setModalVisible(false);
+        //     } else {
+        //       Alert.alert("Tour Location already added");
+        //     }
+        //   });
+        console.log("llllllllllssssssssss");
+        setModalVisible1(false);
+      }
+    };
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible1}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible1(!modalVisible1);
+          }}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setModalVisible1(false)}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  marginTop: -10,
+                  marginLeft: 260,
+                  fontSize: 25,
+                }}
+              >
+                X
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  textAlign: "center",
+                  fontSize: 30,
+                  marginTop: -130,
+                }}
+              >
+                Start location change
+              </Text>
+              <View style={{ flex: 1, paddingTop: 20 }}>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>Location: </Text>
+                  <View style={styles.action}>
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details = null) => {
+                        setSelectLocationName(data.description);
+                        geocodeSelectLocation(data);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={AddLocation}
+            >
+              <Text style={styles.textStyle}>Add Location</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      </View>
+    );
+  }
+
+  const [modalVisible2, setModalVisible2] = useState(false);
+
+  function popUpEndLocationChange() {
+    //get geocode
+    function geocodeSelectLocation(data) {
+      Geocoder.init(GOOGLE_API_KEY);
+      // Search by address
+      Geocoder.from(data.description)
+        .then((json) => {
+          var location = json.results[0].geometry.location;
+          setSelectLocationLatitude(location.lat);
+          setSelectLocatinLongitude(location.lng);
+        })
+        .catch((error) => console.warn(error));
+    }
+    const AddLocation = async () => {
+      if (!selectLocationName) {
+        Alert.alert("Enter Location Name");
+      } else {
+        // fetch(localhost + "/tourplan/addnewlocation", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     tourId,
+        //     tourprofileid,
+        //     userEmail,
+        //     tourName,
+        //     selectLocationName,
+        //     selectLocationLatitude,
+        //     selectLocationLongitude,
+        //   }),
+        // })
+        //   .then((res) => res.json())
+        //   .then(async (result) => {
+        //     if (result.message === "Location added") {
+        //       getlocations();
+        //       setModalVisible(false);
+        //     } else {
+        //       Alert.alert("Tour Location already added");
+        //     }
+        //   });
+        console.log("uuuuuuuuuuuuuuu");
+        setModalVisible2(false);
+      }
+    };
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible2}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible2(!modalVisible2);
+          }}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setModalVisible2(false)}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  marginTop: -10,
+                  marginLeft: 260,
+                  fontSize: 25,
+                }}
+              >
+                X
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  textAlign: "center",
+                  fontSize: 30,
+                  marginTop: -130,
+                }}
+              >
+                End location change
               </Text>
               <View style={{ flex: 1, paddingTop: 20 }}>
                 <View style={{ paddingTop: 10 }}>
@@ -331,7 +562,7 @@ const TourPlanMap = ({ route, navigation }) => {
   //renderMainCategory function start
   function renderMainCategories() {
     return (
-      <View style={{ padding: SIZES.padding * 2 }}>
+      <View style={{ padding: SIZES.padding * 0.01 }}>
         <Text style={{ ...FONTS.h2, textAlign: "center" }}>Plan your tour</Text>
       </View>
     );
@@ -341,16 +572,16 @@ const TourPlanMap = ({ route, navigation }) => {
     const renderItem = ({ item }) => (
       <View
         style={{
-          marginBottom: SIZES.padding * 2,
+          // marginBottom: SIZES.padding * 2,
           flex: 1,
           // justifyContent: "space-between",
           backgroundColor: "#ffff",
           borderColor: "#000080",
-          padding: 25,
+          padding: 15,
           marginLeft: 5,
           marginRight: 5,
           borderRadius: 30,
-          marginTop: 20,
+          marginTop: 5,
         }}
       >
         {/* trip info */}
@@ -402,6 +633,53 @@ const TourPlanMap = ({ route, navigation }) => {
           paddingBottom: 30,
         }}
       />
+    );
+  }
+
+  function renderStartAndEnd() {
+    return (
+      <View
+        style={{
+          // justifyContent: "space-between",
+          backgroundColor: "#ffff",
+          borderColor: "#000080",
+          padding: 15,
+          marginLeft: 5,
+          marginRight: 5,
+          borderRadius: 30,
+          marginTop: 5,
+        }}
+      >
+        {/* trip info */}
+        <Text style={{ ...FONTS.h4 }}>Change Start Or End Location</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingTop: 30,
+            justifyContent: "space-between",
+          }}
+        >
+          <Button
+            style={{
+              fontSize: 20,
+              backgroundColor: "02B3C5",
+              padding: 90,
+              borderRadius: 10,
+            }}
+            title="Start"
+            onPress={() => {
+              setModalVisible1(true);
+            }}
+          ></Button>
+          <Button
+            style={{ fontSize: 20, backgroundColor: "green", padding: 90 }}
+            title="     End   "
+            onPress={() => {
+              setModalVisible2(true);
+            }}
+          ></Button>
+        </View>
+      </View>
     );
   }
 
@@ -495,7 +773,10 @@ const TourPlanMap = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
       {renderMainCategories()}
       {renderMainButton()}
+      {renderStartAndEnd()}
       {renderLocationList()}
+      {popUpStartLocationChange()}
+      {popUpEndLocationChange()}
       {popUpAddLocation()}
       {popUpRemoveLocation()}
       {LoadingIcon()}

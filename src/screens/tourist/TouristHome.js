@@ -401,34 +401,37 @@ const TouristHome = ({ navigation }) => {
         {/* Plan */}
         <View style={styles.planWrapper}>
           <Text style={styles.planTitle}>Make a Tour Plan</Text>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
             <TouchableOpacity
               style={{
-                marginHorizontal: 100,
-                marginTop: 20,
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                marginLeft: 20,
                 marginBottom: 20,
-                backgroundColor: colors.darkBlue,
-                marginLeft: 30,
-                // alignItems: "center",
-                paddingVertical: 15,
-                borderRadius: 10,
               }}
               onPress={() => setModalVisible(true)}
             >
-              <Text style style={styles.buttonText}>
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginLeft: 25,
+                  marginTop: 7,
+                }}
+              >
                 New Trip
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                marginHorizontal: 100,
-                marginTop: 20,
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                alignItems: "center",
+                marginLeft: 80,
                 marginBottom: 20,
-                backgroundColor: colors.darkBlue,
-                // alignItems: "center",
-                marginRight: 10,
-                paddingVertical: 15,
-                borderRadius: 10,
+                height: 40,
               }}
               onPress={() =>
                 navigation.navigate("PlanedTours", {
@@ -436,7 +439,13 @@ const TouristHome = ({ navigation }) => {
                 })
               }
             >
-              <Text style style={styles.buttonText}>
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginTop: 7,
+                }}
+              >
                 Trip List
               </Text>
             </TouchableOpacity>
@@ -477,7 +486,6 @@ const TouristHome = ({ navigation }) => {
         {/* Guide */}
         <View style={styles.hotelWrapper}>
           <Text style={styles.hotelTitle}>Guides Nearby</Text>
-
           <View style={styles.hotelItemWrapper}>
             <SafeAreaView style={{ flex: 1 }}>
               <FlatList

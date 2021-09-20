@@ -41,6 +41,7 @@ import SharedTourPost from "../screens/SharedTourPost.js/SharedTourPosts.js";
 import ChatList from "../screens/group_chat/ChatList.js";
 import FinalizeMapView from "../screens/tourist/TourPlan/FInalMap/FinalizeMapView.js";
 import AddMembers from "../screens/tourist/TourPlan/GroupMembers/Addmembers.js";
+import VerificationSubmit from "../screens/hotelOwner/VerificationSubmit.js";
 const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
@@ -231,6 +232,39 @@ const AppNavContainer = () => {
                   />
 
                   {/* Planed Tours */}
+
+                  {/* //malak */}
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="HotelPhotos"
+                    component={HotelPhotos}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="HotelEdit"
+                    component={HotelEdit}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="createPackage"
+                    component={createPackage}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="packagesHotel"
+                    component={packagesHotel}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="packageDetails"
+                    component={packageDetails}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="VerificationSubmit"
+                    component={VerificationSubmit}
+                  />
+                  {/* //malak */}
                 </>
               ) : (
                 <>
@@ -316,6 +350,7 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+                      {/* //malak */}
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="HotelPhotos"
@@ -326,8 +361,7 @@ const AppNavContainer = () => {
                         name="HotelEdit"
                         component={HotelEdit}
                       />
-
-                        <Stack.Screen
+                      <Stack.Screen
                         options={{ headerShown: false }}
                         name="createPackage"
                         component={createPackage}
@@ -337,13 +371,17 @@ const AppNavContainer = () => {
                         name="packagesHotel"
                         component={packagesHotel}
                       />
-                       <Stack.Screen
+                      <Stack.Screen
                         options={{ headerShown: false }}
                         name="packageDetails"
                         component={packageDetails}
                       />
-                      
-
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="VerificationSubmit"
+                        component={VerificationSubmit}
+                      />
+                      {/* //malak */}
                       {/* Tourist component */}
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -365,13 +403,9 @@ const AppNavContainer = () => {
                         name="MapInput"
                         component={MapInput}
                       />
-
                       {/* Tourist component */}
-
                       {/* Hotel component */}
-
                       {/* Hotel component */}
-
                       {/* Chat */}
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -384,7 +418,6 @@ const AppNavContainer = () => {
                         component={ChatList}
                       />
                       {/* Chat */}
-
                       {/* Planed Tours */}
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -553,6 +586,38 @@ const AppNavContainer = () => {
                         component={AddMembers}
                       />
                       {/* Planed Tours */}
+                      {/* //malak */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelPhotos"
+                        component={HotelPhotos}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelEdit"
+                        component={HotelEdit}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="createPackage"
+                        component={createPackage}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="packagesHotel"
+                        component={packagesHotel}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="packageDetails"
+                        component={packageDetails}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="VerificationSubmit"
+                        component={VerificationSubmit}
+                      />
+                      {/* //malak */}
                     </>
                   )}
                 </>
@@ -703,6 +768,38 @@ const AppNavContainer = () => {
                 component={AddMembers}
               />
               {/* Planed Tours */}
+              {/* //malak */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelPhotos"
+                component={HotelPhotos}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="HotelEdit"
+                component={HotelEdit}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="createPackage"
+                component={createPackage}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="packagesHotel"
+                component={packagesHotel}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="packageDetails"
+                component={packageDetails}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="VerificationSubmit"
+                component={VerificationSubmit}
+              />
+              {/* //malak */}
             </>
           )}
         </Stack.Navigator>

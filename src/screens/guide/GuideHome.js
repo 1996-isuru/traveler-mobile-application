@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,18 +8,67 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  SafeAreaView,
+  Modal,
+  Pressable,
+  Alert,
+  TextInput,
+  ActivityIndicator,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../assets/asse/colors/colors";
 import profile from "../../assets/asse/images/pic.png";
 import Entypo from "react-native-vector-icons/Entypo";
-
-// import activitiesData from "../../assets/asse/data/activitiesData";
+import activitiesData from "../../assets/asse/data/activitiesData";
 import hotelData from "../../assets/asse/data/hotelData";
 import guideData from "../../assets/asse/data/guideData";
-import { images, SIZES, COLORS, FONTS, localhost } from "../../constants/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  images,
+  SIZES,
+  COLORS,
+  FONTS,
+  localhost,
+  GOOGLE_API_KEY,
+} from "../../constants/index";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Geocoder from "react-native-geocoding";
 
 const GuideHome = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
+
+  //create tour
+  const [tourName, setTourName] = useState(null);
+  const [startLocationName, setStartLocationName] = useState(null);
+  const [startLocationLatitude, setStartLocationLatitude] = useState(null);
+  const [startLocationLongitude, setStartLocatinLongitude] = useState(null);
+  const [endLocationName, setEndLocationName] = useState(null);
+  const [endLocationLatitude, setEndLocationLatitude] = useState(null);
+  const [endLocationLongitude, setEndLocatinLongitude] = useState(null);
+
+  //getting async storage data
+  const [userToken, setToken] = useState(null);
+  const [userEmail, setEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const userName = await AsyncStorage.getItem("userName");
+      const email = await AsyncStorage.getItem("userEmail");
+
+      setToken(token);
+      setEmail(email);
+      setUserName(userName);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //getting async storage data
+
   const renderHotelItem = ({ item }) => {
     return (
       <TouchableOpacity
@@ -73,47 +122,370 @@ const GuideHome = ({ navigation }) => {
     );
   };
 
+  const registerTour = async () => {
+    if (!tourName) {
+      Alert.alert("Please fill all fields.");
+    } else {
+      setModalVisible(!modalVisible);
+      setIsloadingCreateTour(true);
+      fetch(localhost + "/tourplan/checktour", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userEmail }),
+      })
+        .then((res) => res.json())
+        .then(async (result) => {
+          if (result.message === "Already not Created") {
+            fetch(localhost + "/tourplan/plantourdetails", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userEmail,
+                tourName,
+                startLocationName,
+                startLocationLatitude,
+                startLocationLongitude,
+                endLocationName,
+                endLocationLatitude,
+                endLocationLongitude,
+              }),
+            })
+              .then((res) => res.json())
+              .then(async (result) => {
+                // let count = result.result.tours.length;
+                // let co = parseInt(count)
+                // console.log(result.result._id);
+                // console.log(result.result.tours[0]._id);
+                let object_id = result.tourid;
+                let tourprofileid = result.tourprofileid;
+                // console.log("tourhome");
+                // console.log(tour_object_id);
+                // console.log(tourprofileid);
+                navigation.navigate("TourPlanMap", {
+                  object_id,
+                  tourprofileid,
+                });
+                // try {
+                //   await AsyncStorage.setItem("tourObjectid", tour_object_id);
+                //   await AsyncStorage.setItem("tourprofileid", tour_profile_id);
+                //   setIsloadingCreateTour(!modalVisible);
+                //   navigation.navigate("TourPlanMap");
+                // } catch (error) {
+                //   // Error saving data
+                // }
+              });
+          } else {
+            console.log("Already Created");
+            fetch(localhost + "/tourplan/addtour", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userEmail,
+                tourName,
+                startLocationName,
+                startLocationLatitude,
+                startLocationLongitude,
+                endLocationName,
+                endLocationLatitude,
+                endLocationLongitude,
+              }),
+            })
+              .then((res) => res.json())
+              .then(async (result) => {
+                if (result.message === "Tour Name exists") {
+                  setIsloadingCreateTour(!modalVisible);
+                  Alert.alert("Tour Name exists");
+                } else {
+                  let object_id = result.tourid;
+                  let tourprofileid = result.tourprofileid;
+                  console.log(result);
+                  // console.log(tourprofileid);
+                  setIsloadingCreateTour(!modalVisible);
+                  navigation.navigate("TourPlanMap", {
+                    object_id,
+                    tourprofileid,
+                  });
+                  // try {
+                  //   await AsyncStorage.setItem("tourObject", object_id);
+                  //   await AsyncStorage.setItem(
+                  //     "tourprofileid",
+                  //     tour_profile_id
+                  //   );
+                  //   setIsloadingCreateTour(!modalVisible);
+                  //   // navigation.navigate("TourPlanMap");
+                  // } catch (error) {
+                  //   // Error saving data
+                  // }
+                }
+              });
+          }
+        });
+    }
+  };
+
+  //get geocode
+  function geocodeStartLocation(data) {
+    setStartLocationName(data.description);
+    Geocoder.init(GOOGLE_API_KEY);
+    // Search by address
+    Geocoder.from(data.description)
+      .then((json) => {
+        var location = json.results[0].geometry.location;
+        // console.log(location);
+        setStartLocationLatitude(location.lat);
+        setStartLocatinLongitude(location.lng);
+      })
+      .catch((error) => console.warn(error));
+  }
+  function geocodeEndLocation(data) {
+    setEndLocationName(data.description);
+    Geocoder.init(GOOGLE_API_KEY);
+    // Search by address
+    Geocoder.from(data.description)
+      .then((json) => {
+        var location = json.results[0].geometry.location;
+        // console.log(location);
+        setEndLocationLatitude(location.lat);
+        setEndLocatinLongitude(location.lng);
+      })
+      .catch((error) => console.warn(error));
+  }
+
   return (
     <View style={styles.container}>
+      {/* loading model */}
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isloadingCreateTour}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!isloadingCreateTour);
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              padding: 10,
+            }}
+          >
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </Modal>
+      </View>
+      {/* loading model */}
+
+      {/* Popup when click new tour */}
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  marginTop: -10,
+                  marginLeft: 260,
+                  fontSize: 25,
+                }}
+              >
+                X
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+              <Text
+                style={{
+                  ...FONTS.h2,
+                  color: COLORS.navy,
+                  textAlign: "center",
+                  fontSize: 30,
+                  marginTop: -130,
+                }}
+              >
+                Tour Details
+              </Text>
+              <View style={{ flex: 1, paddingTop: 20 }}>
+                <View>
+                  <Text style={styles.text_footer}>Tour Name: </Text>
+                  <View style={styles.action}>
+                    <TextInput
+                      placeholder="Tour Name:"
+                      // style={styles.TextInput}
+                      onChangeText={(tourNamee) => setTourName(tourNamee)}
+                    />
+                  </View>
+                </View>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>From </Text>
+                  <View style={styles.action}>
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details) => {
+                        geocodeEndLocation(data);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
+                    />
+                  </View>
+                </View>
+                <View style={{ paddingTop: 10 }}>
+                  <Text style={styles.text_footer}>To</Text>
+                  <View style={styles.action}>
+                    <GooglePlacesAutocomplete
+                      placeholder="Search"
+                      onPress={(data, details) => {
+                        geocodeStartLocation(data);
+                      }}
+                      query={{
+                        key: GOOGLE_API_KEY,
+                        language: "en",
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={registerTour}
+            >
+              <Text style={styles.textStyle}>Create Tour</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      </View>
+      {/* Popup when click new tour */}
+
       <ScrollView>
         {/* Header */}
-
         <SafeAreaView>
           <View style={styles.menuWrapper}>
             <Image source={profile} style={styles.profileImage} />
-            <Text style={styles.name}>Sama Kumara</Text>
+            <Text style={styles.name}>{userName}</Text>
           </View>
         </SafeAreaView>
 
         {/* Plan */}
         <View style={styles.planWrapper}>
           <Text style={styles.planTitle}>Make a Tour Plan</Text>
-          <TouchableOpacity
-            style={styles.buttonWrapper}
-            onPress={() => alert("Not Ready Yet")}
-          >
-            <Text style style={styles.buttonText}>
-              New Trip
-            </Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                marginLeft: 20,
+                marginBottom: 20,
+              }}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginLeft: 25,
+                  marginTop: 7,
+                }}
+              >
+                New Trip
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                alignItems: "center",
+                marginLeft: 80,
+                marginBottom: 20,
+                height: 40,
+              }}
+              onPress={() =>
+                navigation.navigate("PlanedTours", {
+                  userEmail,
+                })
+              }
+            >
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginTop: 7,
+                }}
+              >
+                Trip List
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         {/* Activities */}
         <View style={styles.planWrapper}>
           <Text style={styles.planTitle}>Guide Plans</Text>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <TouchableOpacity
-              style={{backgroundColor:'#003580', borderRadius: 20, width: 140, marginLeft: 20, marginBottom: 20}}
-              onPress={() => alert("Not Ready Yet")}
+              style={{
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                marginLeft: 20,
+                marginBottom: 20,
+              }}
+              onPress={() =>
+                navigation.navigate("PlanedTours", {
+                  userEmail,
+                })
+              }
             >
-              <Text style={{alignItems:'center', color:COLORS.white, marginLeft: 25, marginTop: 7}}>
-                Add a Plan
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginLeft: 25,
+                  marginTop: 7,
+                }}
+              >
+                Trip List
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{backgroundColor:'#003580', borderRadius: 20, width: 140, alignItems:'center', marginLeft:80, marginBottom: 20, height:40}}
+              style={{
+                backgroundColor: "#003580",
+                borderRadius: 20,
+                width: 140,
+                alignItems: "center",
+                marginLeft: 80,
+                marginBottom: 20,
+                height: 40,
+              }}
               onPress={() => navigation.navigate("GuideAddList")}
             >
-              <Text style={{alignItems:'center', color:COLORS.white, marginTop:7 }} >
+              <Text
+                style={{
+                  alignItems: "center",
+                  color: COLORS.white,
+                  marginTop: 7,
+                }}
+              >
                 My Plans
               </Text>
             </TouchableOpacity>
@@ -125,13 +497,15 @@ const GuideHome = ({ navigation }) => {
           <Text style={styles.hotelTitle}>Hotels Nearby</Text>
 
           <View style={styles.hotelItemWrapper}>
-            <FlatList
-              data={hotelData}
-              renderItem={renderHotelItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+            <SafeAreaView style={{ flex: 1 }}>
+              <FlatList
+                data={hotelData}
+                renderItem={renderHotelItem}
+                keyExtractor={(item) => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
+            </SafeAreaView>
           </View>
         </View>
         {/* Guide */}
@@ -158,15 +532,15 @@ const GuideHome = ({ navigation }) => {
               }}
             >
               <Text style={styles.hotelTitle}>Up Comming</Text>
-              <TouchableOpacity>
+              <SafeAreaView style={{ flex: 1 }}>
                 <FlatList
                   data={guideData}
                   renderItem={renderGuideItem}
                   keyExtractor={(item) => item.id}
-                  vertcle
+                  horizontal
                   showsHorizontalScrollIndicator={false}
                 />
-              </TouchableOpacity>
+              </SafeAreaView>
             </View>
           </View>
         </View>
@@ -298,6 +672,77 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 15,
     color: colors.white,
+  },
+
+  //model style
+
+  //model input
+  action: {
+    flexDirection: "row",
+    marginTop: 10,
+    borderBottomWidth: 1,
+    // borderBottomColor: "#f2f2f2",
+    paddingBottom: 0,
+  },
+  textInput: {
+    marginTop: Platform.OS === "ios" ? 0 : 12,
+    paddingLeft: 10,
+    color: "#05375a",
+  },
+  footer: {
+    flex: Platform.OS === "ios" ? 3 : 5,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 30,
+    paddingVertical: 150,
+  },
+  text_footer: {
+    color: "#05375a",
+    fontSize: 18,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    marginTop: 130,
+    margin: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    height: 500,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 export default GuideHome;
