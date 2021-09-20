@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { SearchBar } from "react-native-elements";
 import {
   images,
   SIZES,
@@ -248,7 +249,7 @@ const TourPlanMap = ({ route, navigation }) => {
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           style={{
-            marginHorizontal: 10,
+            marginHorizontal: 5,
             marginTop: 20,
             marginBottom: 20,
             backgroundColor: colors.blue,
@@ -264,7 +265,7 @@ const TourPlanMap = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            marginHorizontal: 30,
+            marginHorizontal: 10,
             marginTop: 20,
             marginBottom: 20,
             backgroundColor: colors.blue,
@@ -280,7 +281,7 @@ const TourPlanMap = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            marginHorizontal: 20,
+            marginHorizontal: 10,
             marginTop: 20,
             marginBottom: 20,
             backgroundColor: colors.blue,
@@ -299,6 +300,28 @@ const TourPlanMap = ({ route, navigation }) => {
         >
           <Text style style={styles.buttonText}>
             Finalize MapView
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 1,
+            marginTop: 20,
+            marginBottom: 20,
+            backgroundColor: colors.blue,
+            // alignItems: "center",
+            // marginRight: 10,
+            paddingVertical: 15,
+            borderRadius: 50,
+          }}
+          onPress={() =>
+            navigation.navigate("AddMembers", {
+              tourId,
+              tourprofileid,
+            })
+          }
+        >
+          <Text style style={styles.buttonText}>
+            Members
           </Text>
         </TouchableOpacity>
       </View>
@@ -383,13 +406,6 @@ const TourPlanMap = ({ route, navigation }) => {
   }
 
   function popUpRemoveLocation() {
-    // function RemoveLocation(item){
-    //   // const [selectLocationList, setSelectLocationList] = useState(null);
-    //   setSelectLocationList(item._id);
-    //   console.log(item._id);
-    //   console.log("ssssssssaaaaaaawwwwwwww");
-    //   // setRemoveModalVisible(false);
-    // };
     const RemoveLocationApi = () => {
       fetch(localhost + "/tourplan/removelocation", {
         method: "POST",
@@ -399,7 +415,7 @@ const TourPlanMap = ({ route, navigation }) => {
         body: JSON.stringify({
           tourId,
           tourprofileid,
-          removeLocationId
+          removeLocationId,
         }),
       })
         .then((res) => res.json())

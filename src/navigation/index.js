@@ -33,6 +33,7 @@ import PlanedTours from "../screens/tourist/TourPlan/PlanedTours/PlanedTours.js"
 import SharedTourPost from "../screens/SharedTourPost.js/SharedTourPosts.js";
 import ChatList from "../screens/group_chat/ChatList.js";
 import FinalizeMapView from "../screens/tourist/TourPlan/FInalMap/FinalizeMapView.js";
+import AddMembers from "../screens/tourist/TourPlan/GroupMembers/Addmembers.js";
 const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
@@ -216,6 +217,11 @@ const AppNavContainer = () => {
                     name="FinalizeMapView"
                     component={FinalizeMapView}
                   />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="AddMembers"
+                    component={AddMembers}
+                  />
 
                   {/* Planed Tours */}
                 </>
@@ -325,6 +331,7 @@ const AppNavContainer = () => {
                         name="MapInput"
                         component={MapInput}
                       />
+
                       {/* Tourist component */}
 
                       {/* Hotel component */}
@@ -359,6 +366,11 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="FinalizeMapView"
                         component={FinalizeMapView}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="AddMembers"
+                        component={AddMembers}
                       />
                       {/* Planed Tours */}
                     </>
@@ -500,6 +512,11 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="FinalizeMapView"
                         component={FinalizeMapView}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="AddMembers"
+                        component={AddMembers}
                       />
                       {/* Planed Tours */}
                     </>
@@ -645,6 +662,11 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="FinalizeMapView"
                 component={FinalizeMapView}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="AddMembers"
+                component={AddMembers}
               />
               {/* Planed Tours */}
             </>
