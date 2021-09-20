@@ -49,13 +49,15 @@ const HotelHome = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      
       <ScrollView>
         {/* Header */}
 
         <SafeAreaView>
+        
           <View style={styles.menuWrapper}>
-            <Image source={profile} style={styles.profileImage} />
-            <Text style={styles.name}>Hilto</Text>
+            <Image source={{uri:'http://res.cloudinary.com/dj0sdfwat/image/upload/v1632043821/agwro1cfydzyi9d3macz.jpg'}} style={styles.profileImage} />
+            <Text style={styles.name}>mHotel</Text>
           </View>
         </SafeAreaView>
 
@@ -71,7 +73,7 @@ const HotelHome = ({ navigation }) => {
                 marginLeft: 20,
                 marginBottom: 20,
               }}
-              onPress={() => alert("Not Ready Yet")}
+              onPress={() => navigation.navigate("createPackage")}
             >
               <Text
                 style={{
@@ -94,7 +96,7 @@ const HotelHome = ({ navigation }) => {
                 marginBottom: 20,
                 height: 40,
               }}
-              onPress={() => navigation.navigate("GuideAddList")}
+              onPress={() => navigation.navigate("packagesHotel")}
             >
               <Text
                 style={{
@@ -112,7 +114,9 @@ const HotelHome = ({ navigation }) => {
         {/* Boking details */}
         <View style={styles.hotelWrapper}>
           <Text style={styles.hotelTitle}>Booking Details</Text>
-          <View style={{ flexDirection: "row" }}>
+          <Text style={styles.hotelDetailTitle}>There Are No Bookings Yet</Text>
+
+          {/* <View style={{ flexDirection: "column" }}>
             <View style={{ flex: 0.5 }}>
               <Text style={styles.hotelTitle}>Over</Text>
               <TouchableOpacity>
@@ -143,7 +147,7 @@ const HotelHome = ({ navigation }) => {
                 />
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </View>
@@ -162,9 +166,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  header:{
+    backgroundColor: "#00BFFF",
+    height:200,
+  },
   profileImage: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    //alignSelf:'center',
+    //position: 'absolute',
+    //marginTop:130
   },
   name: {
     fontFamily: "Roboto",
@@ -197,6 +212,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
     color: colors.darkBlue,
+  },
+  hotelDetailTitle: {
+    marginHorizontal: 20,
+    marginTop: 50,
+    marginBottom: 50,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    fontSize: 15,
+    color: colors.darkGray,
   },
   hotelItem: {
     width: 170,

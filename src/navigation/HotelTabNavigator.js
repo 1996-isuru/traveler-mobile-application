@@ -28,7 +28,7 @@ const HotelTabNavigator = () => {
         component={prePlanTripData}
         options={{
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" size={32} color={color} />
+            <Entypo name="clipboard" size={32} color={color} />
           ),
         }}
       />
