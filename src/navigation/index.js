@@ -12,7 +12,6 @@ import PreDefineTripDetails from "../screens/pre-define-trip/preDefineTripDetail
 import TouristProfile from "../screens/tourist/TouristProfile";
 import TouristTabNavigator from "./TouristTabNavigator";
 import GuideHome from "../screens/guide/GuideHome";
-// import HotelOwnerHome from "../screens/hotelOwner/HotelOwnerHome.js";
 import GuideProfile from "../screens/guide/GuideProfile.js";
 import GuideTabNavigator from "./GuideTabNavigator.js";
 import GuideBookedDetails from "../screens/guide/GuideBookedDetails.js";
@@ -27,7 +26,14 @@ import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
-
+import TourPlanMap from "../screens/tourist/TourPlan/CreateTour/CreatePlanMainPage.js";
+import MapInput from "../screens/tourist/TourPlan/AutoCompleteSearch/MapInput";
+import ChatScreen from "../screens/group_chat/ChatScreen";
+import PlanedTours from "../screens/tourist/TourPlan/PlanedTours/PlanedTours.js";
+import SharedTourPost from "../screens/SharedTourPost.js/SharedTourPosts.js";
+import ChatList from "../screens/group_chat/ChatList.js";
+import FinalizeMapView from "../screens/tourist/TourPlan/FInalMap/FinalizeMapView.js";
+import AddMembers from "../screens/tourist/TourPlan/GroupMembers/Addmembers.js";
 const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
@@ -75,11 +81,23 @@ const AppNavContainer = () => {
             <>
               {userType === "tourist" ? (
                 <>
+                  {/* Tourist component */}
                   <Stack.Screen
                     options={{ headerShown: false }}
                     name="TouristHome"
                     component={TouristTabNavigator}
                   />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="TouristProfile"
+                    component={TouristProfile}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="TourPlanMap"
+                    component={TourPlanMap}
+                  />
+                  {/* Tourist component */}
                   <Stack.Screen
                     options={{ headerShown: false }}
                     name="Splash"
@@ -99,11 +117,6 @@ const AppNavContainer = () => {
                     options={{ headerShown: false }}
                     name="SignIn"
                     component={SignIn}
-                  />
-                  <Stack.Screen
-                    options={{ headerShown: false }}
-                    name="TouristProfile"
-                    component={TouristProfile}
                   />
                   <Stack.Screen
                     options={{ headerShown: false }}
@@ -165,10 +178,52 @@ const AppNavContainer = () => {
                     name="HotelProfile"
                     component={HotelProfile}
                   />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="MapInput"
+                    component={MapInput}
+                  />
 
                   {/* Hotel component */}
 
                   {/* Hotel component */}
+
+                  {/* Chat */}
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="ChatScreen"
+                    component={ChatScreen}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="ChatList"
+                    component={ChatList}
+                  />
+                  {/* Chat */}
+
+                  {/* Planed Tours */}
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="PlanedTours"
+                    component={PlanedTours}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="SharedTourPost"
+                    component={SharedTourPost}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="FinalizeMapView"
+                    component={FinalizeMapView}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="AddMembers"
+                    component={AddMembers}
+                  />
+
+                  {/* Planed Tours */}
                 </>
               ) : (
                 <>
@@ -199,17 +254,6 @@ const AppNavContainer = () => {
                         name="SignIn"
                         component={SignIn}
                       />
-
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristHome"
-                        component={TouristTabNavigator}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristProfile"
-                        component={TouristProfile}
-                      />
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="Map"
@@ -265,9 +309,70 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+
+                      {/* Tourist component */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristHome"
+                        component={TouristTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristProfile"
+                        component={TouristProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TourPlanMap"
+                        component={TourPlanMap}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="MapInput"
+                        component={MapInput}
+                      />
+
+                      {/* Tourist component */}
+
                       {/* Hotel component */}
 
                       {/* Hotel component */}
+
+                      {/* Chat */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatScreen"
+                        component={ChatScreen}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatList"
+                        component={ChatList}
+                      />
+                      {/* Chat */}
+
+                      {/* Planed Tours */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PlanedTours"
+                        component={PlanedTours}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="SharedTourPost"
+                        component={SharedTourPost}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="FinalizeMapView"
+                        component={FinalizeMapView}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="AddMembers"
+                        component={AddMembers}
+                      />
+                      {/* Planed Tours */}
                     </>
                   ) : (
                     <>
@@ -295,17 +400,6 @@ const AppNavContainer = () => {
                         options={{ headerShown: false }}
                         name="SignIn"
                         component={SignIn}
-                      />
-
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristHome"
-                        component={TouristTabNavigator}
-                      />
-                      <Stack.Screen
-                        options={{ headerShown: false }}
-                        name="TouristProfile"
-                        component={TouristProfile}
                       />
                       <Stack.Screen
                         options={{ headerShown: false }}
@@ -362,9 +456,69 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+
+                      {/* Tourist component */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristHome"
+                        component={TouristTabNavigator}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TouristProfile"
+                        component={TouristProfile}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="TourPlanMap"
+                        component={TourPlanMap}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="MapInput"
+                        component={MapInput}
+                      />
+                      {/* Tourist component */}
+
                       {/* Hotel component */}
 
                       {/* Hotel component */}
+
+                      {/* Chat */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatScreen"
+                        component={ChatScreen}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="ChatList"
+                        component={ChatList}
+                      />
+                      {/* Chat */}
+
+                      {/* Planed Tours */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="PlanedTours"
+                        component={PlanedTours}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="SharedTourPost"
+                        component={SharedTourPost}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="FinalizeMapView"
+                        component={FinalizeMapView}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="AddMembers"
+                        component={AddMembers}
+                      />
+                      {/* Planed Tours */}
                     </>
                   )}
                 </>
@@ -391,16 +545,6 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="GetStarted"
                 component={GetStarted}
-              />
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="TouristHome"
-                component={TouristTabNavigator}
-              />
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="TouristProfile"
-                component={TouristProfile}
               />
               <Stack.Screen
                 options={{ headerShown: false }}
@@ -462,9 +606,69 @@ const AppNavContainer = () => {
                 name="HotelProfile"
                 component={HotelProfile}
               />
+
+              {/* Tourist component */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TouristHome"
+                component={TouristTabNavigator}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TouristProfile"
+                component={TouristProfile}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="TourPlanMap"
+                component={TourPlanMap}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="MapInput"
+                component={MapInput}
+              />
+              {/* Tourist component */}
+
               {/* Hotel component */}
 
               {/* Hotel component */}
+
+              {/* Chat */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="ChatScreen"
+                component={ChatScreen}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="ChatList"
+                component={ChatList}
+              />
+              {/* Chat */}
+
+              {/* Planed Tours */}
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="PlanedTours"
+                component={PlanedTours}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="SharedTourPost"
+                component={SharedTourPost}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="FinalizeMapView"
+                component={FinalizeMapView}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="AddMembers"
+                component={AddMembers}
+              />
+              {/* Planed Tours */}
             </>
           )}
         </Stack.Navigator>
