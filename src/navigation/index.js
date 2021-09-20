@@ -26,6 +26,13 @@ import HotelList from "../screens/hotelPackagesScreen/HoteList";
 import GetStarted from "../screens/signIn_signUp/GetStarted.js";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import HotelProfile from "../screens/hotelOwner/HotelProfile.js";
+import HotelPhotos from "../screens/hotelOwner/HotelPhotos.js";
+import HotelEdit from "../screens/hotelOwner/HotelEdit.js";
+import createPackage from "../screens/hotelOwner/createPackage.js";
+import packagesHotel from "../screens/hotelOwner/packagesHotel.js";
+
+import packageDetails from "../screens/hotelOwner/packageDetails.js";
+
 import TourPlanMap from "../screens/tourist/TourPlan/CreateTour/CreatePlanMainPage.js";
 import MapInput from "../screens/tourist/TourPlan/AutoCompleteSearch/MapInput";
 import ChatScreen from "../screens/group_chat/ChatScreen";
@@ -309,6 +316,33 @@ const AppNavContainer = () => {
                         name="HotelProfile"
                         component={HotelProfile}
                       />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelPhotos"
+                        component={HotelPhotos}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="HotelEdit"
+                        component={HotelEdit}
+                      />
+
+                        <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="createPackage"
+                        component={createPackage}
+                      />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="packagesHotel"
+                        component={packagesHotel}
+                      />
+                       <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="packageDetails"
+                        component={packageDetails}
+                      />
+                      
 
                       {/* Tourist component */}
                       <Stack.Screen
