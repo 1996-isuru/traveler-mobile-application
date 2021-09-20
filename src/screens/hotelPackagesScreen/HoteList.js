@@ -53,7 +53,7 @@ const HotelList = ({ route, navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.buttonWrapper}
-          onPress={() => alert("You Booked a Hotel")}
+          onPress={() => navigation.navigate("StripeApp")}
         >
           <Text style style={styles.buttonText}>
             Book Now
