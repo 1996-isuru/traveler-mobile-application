@@ -50,9 +50,26 @@ const TouristHome = ({ navigation }) => {
   const [userToken, setToken] = useState(null);
   const [userEmail, setEmail] = useState(null);
   const [userName, setUserName] = useState(null);
+
   useEffect(() => {
     getData();
+    getHotelPackage();
   }, []);
+
+  const [hotelPack, setHotelPack] = useState(null);
+  function getHotelPackage() {
+    fetch(localhost + "/hotelPackage/getpackages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(result.message);
+        setHotelPack(result.data);
+      });
+  }
 
   const getData = async () => {
     try {
@@ -79,17 +96,20 @@ const TouristHome = ({ navigation }) => {
         }
       >
         <ImageBackground
-          source={item.image}
+          // source={item.picture}
+          source={{
+            uri: item.picture,
+          }}
           style={[
             styles.hotelItem,
-            { marginLeft: item.id === "hotel-1" ? 20 : 0 },
+            { marginLeft: item._id === "hotel-1" ? 20 : 0 },
           ]}
           imageStyle={styles.hotelItemImage}
         >
-          <Text style={styles.hotelItemTitle}>{item.title}</Text>
+          <Text style={styles.hotelItemTitle}>{item.name}</Text>
           <View style={styles.hotelItemLocationWrapper}>
             <Entypo name="location-pin" size={18} color={colors.white} />
-            <Text style={styles.hotelItemLocationText}>{item.location}</Text>
+            <Text style={styles.hotelItemLocationText}>{item.facilities}</Text>
           </View>
         </ImageBackground>
       </TouchableOpacity>
@@ -474,9 +494,9 @@ const TouristHome = ({ navigation }) => {
           <View style={styles.hotelItemWrapper}>
             <SafeAreaView style={{ flex: 1 }}>
               <FlatList
-                data={hotelData}
+                data={hotelPack}
                 renderItem={renderHotelItem}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item._id}
                 horizontal
                 showsHorizontalScrollIndicator={false}
               />

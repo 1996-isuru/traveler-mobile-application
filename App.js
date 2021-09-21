@@ -19,7 +19,6 @@ const App = () => {
   return (
     <StripeProvider
       publishableKey="pk_test_51Ho62uJixMHAqmvGjSDHopdtU5QxjjB2sjXLCCrxyitYCiWth16kZBskruK9gNOdZAo7tZxkAdSFWE5KxQr6WqJw00IR1No2PY"
-      merchantIdentifier="merchant.identifier"
     >
       <NavigationContainer>
         <AppNavContainer></AppNavContainer>

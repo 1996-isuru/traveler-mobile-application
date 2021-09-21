@@ -18,7 +18,9 @@ const HotelList = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={item.image}
+        source={{
+          uri: item.picture,
+        }}
         style={styles.backgroundImage}
       ></ImageBackground>
       <View style={styles.descriptionWrapper}>
@@ -56,7 +58,7 @@ const HotelList = ({ route, navigation }) => {
           onPress={() => navigation.navigate("StripeApp")}
         >
           <Text style style={styles.buttonText}>
-            Book Now
+            Book Noww
           </Text>
         </TouchableOpacity>
       </View>

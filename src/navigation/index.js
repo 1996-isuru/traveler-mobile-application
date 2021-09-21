@@ -42,6 +42,7 @@ import ChatList from "../screens/group_chat/ChatList.js";
 import FinalizeMapView from "../screens/tourist/TourPlan/FInalMap/FinalizeMapView.js";
 import AddMembers from "../screens/tourist/TourPlan/GroupMembers/Addmembers.js";
 import VerificationSubmit from "../screens/hotelOwner/VerificationSubmit.js";
+import StripeApp from "../screens/payment/StripeApp.js";
 const Stack = createStackNavigator();
 
 const AppNavContainer = () => {
@@ -229,6 +230,11 @@ const AppNavContainer = () => {
                     options={{ headerShown: false }}
                     name="AddMembers"
                     component={AddMembers}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="StripeApp"
+                    component={StripeApp}
                   />
 
                   {/* Planed Tours */}
@@ -439,6 +445,11 @@ const AppNavContainer = () => {
                         name="AddMembers"
                         component={AddMembers}
                       />
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="StripeApp"
+                        component={StripeApp}
+                      />
                       {/* Planed Tours */}
                     </>
                   ) : (
@@ -565,6 +576,11 @@ const AppNavContainer = () => {
                       {/* Chat */}
 
                       {/* Planed Tours */}
+                      <Stack.Screen
+                        options={{ headerShown: false }}
+                        name="StripeApp"
+                        component={StripeApp}
+                      />
                       <Stack.Screen
                         options={{ headerShown: false }}
                         name="PlanedTours"
@@ -766,6 +782,11 @@ const AppNavContainer = () => {
                 options={{ headerShown: false }}
                 name="AddMembers"
                 component={AddMembers}
+              />
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="StripeApp"
+                component={StripeApp}
               />
               {/* Planed Tours */}
               {/* //malak */}

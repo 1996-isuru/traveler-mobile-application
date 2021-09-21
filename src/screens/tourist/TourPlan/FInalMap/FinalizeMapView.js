@@ -75,17 +75,23 @@ const FinalizeMapView = ({ route, navigation }) => {
   // };
 
   const mapView = React.createRef();
-  const [fromLocation, setFromLocation] = React.useState(null);
-  const [toLocation, setToLocation] = React.useState(null);
+  const [fromLocation, setFromLocation] = React.useState({
+    latitude: 7.2905715,
+    longitude: 80.6337262,
+  });
+  const [toLocation, setToLocation] = React.useState({
+    latitude: 7.550534499999999,
+    longitude: 80.1908642,
+  });
   const [region, setRegion] = React.useState(null);
   const [duration, setDuration] = React.useState(0);
   const [isReady, setIsReady] = React.useState(false);
 
   //loading icon
-  const [isloadingCreateTour, setIsloadingCreateTour] = useState(true);
+  const [isloadingCreateTour, setIsloadingCreateTour] = useState(false);
 
   React.useEffect(() => {
-    getMapDetails();
+    // getMapDetails();
     const currentLocation = {
       gps: {
         latitude: 7.2905715,
@@ -114,34 +120,34 @@ const FinalizeMapView = ({ route, navigation }) => {
     setRegion(mapRegion);
   }, []);
 
-  function getMapDetails() {
-    let { tourId, tourprofileid } = route.params;
-    console.log("object_id", tourId);
-    console.log("tourprofileid", tourprofileid);
-    fetch(localhost + "/tourplan/rendermap", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tourId,
-        tourprofileid,
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.message === "get_map_details") {
-          console.log(result.tourStart.latitude);
-          console.log(result.tourStart.longitude);
-          console.log(result.tourEnd.latitude);
-          console.log(result.tourEnd.longitude);
-          setIsloadingCreateTour(false);
-        } else {
-          console.log(result);
-          Alert.alert("No created tours");
-        }
-      });
-  }
+  // function getMapDetails() {
+  //   let { tourId, tourprofileid } = route.params;
+  //   console.log("object_id", tourId);
+  //   console.log("tourprofileid", tourprofileid);
+  //   fetch(localhost + "/tourplan/rendermap", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       tourId,
+  //       tourprofileid,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       if (result.message === "get_map_details") {
+  //         console.log(result.tourStart.latitude);
+  //         console.log(result.tourStart.longitude);
+  //         console.log(result.tourEnd.latitude);
+  //         console.log(result.tourEnd.longitude);
+  //         setIsloadingCreateTour(false);
+  //       } else {
+  //         console.log(result);
+  //         Alert.alert("No created tours");
+  //       }
+  //     });
+  // }
 
   // if (!region && !fromLocation & !toLocation) {
 
